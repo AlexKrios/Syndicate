@@ -5,10 +5,10 @@ using Zenject;
 
 public class Test : MonoBehaviour
 {
-    [Inject(Id = "Test")] private MusicController _musicController;
+    [Inject] private IMusicService _musicService;
 
     private void Start()
     {
-        _musicController.Play(new SoundAssetId("Epic"));
+        _musicService.Play(new MusicAssetId("Epic"));
     }
 }

@@ -1,0 +1,23 @@
+﻿using Syndicate.Core.StateMachine;
+using Syndicate.Core.View;
+using Zenject;
+
+namespace Syndicate.Preload.StateMachine
+{
+    public class ServiceInitializeState : AbstractState, IState
+    {
+        [Inject] private IPopupService _popupService;
+
+        public void Enter()
+        {
+            _popupService.Get<LoadingViewModel>().LoadingPercent.Value = 100;
+        }
+
+        public void Exit()
+        {
+
+        }
+
+        public class Factory : PlaceholderFactory<ServiceInitializeState> { }
+    }
+}

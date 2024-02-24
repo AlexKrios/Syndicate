@@ -21,5 +21,7 @@ namespace Syndicate.Core.Entities
         public bool Equals(ProductGroupId other) => Value != null && Value.Equals(other?.Value);
 
         public override bool Equals(object obj) => obj is ProductGroupId id && Equals(id);
+
+        public override int GetHashCode() => Value.GetHashCode();
     }
 }

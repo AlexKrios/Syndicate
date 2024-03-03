@@ -6,8 +6,8 @@ namespace Syndicate.Core.Configurations
     public class ConfigurationsScriptable : ScriptableObject
     {
         [Header("Products")]
-        [SerializeField] private ProductGroupSetScriptable productGroupSet;
+        [SerializeField] private ProductSetScriptable productSet;
 
-        public ProductGroupSetScriptable ProductGroupSet => productGroupSet;
+        public ProductSetScriptable ProductSet => productSet;
     }
 }

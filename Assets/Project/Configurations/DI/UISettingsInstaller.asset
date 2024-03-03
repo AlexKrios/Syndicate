@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3c858ac2384aed9ed8e9d0b65b94f2, type: 3}
+  m_Name: UISettingsInstaller
+  m_EditorClassIdentifier: 
+  popups:
+    popups:
+    - {fileID: 2480660249402937579, guid: 8dad4dfa05f3e04478cf805755df39f5, type: 3}
+    - {fileID: 6666486601496232460, guid: 62464e3478e3f0c4fa8a3a5fec1d2659, type: 3}

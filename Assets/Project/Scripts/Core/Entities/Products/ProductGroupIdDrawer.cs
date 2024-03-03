@@ -10,7 +10,7 @@ namespace Syndicate.Core.Drawers
     [CustomPropertyDrawer(typeof(ProductGroupId))]
     public class ProductIdDrawer : PropertyDrawer
     {
-        private const string ProductGroupLabel = "Group Id: ";
+        private const string ProductGroupLabel = "Group Id";
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

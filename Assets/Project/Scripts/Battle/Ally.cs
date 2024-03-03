@@ -9,13 +9,4 @@ public class Ally : AbstractUnit
     {
         
     }
-
-    private void Start()
-    {
-        GetClass();
-        Debug.Log(Health);
-        Debug.Log(Damage);
-        Debug.Log(Initiative);
-        Debug.Log(Armor);
-    }
 }

@@ -6,10 +6,14 @@ using UnityEngine;
 
 public abstract class AbstractUnit : MonoBehaviour
 {
+    public Action OnEndTurn;
+    public Action OnStartTurn;
+    public Action EnemyAttack;
+
     public enum Side
     {
         Allies,
-        Enemy
+        Enemies
     }
 
     public enum UnitClass
@@ -20,6 +24,9 @@ public abstract class AbstractUnit : MonoBehaviour
         Support
     }
 
+    public GameObject floorAttack;
+    public GameObject floorDefend;
+    
     public int Health { get; set; }
     public int Damage { get; set;}
     public int Initiative { get; set;}
@@ -32,46 +39,30 @@ public abstract class AbstractUnit : MonoBehaviour
 
     public Side side;
     public UnitClass unitClass;
-
-    private List<UnitClassScriptableObjects> resourcesLoad;
-
-    private void Awake()
-    {
-        resourcesLoad = Resources.LoadAll<UnitClassScriptableObjects>("Battle").ToList();
-    }
     
-    public void SetData(UnitObject obj)
+    public void StartTurn()
     {
-        Health = obj.Health;
-        Damage = obj.Damage;
-        Initiative = obj.Initiative;
-        Armor = obj.Armor;
+        OnStartTurn?.Invoke();
+
+        if (side == Side.Enemies)
+        {
+            Turn();
+        }
     }
 
-    public void GetClass()
+    public void Turn()
     {
-        foreach (var resLoad in resourcesLoad)
-        {
-            if (resLoad.unitClass == UnitClassScriptableObjects.UnitClass.Rifler)
-            {
-                var obj = new UnitObject(resLoad);
-                SetData(obj);
-            }
-            else if (resLoad.unitClass == UnitClassScriptableObjects.UnitClass.Sniper)
-            {
-                var obj = new UnitObject(resLoad);
-                SetData(obj);
-            }
-            else if (resLoad.unitClass == UnitClassScriptableObjects.UnitClass.Defender)
-            {
-                var obj = new UnitObject(resLoad);
-                SetData(obj);
-            }
-            else if (resLoad.unitClass == UnitClassScriptableObjects.UnitClass.Support)
-            {
-                var obj = new UnitObject(resLoad);
-                SetData(obj);
-            }
-        }
+        //anim
+
+        EnemyAttack?.Invoke();
+        
+        EndTurn();
+    }
+
+    public void EndTurn()
+    {
+        OnEndTurn?.Invoke();
+        
+        //if EndBattle
     }
 }

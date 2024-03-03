@@ -1,6 +1,7 @@
 using Project.Scripts;
 using Syndicate.Core.Assets;
 using Syndicate.Core.Configurations;
+using Syndicate.Core.Localization;
 using Syndicate.Core.Settings;
 using Syndicate.Core.Sounds;
 using Syndicate.Preload.StateMachine;
@@ -23,6 +24,7 @@ namespace Syndicate.DI
 
             Container.BindInterfacesTo<SettingsService>().AsSingle();
 
+            Container.BindInterfacesTo<LocalizationService>().AsSingle();
             Container.BindInterfacesTo<MusicService>().AsSingle();
             Container.BindInterfacesTo<AudioService>().AsSingle();
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Syndicate.Core.Localization;
 using Syndicate.Core.Settings;
 using UnityEngine;
 using Zenject;
@@ -10,12 +11,12 @@ namespace Syndicate.Core.View
     public class LanguageSectionView : MonoBehaviour
     {
         [Inject] private readonly ISettingsService _settingsController;
-        //[Inject] private readonly LocalizationService _localizationService;
+        [Inject] private readonly ILocalizationService _localizationService;
         
         [SerializeField] private List<LanguageCellView> languages;
 
         public Action OnClickEvent { get; set; }
-        
+
         private LanguageCellView _activeLanguage;
         private LanguageCellView ActiveLanguage
         {
@@ -43,7 +44,7 @@ namespace Syndicate.Core.View
 
             _settingsController.SetLanguage(type);
             ActiveLanguage = cell;
-            //_localizationService.LoadLocalizationData();
+            _localizationService.Reload();
 
             OnClickEvent?.Invoke();
         }

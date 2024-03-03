@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using Syndicate.Core.Localization;
 using Syndicate.Core.Settings;
 using Syndicate.Core.Sounds;
 using TMPro;
@@ -12,11 +13,11 @@ namespace Syndicate.Core.View
     public class SettingsView : ViewBase<SettingsViewModel>
     {
         [Inject] private readonly ISettingsService _settingsService;
+        [Inject] private readonly ILocalizationService _localizationService;
         [Inject] private readonly IMusicService _musicService;
         [Inject] private readonly IAudioService _audioService;
 
-        /*[Inject] private readonly LocalizationService _localizationService;
-        [Inject] private readonly AuthService _authService;
+        /*[Inject] private readonly AuthService _authService;
         [Inject] private readonly SceneService _sceneService;*/
 
         [SerializeField] private TMP_Text title;
@@ -44,25 +45,28 @@ namespace Syndicate.Core.View
         {
             _graphicQualityKeys = new Dictionary<GraphicsType, string>
             {
-                [GraphicsType.Low] = "Low",
-                [GraphicsType.Medium] = "Medium",
-                [GraphicsType.High] = "High"
+                [GraphicsType.Low] = "settings_graphic_low",
+                [GraphicsType.Medium] = "settings_graphic_medium",
+                [GraphicsType.High] = "settings_graphic_high"
             };
+        }
 
+        private void OnEnable()
+        {
             musicSlider.onValueChanged.AddListener(UpdateMusicSliderValue);
             audioSlider.onValueChanged.AddListener(UpdateAudioSliderValue);
             graphicSlider.onValueChanged.AddListener(UpdateGraphicSliderValue);
 
-            //language.OnClickEvent += OnLanguageClick;
+            language.OnClickEvent += OnLanguageClick;
         }
 
-        protected void OnDestroy()
+        private void OnDisable()
         {
             musicSlider.onValueChanged.RemoveListener(UpdateMusicSliderValue);
             audioSlider.onValueChanged.RemoveListener(UpdateAudioSliderValue);
             graphicSlider.onValueChanged.RemoveListener(UpdateGraphicSliderValue);
 
-            //language.OnClickEvent -= OnLanguageClick;
+            language.OnClickEvent -= OnLanguageClick;
         }
 
         protected override void OnBind()
@@ -78,16 +82,14 @@ namespace Syndicate.Core.View
                 _signOut.onClick.AddListener(OnSignOutClick);
             else
                 _signOut.gameObject.SetActive(false);*/
-
-            //title.text = _localizationService.GetLanguageValue(LocalizationKeys.SettingsMenuTitleKey);
         }
 
-        private async void OnSignOutClick()
+        /*private async void OnSignOutClick()
         {
             /*_authService.SignOut();
             await _sceneService.LoadScene(SceneName.Auth);
-            Close();*/
-        }
+            Close();#1#
+        }*/
 
         private void UpdateMusicSliderValue(float value)
         {
@@ -104,13 +106,13 @@ namespace Syndicate.Core.View
         private void UpdateGraphicSliderValue(float value)
         {
             var graphics = (GraphicsType) value;
-            graphicSliderText.text = _graphicQualityKeys[graphics];
+            graphicSliderText.text = _localizationService.GetLanguageValue(_graphicQualityKeys[graphics]);
             _settingsService.SetGraphics(graphics);
         }
 
         private void OnLanguageClick()
         {
-            //title.text = _localizationService.GetLanguageValue(LocalizationKeys.SettingsMenuTitleKey);
+            title.text = _localizationService.GetLanguageValue("settings_menu_title");
         }
     }
 }

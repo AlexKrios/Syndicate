@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad109af41e754180ac134ff24febd507, type: 3}
   m_Name: Configurations
   m_EditorClassIdentifier: Assembly-CSharp:Project.Scripts.Settings:ConfigurationsScriptable
-  productGroupSet: {fileID: 11400000, guid: e1f5bac1e56dfb24095ea89121b4a623, type: 2}
+  productSet: {fileID: 11400000, guid: 4a906f584ee47d74884f9e586519a5f2, type: 2}

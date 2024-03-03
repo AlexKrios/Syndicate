@@ -53,7 +53,6 @@ namespace Syndicate.Core.Sounds
             var audioSource = audioSourceGameObject.AddComponent<AudioSource>();
             audioSource.outputAudioMixerGroup = _settings.MixerGroup;
             audioSource.transform.SetParent(_parentAudioService);
-            Object.DontDestroyOnLoad(audioSourceGameObject);
 
             var audioSourceObject = new AudioSourceObject(audioSource);
             _audioSourceList.Add(audioSourceObject);

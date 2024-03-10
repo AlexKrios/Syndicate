@@ -10,6 +10,6 @@ namespace Syndicate.Core.Configurations
     [Serializable]
     public class RawScriptable : ItemScriptable
     {
-        public RawId Id => (RawId)id;
+        public RawId Key { get => (RawId)key; set => key = value; }
     }
 }

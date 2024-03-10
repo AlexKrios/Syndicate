@@ -12,6 +12,7 @@ namespace Syndicate.Core.Entities
         public ComponentObject(ComponentScriptable data)
         {
             ItemTypeId = ItemTypeId.Component;
+            key = data.Key;
             id = data.Id;
 
             NameLocale = data.NameLocale;

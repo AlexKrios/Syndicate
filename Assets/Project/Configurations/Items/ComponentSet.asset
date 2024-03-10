@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ComponentSet
   m_EditorClassIdentifier: 
   items:
-  - id: trooper_weapon_component1
+  - name: Trooper Weapon Component 1
+    key: trooper_weapon_component1
+    id: trooper_weapon_component1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -33,25 +35,36 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     spriteAssetId:
-      value: Test2
+      value: trooper_weapon_component1
     recipe:
       parts:
       - itemType:
           value: Raw
-        itemId: Weapon
+        itemId: weapon
         count: 5
       specifications:
       - type:
           value: Attack
-        value: 10
+        value: 16
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
       craftTime: 30
       experience: 50
       cost: 1000
     productGroupId:
-      value: Weapon
+      value: Armor
     unitTypeId:
       value: Trooper
-  - id: trooper_weapon_component2
+  - name: Trooper Weapon Component 2
+    key: trooper_weapon_component2
+    id: trooper_weapon_component2
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -63,25 +76,34 @@ MonoBehaviour:
       m_LocalVariables: []
     descriptionLocale:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 14283818905602
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
     spriteAssetId:
-      value: Test3
+      value: trooper_weapon_component2
     recipe:
       parts:
       - itemType:
           value: Raw
-        itemId: Weapon
+        itemId: weapon
         count: 5
       specifications:
       - type:
           value: Attack
         value: 9
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
       craftTime: 0
       experience: 0
       cost: 0
@@ -89,7 +111,9 @@ MonoBehaviour:
       value: Weapon
     unitTypeId:
       value: Trooper
-  - id: trooper_weapon_component3
+  - name: Trooper Weapon Component 3
+    key: trooper_weapon_component3
+    id: trooper_weapon_component3
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -109,17 +133,26 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     spriteAssetId:
-      value: Test4
+      value: trooper_weapon_component3
     recipe:
       parts:
       - itemType:
           value: Raw
-        itemId: Weapon
+        itemId: weapon
         count: 5
       specifications:
       - type:
           value: Attack
         value: 8
+      - type:
+          value: Health
+        value: 3
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
       craftTime: 0
       experience: 0
       cost: 0
@@ -127,7 +160,9 @@ MonoBehaviour:
       value: Weapon
     unitTypeId:
       value: Trooper
-  - id: defender_weapon_component1
+  - name: Defender Weapon Component 1
+    key: defender_weapon_component1
+    id: defender_weapon_component1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -147,17 +182,26 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     spriteAssetId:
-      value: Test2
+      value: defender_weapon_component1
     recipe:
       parts:
       - itemType:
           value: Raw
-        itemId: Weapon
+        itemId: weapon
         count: 5
       specifications:
       - type:
           value: Attack
         value: 11
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
       craftTime: 0
       experience: 0
       cost: 0
@@ -165,7 +209,9 @@ MonoBehaviour:
       value: Weapon
     unitTypeId:
       value: Defender
-  - id: defender_weapon_component2
+  - name: Defender Weapon Component 2
+    key: defender_weapon_component2
+    id: defender_weapon_component2
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -185,17 +231,26 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     spriteAssetId:
-      value: Test3
+      value: defender_weapon_component2
     recipe:
       parts:
       - itemType:
           value: Raw
-        itemId: Weapon
+        itemId: weapon
         count: 5
       specifications:
       - type:
           value: Attack
         value: 12
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
       craftTime: 0
       experience: 0
       cost: 0
@@ -203,7 +258,9 @@ MonoBehaviour:
       value: Weapon
     unitTypeId:
       value: Defender
-  - id: defender_weapon_component3
+  - name: Defender Weapon Component 3
+    key: defender_weapon_component3
+    id: defender_weapon_component3
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -223,17 +280,26 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     spriteAssetId:
-      value: Test4
+      value: defender_weapon_product
     recipe:
       parts:
       - itemType:
           value: Raw
-        itemId: Weapon
+        itemId: weapon
         count: 5
       specifications:
       - type:
           value: Attack
         value: 13
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
       craftTime: 0
       experience: 0
       cost: 0
@@ -241,6 +307,300 @@ MonoBehaviour:
       value: Weapon
     unitTypeId:
       value: Defender
+  - name: Support Weapon Component 1
+    key: support_weapon_component1
+    id: support_weapon_component1
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 2250289426437
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 14617081524224
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    spriteAssetId:
+      value: support_weapon_component1
+    recipe:
+      parts:
+      - itemType:
+          value: Raw
+        itemId: weapon
+        count: 5
+      specifications:
+      - type:
+          value: Attack
+        value: 13
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
+      craftTime: 0
+      experience: 0
+      cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Support
+  - name: Support Weapon Component 2
+    key: support_weapon_component2
+    id: support_weapon_component2
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 2250289426438
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 14617081524225
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    spriteAssetId:
+      value: support_weapon_component2
+    recipe:
+      parts:
+      - itemType:
+          value: Raw
+        itemId: weapon
+        count: 5
+      specifications:
+      - type:
+          value: Attack
+        value: 13
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
+      craftTime: 0
+      experience: 0
+      cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Support
+  - name: Support Weapon Component 3
+    key: support_weapon_component3
+    id: support_weapon_component3
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 2250289426439
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 14617081524226
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    spriteAssetId:
+      value: support_weapon_component3
+    recipe:
+      parts:
+      - itemType:
+          value: Raw
+        itemId: weapon
+        count: 5
+      specifications:
+      - type:
+          value: Attack
+        value: 13
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
+      craftTime: 0
+      experience: 0
+      cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Support
+  - name: Sniper Weapon Component 1
+    key: sniper_weapon_component1
+    id: sniper_weapon_component1
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 2250289426441
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 14617081524228
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    spriteAssetId:
+      value: sniper_weapon_component1
+    recipe:
+      parts:
+      - itemType:
+          value: Raw
+        itemId: weapon
+        count: 5
+      specifications:
+      - type:
+          value: Attack
+        value: 13
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
+      craftTime: 0
+      experience: 0
+      cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Sniper
+  - name: Sniper Weapon Component 2
+    key: sniper_weapon_component2
+    id: sniper_weapon_component2
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 2250289426442
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 14617081524229
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    spriteAssetId:
+      value: sniper_weapon_component2
+    recipe:
+      parts:
+      - itemType:
+          value: Raw
+        itemId: weapon
+        count: 5
+      specifications:
+      - type:
+          value: Attack
+        value: 13
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
+      craftTime: 0
+      experience: 0
+      cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Sniper
+  - name: Sniper Weapon Component 3
+    key: sniper_weapon_component3
+    id: sniper_weapon_component3
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 2250289426443
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
+      m_TableEntryReference:
+        m_KeyId: 14617081524230
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    spriteAssetId:
+      value: sniper_weapon_component3
+    recipe:
+      parts:
+      - itemType:
+          value: Raw
+        itemId: weapon
+        count: 5
+      specifications:
+      - type:
+          value: Attack
+        value: 13
+      - type:
+          value: Health
+        value: 0
+      - type:
+          value: Defense
+        value: 0
+      - type:
+          value: Initiative
+        value: 0
+      craftTime: 0
+      experience: 0
+      cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Sniper
   references:
     version: 2
     RefIds: []

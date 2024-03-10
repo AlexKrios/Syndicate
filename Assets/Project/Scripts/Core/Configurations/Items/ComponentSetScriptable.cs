@@ -13,8 +13,8 @@ namespace Syndicate.Core.Configurations
         [SerializeField] private ProductGroupId productGroupId;
         [SerializeField] private UnitTypeId unitTypeId;
 
-        public ComponentId Id => (ComponentId)id;
-        public ProductGroupId ProductGroupId => productGroupId;
-        public UnitTypeId UnitTypeId => unitTypeId;
+        public ComponentId Key { get => (ComponentId)key; set => key = value; }
+        public ProductGroupId ProductGroupId { get => productGroupId; set => productGroupId = value; }
+        public UnitTypeId UnitTypeId { get => unitTypeId; set => unitTypeId = value; }
     }
 }

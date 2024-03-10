@@ -12,6 +12,7 @@ namespace Syndicate.Core.Entities
         public ProductObject(ProductScriptable data)
         {
             ItemTypeId = ItemTypeId.Product;
+            key = data.Key;
             id = data.Id;
 
             NameLocale = data.NameLocale;

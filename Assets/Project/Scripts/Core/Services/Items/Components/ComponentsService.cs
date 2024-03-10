@@ -15,7 +15,7 @@ namespace Syndicate.Core.Services
 
         public void Initialize()
         {
-            _componentsAssetsIndex = _configurations.ComponentSet.Items.ToDictionary(x => x.Id, x => new ComponentObject(x));
+            _componentsAssetsIndex = _configurations.ComponentSet.Items.ToDictionary(x => x.Key, x => new ComponentObject(x));
         }
 
         public ComponentObject GetComponent(ComponentId assetId)

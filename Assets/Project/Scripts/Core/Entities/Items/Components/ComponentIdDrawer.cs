@@ -9,7 +9,7 @@ namespace Syndicate.Core.Entities
     [CustomPropertyDrawer(typeof(ComponentId))]
     public class ComponentIdDrawer : PropertyDrawer
     {
-        private const string ComponentLabel = "Component Id";
+        private const string ComponentLabel = "Component Key";
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -18,7 +18,7 @@ namespace Syndicate.Core.Entities
             var assetId = AssetDatabase.FindAssets($"t:{nameof(ComponentSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
             var allValues = AssetDatabase.LoadAssetAtPath<ComponentSetScriptable>(path).Items;
-            var stringValues = allValues.Select(x => x.Id.ToString()).ToArray();
+            var stringValues = allValues.Select(x => x.Key.ToString()).ToArray();
 
             var valueRect = new Rect(position);
             var valueProperty = property.FindPropertyRelative("value");

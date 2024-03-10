@@ -15,7 +15,7 @@ namespace Syndicate.Core.Services
 
         public void Initialize()
         {
-            _rawAssetsIndex = _configurations.RawSet.Items.ToDictionary(x => x.Id, x => new RawObject(x));
+            _rawAssetsIndex = _configurations.RawSet.Items.ToDictionary(x => x.Key, x => new RawObject(x));
         }
 
         public RawObject GetRaw(RawId assetId)

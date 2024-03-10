@@ -1,13 +1,23 @@
 ﻿using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using UnityEditor;
 
 namespace Syndicate.Utils
 {
+    [UsedImplicitly]
     public class EntitiesUtil
     {
+        public static string[] GetSpriteAssetValues()
+        {
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(SpriteSetScriptable)}").First();
+            var path = AssetDatabase.GUIDToAssetPath(assetId);
+            var allValues = AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Items;
+            return allValues.Select(x => x.Id.ToString()).ToArray();
+        }
+
         public static string[] GetItemValues()
         {
             return typeof(ItemTypeId).GetFields(BindingFlags.Public | BindingFlags.Static)
@@ -17,9 +27,10 @@ namespace Syndicate.Utils
 
         public static string[] GetRawValues()
         {
-            return typeof(RawId).GetFields(BindingFlags.Public | BindingFlags.Static)
-                .Select(x => x.GetValue(null).ToString())
-                .ToArray();
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(RawSetScriptable)}").First();
+            var path = AssetDatabase.GUIDToAssetPath(assetId);
+            var allValues = AssetDatabase.LoadAssetAtPath<RawSetScriptable>(path).Items;
+            return allValues.Select(x => x.Key.ToString()).ToArray();
         }
 
         public static string[] GetComponentValues()
@@ -27,7 +38,7 @@ namespace Syndicate.Utils
             var assetId = AssetDatabase.FindAssets($"t:{nameof(ComponentSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
             var allValues = AssetDatabase.LoadAssetAtPath<ComponentSetScriptable>(path).Items;
-            return allValues.Select(x => x.Id.ToString()).ToArray();
+            return allValues.Select(x => x.Key.ToString()).ToArray();
         }
 
         public static string[] GetProductValues()
@@ -50,6 +61,21 @@ namespace Syndicate.Utils
             return typeof(SpecificationId).GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Select(x => x.GetValue(null).ToString())
                 .ToArray();
+        }
+
+        public static string[] GetUnitTypeValues()
+        {
+            return typeof(UnitTypeId).GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Select(x => x.GetValue(null).ToString())
+                .ToArray();
+        }
+
+        public static string[] GetUnitValues()
+        {
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(UnitSetScriptable)}").First();
+            var path = AssetDatabase.GUIDToAssetPath(assetId);
+            var allValues = AssetDatabase.LoadAssetAtPath<UnitSetScriptable>(path).Items;
+            return allValues.Select(x => x.Id.ToString()).ToArray();
         }
     }
 }

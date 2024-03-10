@@ -10,8 +10,8 @@ namespace Syndicate.Core.Entities
         [SerializeField] private string itemId;
         [SerializeField] private int count;
 
-        public ItemTypeId ItemType => itemType;
-        public string ItemId => itemId;
-        public int Count => count;
+        public ItemTypeId ItemType { get => itemType; set => itemType = value; }
+        public string ItemId { get => itemId; set => itemId = value; }
+        public int Count { get => count; set => count = value; }
     }
 }

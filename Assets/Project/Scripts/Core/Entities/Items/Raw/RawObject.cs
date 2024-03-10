@@ -7,6 +7,7 @@ namespace Syndicate.Core.Entities
         public RawObject(RawScriptable data)
         {
             ItemTypeId = ItemTypeId.Raw;
+            key = data.Key;
             id = data.Id;
 
             NameLocale = data.NameLocale;

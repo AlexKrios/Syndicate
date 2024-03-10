@@ -15,7 +15,7 @@ namespace Syndicate.Core.Services
 
         public void Initialize()
         {
-            _productsAssetsIndex = _configurations.ProductSet.Items.ToDictionary(x => x.Id, x => new ProductObject(x));
+            _productsAssetsIndex = _configurations.ProductSet.Items.ToDictionary(x => x.Key, x => new ProductObject(x));
         }
 
         public ProductObject GetProduct(ProductId assetId)

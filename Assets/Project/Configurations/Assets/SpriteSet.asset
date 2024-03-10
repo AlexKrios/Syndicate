@@ -13,13 +13,37 @@ MonoBehaviour:
   m_Name: SpriteSet
   m_EditorClassIdentifier: 
   items:
-  - id: Test1
-    sprite: {fileID: 2020640311, guid: 4f1c4d3de72cf484ea3d9f4f4e23fc17, type: 3}
-  - id: Test2
-    sprite: {fileID: 1270189229, guid: 4f1c4d3de72cf484ea3d9f4f4e23fc17, type: 3}
-  - id: Test3
-    sprite: {fileID: -1095041394, guid: 4f1c4d3de72cf484ea3d9f4f4e23fc17, type: 3}
-  - id: Test4
-    sprite: {fileID: 658449643, guid: 4f1c4d3de72cf484ea3d9f4f4e23fc17, type: 3}
   - id: weapon_raw
     sprite: {fileID: 21300000, guid: f372a2b194408154e905fb0535f68b35, type: 3}
+  - id: trooper_weapon_component1
+    sprite: {fileID: 21300000, guid: d9188467b358a37418181dd864d662a9, type: 3}
+  - id: trooper_weapon_component2
+    sprite: {fileID: 21300000, guid: 0f02dfdb365d7ea4db1dddc715a24dd4, type: 3}
+  - id: trooper_weapon_component3
+    sprite: {fileID: 21300000, guid: 11b920b59acaa1c478afd39979c03448, type: 3}
+  - id: trooper_weapon_product
+    sprite: {fileID: 21300000, guid: 7e2070380519cae4fb6b6890fdd0e1c2, type: 3}
+  - id: defender_weapon_component1
+    sprite: {fileID: 21300000, guid: 5498c37913b3d3040b3167da584bcac3, type: 3}
+  - id: defender_weapon_component2
+    sprite: {fileID: 21300000, guid: c7ace757e26b1c44dabb7a178a019279, type: 3}
+  - id: defender_weapon_component3
+    sprite: {fileID: 21300000, guid: 97a0e431d90bbc64487c6c9bc8d08e6e, type: 3}
+  - id: defender_weapon_product
+    sprite: {fileID: 21300000, guid: aefc445cc70d8094fbe793cc13ef0ff9, type: 3}
+  - id: support_weapon_component1
+    sprite: {fileID: 21300000, guid: 9c24a07c15c5439489d5f1b8917bd1de, type: 3}
+  - id: support_weapon_component2
+    sprite: {fileID: 21300000, guid: 813b9a8218ba2ab42b3f5c9ee8e2363e, type: 3}
+  - id: support_weapon_component3
+    sprite: {fileID: 21300000, guid: 2c00cbbee61865a42b85191cf4b3298f, type: 3}
+  - id: support_weapon_product
+    sprite: {fileID: 21300000, guid: 577c92b2e7e182742a59ee8676881585, type: 3}
+  - id: sniper_weapon_component1
+    sprite: {fileID: 21300000, guid: ce55b753f35d7bd43aaa25c799dd7dee, type: 3}
+  - id: sniper_weapon_component2
+    sprite: {fileID: 21300000, guid: f0f21dcf479d05b4c80662c3aaff575a, type: 3}
+  - id: sniper_weapon_component3
+    sprite: {fileID: 21300000, guid: 0b7c555f3cf187348b04b40631558e2b, type: 3}
+  - id: sniper_weapon_product
+    sprite: {fileID: 21300000, guid: 9d68c70723ea1ac4c9a6d0161228924c, type: 3}

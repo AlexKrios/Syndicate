@@ -5,7 +5,7 @@ using UnityEngine.Localization;
 
 namespace Syndicate.Core.Configurations
 {
-    [CreateAssetMenu(fileName = "ProductGroupSet", menuName = "Scriptable/Product Group Set", order = 5)]
+    [CreateAssetMenu(fileName = "ProductGroupSet", menuName = "Scriptable/Items/Product Group Set", order = 0)]
     public class ProductGroupSetScriptable : ListScriptableObject<ProductGroupScriptable> { }
 
     [Serializable]

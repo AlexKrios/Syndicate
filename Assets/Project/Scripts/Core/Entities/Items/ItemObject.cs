@@ -6,6 +6,7 @@ namespace Syndicate.Core.Entities
     [Serializable]
     public class ItemObject
     {
+        public string key;
         public string id;
         public ItemTypeId ItemTypeId { get; set; }
 

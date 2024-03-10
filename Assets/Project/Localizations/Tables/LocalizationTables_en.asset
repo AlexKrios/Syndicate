@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: LocalizationTables_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 176296da2ef514445b5a5a71aeda5424, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 2309355063780573196
+  m_TableData:
+  - m_Id: 67208720384
+    m_Localized: Production
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2522155823104
+    m_Localized: Low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2657971580928
+    m_Localized: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2660404277248
+    m_Localized: High
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598514393088
+    m_Localized: None
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587392
+    m_Localized: Trooper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587393
+    m_Localized: Defender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587394
+    m_Localized: Support
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587395
+    m_Localized: Sniper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587396
+    m_Localized: All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424030101504
+    m_Localized: None
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684416
+    m_Localized: Weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684417
+    m_Localized: Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684418
+    m_Localized: All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684419
+    m_Localized: None
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684420
+    m_Localized: Weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684421
+    m_Localized: Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684422
+    m_Localized: All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684423
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684424
+    m_Localized: Units
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684425
+    m_Localized: Storage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684426
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684427
+    m_Localized: Create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684428
+    m_Localized: Complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1538433574219776
+    m_Localized: Level {value}
+    m_Metadata:
+      m_Items:
+      - rid: 2309355063780573196
+  references:
+    version: 2
+    RefIds:
+    - rid: 2309355063780573196
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00b0f3441e6f050000b0b37a32770500

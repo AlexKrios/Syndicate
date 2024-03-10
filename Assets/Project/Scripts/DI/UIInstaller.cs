@@ -1,4 +1,5 @@
 using Syndicate.Core.View;
+using Syndicate.Hub.View.Main;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +20,15 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<PopupService>().AsSingle();
 
             Container.BindInterfacesTo<LoadingViewMediator>().AsSingle();
+            Container.BindInterfacesTo<SettingsViewMediator>().AsSingle();
+
+            Container.BindInterfacesTo<MainViewMediator>().AsSingle();
+            Container.BindInterfacesTo<ProductionSectionFactory>().AsSingle();
+
+            Container.BindFactory<ProductionQueueCellView, ProductionCellLockedState, ProductionCellLockedState.Factory>();
+            Container.BindFactory<ProductionQueueCellView, ProductionCellBusyState, ProductionCellBusyState.Factory>();
+            Container.BindFactory<ProductionQueueCellView, ProductionCellReadyState, ProductionCellReadyState.Factory>();
+            Container.BindFactory<ProductionQueueCellView, ProductionCellFinishState, ProductionCellFinishState.Factory>();
         }
     }
 }

@@ -1,45 +1,32 @@
 ﻿using System;
-using DG.Tweening;
+using Syndicate.Core.Entities;
+using Syndicate.Core.Services;
+using Syndicate.Core.View;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
-    [RequireComponent(typeof(Button))]
-    public class ProductionItemView : MonoBehaviour
+    public class ProductionItemView : ButtonWithActiveBorder
     {
+        [Inject] private readonly IAssetsService _assetsService;
+
+        [SerializeField] private Image icon;
+
         public Action<ProductionItemView> OnClickEvent { get; set; }
+        public ItemObject Data { get; set; }
 
-        [SerializeField] private Transform activeBorder;
-
-        private Button _button;
-        private Sequence _sequence;
-
-        private void Awake()
+        public void SetData(ItemObject data)
         {
-            _button = GetComponent<Button>();
-            _button.onClick.AddListener(Click);
+            Data = data;
+
+            icon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
         }
 
-        private void Click()
+        protected override void Click()
         {
             OnClickEvent?.Invoke(this);
-        }
-
-        public void SetActive()
-        {
-            _sequence = DOTween.Sequence()
-                .PrependCallback(() => activeBorder.gameObject.SetActive(true))
-                .Append(activeBorder.DOLocalRotate(new Vector3(0, 0, 360), 5).From(Vector3.zero).SetEase(Ease.Linear))
-                .SetRelative(true)
-                .SetLoops(-1);
-        }
-
-        public void SetInactive()
-        {
-            activeBorder.gameObject.SetActive(false);
-            _sequence?.Kill();
-            _sequence = null;
         }
     }
 }

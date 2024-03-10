@@ -41,8 +41,6 @@ namespace Syndicate.Hub.View.Main
             _mainViewModel.CurrentTabType = tab.TabType;
 
             CurrentTab = tab;
-
-            //OnClickEvent?.Invoke();
         }
     }
 }

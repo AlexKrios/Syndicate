@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: LocalizationTables Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: LocalizationTables
+  m_TableCollectionNameGuidString: 176296da2ef514445b5a5a71aeda5424
+  m_Entries:
+  - m_Id: 2522155823104
+    m_Key: settings_graphic_low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2657971580928
+    m_Key: settings_graphic_medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2660404277248
+    m_Key: settings_graphic_high
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598514393088
+    m_Key: unit_none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587392
+    m_Key: unit_trooper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587393
+    m_Key: unit_defender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587394
+    m_Key: unit_support
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587395
+    m_Key: unit_sniper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93598518587396
+    m_Key: unit_all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424030101504
+    m_Key: group_type_none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684416
+    m_Key: group_type_weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684417
+    m_Key: group_type_armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684418
+    m_Key: group_type_all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684419
+    m_Key: raw_none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684420
+    m_Key: raw_weapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684421
+    m_Key: raw_armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684422
+    m_Key: raw_all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684423
+    m_Key: settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684424
+    m_Key: units
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67208720384
+    m_Key: production
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684425
+    m_Key: storage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684426
+    m_Key: select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684427
+    m_Key: create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 653424042684428
+    m_Key: complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1538433574219776
+    m_Key: need_level
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2309354968539463716
+  references:
+    version: 2
+    RefIds:
+    - rid: 2309354968539463716
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1709620703869

@@ -16,3 +16,5 @@ MonoBehaviour:
     popups:
     - {fileID: 2480660249402937579, guid: 8dad4dfa05f3e04478cf805755df39f5, type: 3}
     - {fileID: 6666486601496232460, guid: 62464e3478e3f0c4fa8a3a5fec1d2659, type: 3}
+  production:
+    productPrefab: {fileID: 2100711765837393046, guid: b57607b991acca04d917d18157ede455, type: 3}

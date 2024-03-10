@@ -28,12 +28,12 @@
 "craft_cell_complete","Complete","Готово"
 "expedition_complete","Expedition complete","Экспедиция завершена"
 /---------- Raw ----------/
-"raw_none,"None","Пусто"
+"raw_none","None","Пусто"
 "raw_weapon","Weapon","Оружие"
 "raw_armor","Armor","Броня"
 "raw_engine","Engine","Двигатель"
 "raw_battery","Battery","Батарея"
-"raw_all,"All","Все"
+"raw_all","All","Все"
 /---------- Weapon Group ----------/
 "group_type_none","None","Пусто"
 "group_type_weapon","Weapon","Оружие"

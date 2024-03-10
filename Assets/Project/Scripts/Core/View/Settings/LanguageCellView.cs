@@ -1,6 +1,6 @@
 ﻿using System;
 using Syndicate.Core.Entities;
-using Syndicate.Core.Settings;
+using Syndicate.Core.Services;
 using Syndicate.Core.Sounds;
 using UniRx;
 using UnityEngine;

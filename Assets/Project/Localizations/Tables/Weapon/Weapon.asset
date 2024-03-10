@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: Weapon
+  m_EditorClassIdentifier: 
+  m_SharedTableData: {fileID: 11400000, guid: 19f3b48aaeeb3c749ad52a3fd0c972bb, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: acaee57ae14412248b710a095b34cf4f, type: 2}
+  - {fileID: 11400000, guid: c8ab9a2ac81791e43926092f899cee3c, type: 2}
+  m_Extensions:
+  - rid: 2309354991840133123
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds:
+    - rid: 2309354991840133123
+      type: {class: CsvExtension, ns: UnityEditor.Localization.Plugins.CSV, asm: Unity.Localization.Editor}
+      data:
+        m_Collection: {fileID: 11400000}
+        m_ColumnsList:
+        - rid: 2309354991840133124
+        - rid: 2309354991840133125
+        - rid: 2309354991840133126
+        m_ConnectedFile: 
+    - rid: 2309354991840133124
+      type: {class: KeyIdColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_IncludeId: 0
+        m_IncludeSharedComments: 0
+        m_KeyFieldName: Key
+        m_IdFieldName: Id
+        m_CommentFieldName: Shared Comments
+    - rid: 2309354991840133125
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: en
+        m_FieldName: English(en)
+        m_CommentFieldName: English(en) Comments
+        m_IncludeComments: 0
+    - rid: 2309354991840133126
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: ru
+        m_FieldName: Russian(ru)
+        m_CommentFieldName: Russian(ru) Comments
+        m_IncludeComments: 0

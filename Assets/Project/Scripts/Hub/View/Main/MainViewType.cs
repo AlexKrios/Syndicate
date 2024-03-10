@@ -2,7 +2,7 @@
 {
     public enum MainViewType
     {
-        Hero = 0,
+        Player = 0,
         Units = 1,
         Production = 2,
         Expeditions = 3,

@@ -9,6 +9,8 @@ namespace Syndicate.Core
     {
         [SerializeField] private List<T> items = new();
 
+        public List<T> Items => items;
+
         public T this[int index]
         {
             get => items[index];

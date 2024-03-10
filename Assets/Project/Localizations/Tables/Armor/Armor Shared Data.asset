@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Armor Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Armor
+  m_TableCollectionNameGuidString: b7528933b53b1b54f918783e1c1d173a
+  m_Entries:
+  - m_Id: 1205370859520
+    m_Key: trooper_armor_product
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205387636736
+    m_Key: trooper_armor_product_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205387636737
+    m_Key: trooper_armor_component1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205387636738
+    m_Key: trooper_armor_component1_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831040
+    m_Key: trooper_armor_component2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831041
+    m_Key: trooper_armor_component2_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831042
+    m_Key: trooper_armor_component3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831043
+    m_Key: trooper_armor_component3_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831044
+    m_Key: defender_armor_product
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831045
+    m_Key: defender_armor_product_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831046
+    m_Key: defender_armor_component1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831047
+    m_Key: defender_armor_component1_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831048
+    m_Key: defender_armor_component2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831049
+    m_Key: defender_armor_component2_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831050
+    m_Key: defender_armor_component3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831051
+    m_Key: defender_armor_component3_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831052
+    m_Key: support_armor_product
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831053
+    m_Key: support_armor_product_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831054
+    m_Key: support_armor_component1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831055
+    m_Key: support_armor_component1_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831056
+    m_Key: support_armor_component2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831057
+    m_Key: support_armor_component2_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831058
+    m_Key: support_armor_component3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831059
+    m_Key: support_armor_component3_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831060
+    m_Key: sniper_armor_product
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831061
+    m_Key: sniper_armor_product_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831062
+    m_Key: sniper_armor_component1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831063
+    m_Key: sniper_armor_component1_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831064
+    m_Key: sniper_armor_component2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831065
+    m_Key: sniper_armor_component2_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831066
+    m_Key: sniper_armor_component3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1205391831067
+    m_Key: sniper_armor_component3_description
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2309354991840133132
+  references:
+    version: 2
+    RefIds:
+    - rid: 2309354991840133132
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1709786274594

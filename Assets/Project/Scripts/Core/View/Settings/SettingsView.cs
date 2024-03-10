@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using Syndicate.Core.Localization;
-using Syndicate.Core.Settings;
+using System.Linq;
+using Syndicate.Core.Services;
 using Syndicate.Core.Sounds;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 using Zenject;
 
@@ -13,14 +15,12 @@ namespace Syndicate.Core.View
     public class SettingsView : ViewBase<SettingsViewModel>
     {
         [Inject] private readonly ISettingsService _settingsService;
-        [Inject] private readonly ILocalizationService _localizationService;
         [Inject] private readonly IMusicService _musicService;
         [Inject] private readonly IAudioService _audioService;
 
         /*[Inject] private readonly AuthService _authService;
         [Inject] private readonly SceneService _sceneService;*/
 
-        [SerializeField] private TMP_Text title;
         [SerializeField] private Button signOut;
         [SerializeField] private Button close;
 
@@ -34,49 +34,47 @@ namespace Syndicate.Core.View
 
         [Header("Graphic Slider Components")]
         [SerializeField] private Slider graphicSlider;
-        [SerializeField] private TMP_Text graphicSliderText;
+        [SerializeField] private LocalizeStringEvent graphicSliderText;
+        [SerializeField] private List<LocalizedString> graphicTextKeys;
 
         [Space]
-        [SerializeField] private LanguageSectionView language;
+        [SerializeField] private List<LanguageCellView> languages;
 
-        private Dictionary<GraphicsType, string> _graphicQualityKeys;
-
-        private void Awake()
+        private LanguageCellView _activeLanguage;
+        private LanguageCellView ActiveLanguage
         {
-            _graphicQualityKeys = new Dictionary<GraphicsType, string>
+            get => _activeLanguage;
+            set
             {
-                [GraphicsType.Low] = "settings_graphic_low",
-                [GraphicsType.Medium] = "settings_graphic_medium",
-                [GraphicsType.High] = "settings_graphic_high"
-            };
+                if (_activeLanguage != null)
+                    _activeLanguage.SetActive(false);
+
+                _activeLanguage = value;
+                _activeLanguage.SetActive(true);
+            }
         }
 
-        private void OnEnable()
+        private void Awake()
         {
             musicSlider.onValueChanged.AddListener(UpdateMusicSliderValue);
             audioSlider.onValueChanged.AddListener(UpdateAudioSliderValue);
             graphicSlider.onValueChanged.AddListener(UpdateGraphicSliderValue);
 
-            language.OnClickEvent += OnLanguageClick;
-        }
-
-        private void OnDisable()
-        {
-            musicSlider.onValueChanged.RemoveListener(UpdateMusicSliderValue);
-            audioSlider.onValueChanged.RemoveListener(UpdateAudioSliderValue);
-            graphicSlider.onValueChanged.RemoveListener(UpdateGraphicSliderValue);
-
-            language.OnClickEvent -= OnLanguageClick;
+            languages.ForEach(x => x.OnClickEvent += OnLanguageClick);
+            ActiveLanguage = languages.First(x => x.Type == _settingsService.Language);
         }
 
         protected override void OnBind()
         {
             base.OnBind();
 
+            ViewModel.GameObject = gameObject;
+
+            close.onClick.AddListener(() => ViewModel.Hide?.Invoke());
+
             musicSlider.value = _settingsService.MusicVolume;
             audioSlider.value = _settingsService.AudioVolume;
             UpdateGraphicSliderValue((float)_settingsService.Graphics);
-            language.Initialize();
 
             /*if (!_authService.IsGooglePlayConnected())
                 _signOut.onClick.AddListener(OnSignOutClick);
@@ -88,7 +86,7 @@ namespace Syndicate.Core.View
         {
             /*_authService.SignOut();
             await _sceneService.LoadScene(SceneName.Auth);
-            Close();#1#
+            Close();
         }*/
 
         private void UpdateMusicSliderValue(float value)
@@ -106,13 +104,16 @@ namespace Syndicate.Core.View
         private void UpdateGraphicSliderValue(float value)
         {
             var graphics = (GraphicsType) value;
-            graphicSliderText.text = _localizationService.GetLanguageValue(_graphicQualityKeys[graphics]);
+            graphicSliderText.StringReference = graphicTextKeys[(int)value];
             _settingsService.SetGraphics(graphics);
         }
 
-        private void OnLanguageClick()
+        private void OnLanguageClick(LanguageCellView cell, LanguageType type)
         {
-            title.text = _localizationService.GetLanguageValue("settings_menu_title");
+            if (ActiveLanguage == cell) return;
+
+            _settingsService.SetLanguage(type);
+            ActiveLanguage = cell;
         }
     }
 }

@@ -4,6 +4,8 @@
     {
         void Enter();
 
+        void Click();
+
         void Exit();
     }
 }

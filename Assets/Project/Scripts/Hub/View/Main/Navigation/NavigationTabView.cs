@@ -24,13 +24,11 @@ namespace Syndicate.Hub.View.Main
 
         private void Click()
         {
-            Debug.LogError("Click");
             OnClickEvent?.Invoke(this);
         }
 
         public void SetActive()
         {
-            Debug.LogError(tabObject);
             tabObject.SetActive(true);
         }
 

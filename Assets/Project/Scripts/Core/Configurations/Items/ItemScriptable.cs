@@ -14,13 +14,11 @@ namespace Syndicate.Core.Configurations
         [SerializeField] protected LocalizedString nameLocale;
         [SerializeField] protected LocalizedString descriptionLocale;
         [SerializeField] protected SpriteAssetId spriteAssetId;
-        [SerializeField] protected RecipeObject recipe;
 
         public string Name { get => name; set => name = value; }
         public string Id { get => id; set => id = value; }
         public LocalizedString NameLocale => nameLocale;
         public LocalizedString DescriptionLocale => descriptionLocale;
         public SpriteAssetId SpriteAssetId { get => spriteAssetId; set => spriteAssetId = value; }
-        public RecipeObject Recipe => recipe;
     }
 }

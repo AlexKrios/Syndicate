@@ -24,6 +24,7 @@ namespace Syndicate.DI
 
             Container.BindInterfacesTo<MainViewMediator>().AsSingle();
             Container.BindInterfacesTo<ProductionSectionFactory>().AsSingle();
+            Container.BindInterfacesTo<StorageSectionFactory>().AsSingle();
 
             Container.BindFactory<ProductionQueueCellView, ProductionCellLockedState, ProductionCellLockedState.Factory>();
             Container.BindFactory<ProductionQueueCellView, ProductionCellBusyState, ProductionCellBusyState.Factory>();

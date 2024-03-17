@@ -6,12 +6,12 @@ namespace Syndicate.Core.Entities
     [Serializable]
     public class PartObject
     {
-        [SerializeField] private ItemTypeId itemType;
-        [SerializeField] private string itemId;
+        [SerializeField] private ItemType itemType;
+        [SerializeField] private string key;
         [SerializeField] private int count;
 
-        public ItemTypeId ItemType { get => itemType; set => itemType = value; }
-        public string ItemId { get => itemId; set => itemId = value; }
+        public ItemType ItemType { get => itemType; set => itemType = value; }
+        public string Key { get => key; set => key = value; }
         public int Count { get => count; set => count = value; }
     }
 }

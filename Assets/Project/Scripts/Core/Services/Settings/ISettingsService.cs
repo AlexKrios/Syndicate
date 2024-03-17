@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Syndicate.Core.Services
 {
@@ -10,6 +11,8 @@ namespace Syndicate.Core.Services
         
         float AudioVolume { get; }
         float MusicVolume { get; }
+
+        UniTask Initialize();
 
         void SetLanguage(LanguageType value);
 

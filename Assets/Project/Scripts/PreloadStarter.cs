@@ -9,7 +9,7 @@ namespace Project.Scripts
 
         public void Initialize()
         {
-            _preloadStateMachine.Enter<ServiceInitializeState>();
+            _preloadStateMachine.Enter<GameInitializeState>();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Syndicate.Core.Configurations;
 using UnityEditor;
@@ -17,7 +18,11 @@ namespace Syndicate.Core.Entities
 
             var assetId = AssetDatabase.FindAssets($"t:{nameof(SpriteSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
-            var allValues = AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Items;
+            var allValues = new List<SpriteAssetScriptable>();
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Raw);
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Weapon);
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Armor);
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Units);
             var stringValues = allValues.Select(x => x.Id.ToString()).ToArray();
 
             var valueRect = new Rect(position);

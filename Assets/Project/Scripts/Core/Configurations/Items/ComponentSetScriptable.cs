@@ -12,9 +12,11 @@ namespace Syndicate.Core.Configurations
     {
         [SerializeField] private ProductGroupId productGroupId;
         [SerializeField] private UnitTypeId unitTypeId;
+        [SerializeField] private RecipeObject recipe;
 
         public ComponentId Key { get => (ComponentId)key; set => key = value; }
         public ProductGroupId ProductGroupId { get => productGroupId; set => productGroupId = value; }
         public UnitTypeId UnitTypeId { get => unitTypeId; set => unitTypeId = value; }
+        public RecipeObject Recipe => recipe;
     }
 }

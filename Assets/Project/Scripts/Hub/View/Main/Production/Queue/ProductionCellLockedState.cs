@@ -13,7 +13,10 @@ namespace Syndicate.Hub.View.Main
             _cell = cell;
         }
 
-        public void Enter() { }
+        public void Enter()
+        {
+            _cell.SetUnlockData(10, 10);
+        }
 
         public void Click() { }
 

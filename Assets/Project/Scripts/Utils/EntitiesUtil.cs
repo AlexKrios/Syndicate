@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
@@ -14,15 +15,12 @@ namespace Syndicate.Utils
         {
             var assetId = AssetDatabase.FindAssets($"t:{nameof(SpriteSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
-            var allValues = AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Items;
+            var allValues = new List<SpriteAssetScriptable>();
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Raw);
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Weapon);
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Armor);
+            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Units);
             return allValues.Select(x => x.Id.ToString()).ToArray();
-        }
-
-        public static string[] GetItemValues()
-        {
-            return typeof(ItemTypeId).GetFields(BindingFlags.Public | BindingFlags.Static)
-                .Select(x => x.GetValue(null).ToString())
-                .ToArray();
         }
 
         public static string[] GetRawValues()
@@ -75,7 +73,7 @@ namespace Syndicate.Utils
             var assetId = AssetDatabase.FindAssets($"t:{nameof(UnitSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
             var allValues = AssetDatabase.LoadAssetAtPath<UnitSetScriptable>(path).Items;
-            return allValues.Select(x => x.Id.ToString()).ToArray();
+            return allValues.Select(x => x.Key.ToString()).ToArray();
         }
     }
 }

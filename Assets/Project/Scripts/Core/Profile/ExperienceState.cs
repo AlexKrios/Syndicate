@@ -1,13 +1,14 @@
-﻿using Newtonsoft.Json;
-
-namespace Syndicate.Core.Profile
+﻿namespace Syndicate.Core.Profile
 {
     public class ExperienceState
     {
-        [JsonProperty("Experience")]
-        public int experience;
+        public int Experience { get; set; }
+        public int Level { get; set; }
 
-        [JsonProperty("Level")]
-        public int level;
+        public ExperienceState()
+        {
+            Experience = 0;
+            Level = 1;
+        }
     }
 }

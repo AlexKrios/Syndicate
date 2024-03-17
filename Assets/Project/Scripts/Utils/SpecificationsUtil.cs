@@ -12,12 +12,12 @@ namespace Syndicate.Utils
 
         private List<SpecificationObject> _specifications = new();
 
-        public void GetComponentSpecificationValues(ComponentObject componentObject, bool isSingle = true)
+        public void GetSpecificationValues(RecipeObject recipe, bool isSingle = true)
         {
             if (isSingle)
                 ResetSpecifications();
 
-            var specs = componentObject.Recipe.Specifications;
+            var specs = recipe.Specifications;
             foreach (var spec in specs)
             {
                 var needSpec = _specifications.First(x => x.Type == spec.Type);
@@ -25,17 +25,18 @@ namespace Syndicate.Utils
             }
         }
 
-        public List<SpecificationObject> GetProductSpecificationValues(List<PartObject> partObjects)
+        public List<SpecificationObject> GetProductSpecificationValues(ICraftableItem productObject)
         {
             ResetSpecifications();
 
-            foreach (var part in partObjects)
+            GetSpecificationValues(productObject.Recipe, false);
+            foreach (var part in productObject.Recipe.Parts)
             {
-                if (part.ItemType != ItemTypeId.Component)
+                if (part.ItemType != ItemType.Component)
                     continue;
 
-                var component = _componentsService.GetComponent((ComponentId)part.ItemId);
-                GetComponentSpecificationValues(component, false);
+                var component = _componentsService.GetComponent((ComponentId)part.Key);
+                GetSpecificationValues(component.Recipe, false);
             }
 
             return _specifications;

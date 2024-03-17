@@ -13,12 +13,13 @@ namespace Syndicate.Hub.View.Main
         private const float NotNullAlpha = 1f;
 
         [Inject] private readonly IAssetsService _assetsService;
+        [Inject] private readonly IItemsService _itemsService;
 
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text count;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        public void SetData(ItemObject itemObject, int needCount = 0)
+        public void SetData(ItemBaseObject itemObject, int needCount = 0)
         {
             icon.gameObject.SetActive(itemObject != null);
             count.gameObject.SetActive(itemObject != null);
@@ -27,7 +28,9 @@ namespace Syndicate.Hub.View.Main
             if (itemObject != null)
             {
                 icon.sprite = _assetsService.GetSprite(itemObject.SpriteAssetId);
-                count.text = $"{itemObject.Count}/{needCount}";
+
+                var item = _itemsService.GetItemData(itemObject.ItemType, itemObject.Key);
+                count.text = $"{needCount}/{item.Count}";
             }
         }
     }

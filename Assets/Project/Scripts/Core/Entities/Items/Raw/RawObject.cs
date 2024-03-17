@@ -2,15 +2,17 @@
 
 namespace Syndicate.Core.Entities
 {
-    public class RawObject : ItemObject
+    public class RawObject : ItemBaseObject
     {
         public RawObject(RawScriptable data)
         {
-            ItemTypeId = ItemTypeId.Raw;
-            key = data.Key;
-            id = data.Id;
+            ItemType = ItemType.Raw;
+            Key = data.Key;
+            Id = data.Id;
 
             NameLocale = data.NameLocale;
+            DescriptionLocale = data.DescriptionLocale;
+
             SpriteAssetId = data.SpriteAssetId;
         }
     }

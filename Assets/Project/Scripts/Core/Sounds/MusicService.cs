@@ -1,4 +1,6 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using UnityEngine;
@@ -8,7 +10,8 @@ using Object = UnityEngine.Object;
 
 namespace Syndicate.Core.Sounds
 {
-    public class MusicService : IMusicService, IInitializable
+    [UsedImplicitly]
+    public class MusicService : IMusicService, IService
     {
         private const string MusicServiceName = "----- MusicService -----";
 
@@ -18,13 +21,15 @@ namespace Syndicate.Core.Sounds
 
         private AudioSource _musicSource;
 
-        public void Initialize()
+        public UniTask Initialize()
         {
             var musicService = new GameObject(MusicServiceName);
             _musicSource = musicService.AddComponent<AudioSource>();
             _musicSource.outputAudioMixerGroup = _settings.MixerGroup;
 
             Object.DontDestroyOnLoad(musicService);
+
+            return UniTask.CompletedTask;
         }
 
         public void Play(MusicAssetId assetId)

@@ -87,6 +87,10 @@ MonoBehaviour:
     m_Key: settings
     m_Metadata:
       m_Items: []
+  - m_Id: 3082554419949568
+    m_Key: profile
+    m_Metadata:
+      m_Items: []
   - m_Id: 653424042684424
     m_Key: units
     m_Metadata:

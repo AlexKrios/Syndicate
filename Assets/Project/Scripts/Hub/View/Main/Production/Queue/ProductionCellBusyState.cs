@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
-using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
 using Syndicate.Utils;
@@ -23,7 +22,7 @@ namespace Syndicate.Hub.View.Main
         public void Enter()
         {
             var data = _cell.Data;
-            var item = _itemsProvider.GetItem((ItemTypeId)data.Type, data.Key);
+            var item = _itemsProvider.GetItem(data.Type, data.Key);
             var sprite = _assetsService.GetSprite(item.SpriteAssetId);
             _cell.SetCellIcon(sprite);
 
@@ -37,12 +36,6 @@ namespace Syndicate.Hub.View.Main
         private async void StartProductionTimer()
         {
             var productionTime = DateUtil.GetTime(_cell.Data.TimeEnd);
-            if (productionTime == 0)
-            {
-                _cell.SetStateFinish();
-                return;
-            }
-
             while (productionTime > 0)
             {
                 _cell.SetTimerText(DateUtil.DateCraftTimer(productionTime));

@@ -12,6 +12,13 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private MainViewType tabType;
         [SerializeField] private GameObject tabObject;
 
+        [Space]
+        [SerializeField] private Image tabImage;
+
+        [Space]
+        [SerializeField] private Color activeColor;
+        [SerializeField] private Color inactiveColor;
+
         private Button _button;
 
         public MainViewType TabType => tabType;
@@ -29,11 +36,13 @@ namespace Syndicate.Hub.View.Main
 
         public void SetActive()
         {
+            tabImage.color = activeColor;
             tabObject.SetActive(true);
         }
 
         public void SetInactive()
         {
+            tabImage.color = inactiveColor;
             tabObject.SetActive(false);
         }
     }

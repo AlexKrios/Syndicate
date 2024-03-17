@@ -1,12 +1,23 @@
 ﻿using JetBrains.Annotations;
+using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
 using Zenject;
 
 namespace Syndicate.Preload.StateMachine
 {
+    [UsedImplicitly]
     public class GameInitializeState : AbstractState, IState
     {
-        public void Enter() { }
+        [Inject] private readonly IGameService _gameService;
+        [Inject] private readonly ISettingsService _settingsService;
+
+        public async void Enter()
+        {
+            await _gameService.CreateGame();
+            await _settingsService.Initialize();
+
+            stateMachine.Enter<ServiceInitializeState>();
+        }
 
         public void Click() { }
 

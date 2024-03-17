@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Syndicate.Core.View;
 using UnityEngine;
 using Zenject;
@@ -19,6 +20,8 @@ namespace Syndicate.Hub.View.Main
             _mainViewModel = _popupService.Get<MainViewModel>(true);
 
             tabs.ForEach(x => x.OnClickEvent += OnTabClick);
+
+            CurrentTab = tabs.First();
         }
 
         public NavigationTabView CurrentTab

@@ -17,13 +17,14 @@ namespace Syndicate.DI
 
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
             Container.DeclareSignals();
 
             Container.Bind<ConfigurationsScriptable>().FromInstance(configurations).AsSingle().NonLazy();
             Container.Bind<InputLocker>().FromInstance(inputLocker).AsSingle().NonLazy();
 
+            Container.BindInterfacesTo<ApiService>().AsSingle();
             Container.BindInterfacesTo<GameService>().AsSingle();
-
             Container.BindInterfacesTo<AssetsService>().AsSingle();
 
             Container.BindInterfacesTo<SettingsService>().AsSingle();
@@ -31,10 +32,12 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<MusicService>().AsSingle();
             Container.BindInterfacesTo<AudioService>().AsSingle();
 
+            Container.BindInterfacesTo<ExperienceService>().AsSingle();
+
             Container.BindInterfacesTo<RawService>().AsSingle();
             Container.BindInterfacesTo<ComponentsService>().AsSingle();
             Container.BindInterfacesTo<ProductsService>().AsSingle();
-            Container.BindInterfacesTo<ItemsProvider>().AsSingle();
+            Container.BindInterfacesTo<ItemsService>().AsSingle();
 
             Container.BindInterfacesTo<ProductionService>().AsSingle();
 

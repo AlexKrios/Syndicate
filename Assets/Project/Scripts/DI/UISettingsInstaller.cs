@@ -10,11 +10,13 @@ namespace Syndicate.DI
     {
         [SerializeField] private PopupService.Settings popups;
         [SerializeField] private ProductionSectionFactory.Settings production;
+        [SerializeField] private StorageSectionFactory.Settings storage;
 
         public override void InstallBindings()
         {
             Container.BindInstance(popups);
             Container.BindInstance(production);
+            Container.BindInstance(storage);
         }
     }
 }

@@ -49,9 +49,7 @@ namespace Syndicate.Core.Configurations
                     continue;
 
                 CreateProduct(item, index);
-                CreateParts(item.Recipe.Parts);
                 CreateRecipe(item.Recipe);
-                CreateSpecifications(item.Recipe.Specifications);
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -102,31 +100,54 @@ namespace Syndicate.Core.Configurations
             EditorGUILayout.EndVertical();
         }
 
-        private void CreateParts(List<PartObject> parts)
+        private void CreateRecipe(RecipeObject recipe)
         {
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             EditorGUILayout.BeginHorizontal(EditorStyles.objectField);
             var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter };
-            EditorGUILayout.LabelField("Parts", style, GUILayout.ExpandWidth(true));
+            EditorGUILayout.LabelField("Recipe", style, GUILayout.ExpandWidth(true));
             EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            var styleBox = new GUIStyle(GUI.skin.label) { fixedWidth = 18, fixedHeight = 18 };
+            GUILayout.Box(Resources.Load<Texture2D>("money"), styleBox);
+            recipe.Cost = EditorGUILayout.IntField(recipe.Cost);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Box(Resources.Load<Texture2D>("experience"), styleBox);
+            recipe.Experience = EditorGUILayout.IntField(recipe.Experience);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Box(Resources.Load<Texture2D>("timer"), styleBox);
+            recipe.CraftTime = EditorGUILayout.IntField(recipe.CraftTime);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space();
+            CreateParts(recipe.Parts);
+            EditorGUILayout.Space();
+            CreateSpecifications(recipe.Specifications);
+
+            EditorGUILayout.EndVertical();
+        }
+
+        private void CreateParts(List<PartObject> parts)
+        {
             foreach (var part in parts)
             {
                 EditorGUILayout.BeginHorizontal();
                 var partIndex = parts.IndexOf(part);
-                var optionsPart = new[] { GUILayout.MaxWidth(75f), GUILayout.MinWidth(10f) };
+                var optionsPart = new[] { GUILayout.MaxWidth(50f), GUILayout.MinWidth(10f) };
                 EditorGUILayout.LabelField($"Part {partIndex + 1}:", optionsPart);
 
-                var itemValues = EntitiesUtil.GetItemValues();
-                var itemIndex = Mathf.Max(0, Array.IndexOf(itemValues, part.ItemType));
                 var optionsType = new[] { GUILayout.MaxWidth(100f), GUILayout.MinWidth(10f) };
-                itemIndex = EditorGUILayout.Popup(itemIndex, itemValues, optionsType);
-                part.ItemType = (ItemTypeId)itemValues[itemIndex];
+                part.ItemType = (ItemType) EditorGUILayout.EnumPopup(part.ItemType, optionsType);
 
                 var idsValues = GetValues(part.ItemType);
-                var index = Mathf.Max(0, Array.IndexOf(idsValues, part.ItemId));
+                var index = Mathf.Max(0, Array.IndexOf(idsValues, part.Key));
                 index = EditorGUILayout.Popup(index, idsValues);
-                part.ItemId = idsValues[index];
+                part.Key = idsValues[index];
 
                 var options = new[] { GUILayout.MaxWidth(50f), GUILayout.MinWidth(10f) };
                 part.Count = EditorGUILayout.IntField(part.Count, options);
@@ -146,21 +167,6 @@ namespace Syndicate.Core.Configurations
                     parts.RemoveAt(parts.Count - 1);
             }
             EditorGUILayout.EndHorizontal();
-            EditorGUILayout.EndVertical();
-        }
-
-        private void CreateRecipe(RecipeObject recipe)
-        {
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.BeginHorizontal(EditorStyles.objectField);
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter };
-            EditorGUILayout.LabelField("Recipe", style, GUILayout.ExpandWidth(true));
-            EditorGUILayout.EndHorizontal();
-
-            recipe.Cost = EditorGUILayout.IntField("Cost", recipe.Cost);
-            recipe.Experience = EditorGUILayout.IntField("Experience", recipe.Experience);
-            recipe.CraftTime = EditorGUILayout.IntField("Craft time", recipe.CraftTime);
-            EditorGUILayout.EndVertical();
         }
 
         private void CreateSpecifications(List<SpecificationObject> data)
@@ -173,12 +179,6 @@ namespace Syndicate.Core.Configurations
                     data.Add(new SpecificationObject { Type = (SpecificationId) specificationValues[i] });
                 }
             }
-
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.BeginHorizontal(EditorStyles.objectField);
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter };
-            EditorGUILayout.LabelField("Specifications", style, GUILayout.ExpandWidth(true));
-            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             foreach (var specification in data)
@@ -194,21 +194,17 @@ namespace Syndicate.Core.Configurations
                 EditorGUILayout.EndVertical();
             }
             EditorGUILayout.EndHorizontal();
-            EditorGUILayout.EndVertical();
         }
 
-        private static string[] GetValues(ItemTypeId itemTypeId)
+        private static string[] GetValues(ItemType itemTypeId)
         {
-            if (itemTypeId == ItemTypeId.Raw)
-                return EntitiesUtil.GetRawValues();
-
-            if (itemTypeId == ItemTypeId.Component)
-                return EntitiesUtil.GetComponentValues();
-
-            if (itemTypeId == ItemTypeId.Product)
-                return EntitiesUtil.GetProductValues();
-
-            return null;
+            return itemTypeId switch
+            {
+                ItemType.Raw => EntitiesUtil.GetRawValues(),
+                ItemType.Component => EntitiesUtil.GetComponentValues(),
+                ItemType.Product => EntitiesUtil.GetProductValues(),
+                _ => null
+            };
         }
     }
 }

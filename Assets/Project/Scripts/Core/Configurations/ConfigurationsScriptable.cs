@@ -7,7 +7,11 @@ namespace Syndicate.Core.Configurations
     [CreateAssetMenu(fileName = "Configurations", menuName = "Scriptable/Configurations", order = -50)]
     public class ConfigurationsScriptable : ScriptableObject
     {
+        [SerializeField] private ExperienceSetScriptable experienceSet;
+
+        [Header("Units")]
         [SerializeField] private UnitTypeSetScriptable unitTypeSet;
+        [SerializeField] private UnitSetScriptable unitSet;
 
         [Header("Products")]
         [SerializeField] private ProductGroupSetScriptable productGroupSet;
@@ -15,6 +19,8 @@ namespace Syndicate.Core.Configurations
         [SerializeField] private ComponentSetScriptable componentSet;
         [SerializeField] private ProductSetScriptable productSet;
 
+        public ExperienceSetScriptable ExperienceSet => experienceSet;
+        public UnitSetScriptable UnitSet => unitSet;
         public RawSetScriptable RawSet => rawSet;
         public ComponentSetScriptable ComponentSet => componentSet;
         public ProductSetScriptable ProductSet => productSet;

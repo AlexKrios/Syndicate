@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd79dbd971544330967acb4604ba7b42, type: 3}
   m_Name: SpriteSet
   m_EditorClassIdentifier: 
-  items:
-  - id: weapon_raw
+  raw:
+  - id: raw_weapon
     sprite: {fileID: 21300000, guid: f372a2b194408154e905fb0535f68b35, type: 3}
+  - id: raw_armor
+    sprite: {fileID: 21300000, guid: f372a2b194408154e905fb0535f68b35, type: 3}
+  weapon:
   - id: trooper_weapon_component1
     sprite: {fileID: 21300000, guid: d9188467b358a37418181dd864d662a9, type: 3}
   - id: trooper_weapon_component2
@@ -47,3 +50,13 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 0b7c555f3cf187348b04b40631558e2b, type: 3}
   - id: sniper_weapon_product
     sprite: {fileID: 21300000, guid: 9d68c70723ea1ac4c9a6d0161228924c, type: 3}
+  armor: []
+  units:
+  - id: unit_trooper
+    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}
+  - id: unit_defender
+    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}
+  - id: unit_support
+    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}
+  - id: unit_sniper
+    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}

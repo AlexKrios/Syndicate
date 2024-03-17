@@ -1,12 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
-using Zenject;
 
 namespace Syndicate.Core.Services
 {
     [UsedImplicitly]
-    public class SettingsService : ISettingsService, IInitializable
+    public class SettingsService : ISettingsService
     {
         private const string LanguageName = "Language";
         private const string GraphicsName = "Graphics";
@@ -19,7 +19,7 @@ namespace Syndicate.Core.Services
         public float AudioVolume { get; private set; }
         public float MusicVolume { get; private set; }
 
-        public void Initialize()
+        public UniTask Initialize()
         {
             Language = (LanguageType) PlayerPrefs.GetInt(LanguageName, 0);
             Graphics = (GraphicsType) PlayerPrefs.GetInt(GraphicsName, 0);
@@ -28,6 +28,8 @@ namespace Syndicate.Core.Services
             AudioVolume = PlayerPrefs.GetInt(AudioVolumeName, 100);
 
             QualitySettings.SetQualityLevel((int) Graphics);
+
+            return UniTask.CompletedTask;
         }
 
         public void SetLanguage(LanguageType value)

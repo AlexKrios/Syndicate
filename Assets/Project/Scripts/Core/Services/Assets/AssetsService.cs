@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using UnityEngine;
@@ -8,7 +10,8 @@ using Zenject;
 
 namespace Syndicate.Core.Services
 {
-    public class AssetsService : IAssetsService, IInitializable
+    [UsedImplicitly]
+    public class AssetsService : IAssetsService, IService
     {
         [Inject] private readonly Settings _settings;
 
@@ -16,11 +19,13 @@ namespace Syndicate.Core.Services
         private Dictionary<AudioAssetId, AudioClip> _audioAssetsIndex;
         private Dictionary<SpriteAssetId, Sprite> _spriteAssetsIndex;
 
-        public void Initialize()
+        public UniTask Initialize()
         {
             _musicAssetsIndex = _settings.Music.Items.ToDictionary(x => x.Id, x => x.AudioClip);
             _audioAssetsIndex = _settings.Audio.Items.ToDictionary(x => x.Id, x => x.AudioClip);
-            _spriteAssetsIndex = _settings.Sprite.Items.ToDictionary(x => x.Id, x => x.Sprite);
+            _spriteAssetsIndex = _settings.Sprite.GetAllSprites().ToDictionary(x => x.Id, x => x.Sprite);
+
+            return UniTask.CompletedTask;
         }
 
         public AudioClip GetMusicClip(MusicAssetId assetId)

@@ -9,8 +9,6 @@ namespace Syndicate.Hub.View.Main
         private const string DefaultSpecificationValue = "0";
 
         [SerializeField] private SpecificationId id;
-
-        [Space]
         [SerializeField] private TMP_Text count;
 
         public SpecificationId Id => id;

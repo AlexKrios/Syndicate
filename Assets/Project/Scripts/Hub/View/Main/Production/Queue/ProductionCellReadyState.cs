@@ -6,7 +6,12 @@ namespace Syndicate.Hub.View.Main
 {
     public class ProductionCellReadyState : IState
     {
-        public ProductionCellReadyState(ProductionQueueCellView cell) { }
+        private readonly ProductionQueueCellView _cell;
+
+        public ProductionCellReadyState(ProductionQueueCellView cell)
+        {
+            _cell = cell;
+        }
 
         public void Enter() { }
 

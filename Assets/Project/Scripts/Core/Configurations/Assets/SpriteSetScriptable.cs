@@ -8,9 +8,26 @@ namespace Syndicate.Core.Configurations
     [CreateAssetMenu(fileName = "SpriteSet", menuName = "Scriptable/Assets/Sprite Set", order = 21)]
     public class SpriteSetScriptable : ScriptableObject
     {
-        [SerializeField] private List<SpriteAssetScriptable> items;
+        [SerializeField] private List<SpriteAssetScriptable> raw;
+        [SerializeField] private List<SpriteAssetScriptable> weapon;
+        [SerializeField] private List<SpriteAssetScriptable> armor;
+        [SerializeField] private List<SpriteAssetScriptable> units;
 
-        public List<SpriteAssetScriptable> Items => items;
+        public List<SpriteAssetScriptable> Raw => raw;
+        public List<SpriteAssetScriptable> Weapon => weapon;
+        public List<SpriteAssetScriptable> Armor => armor;
+        public List<SpriteAssetScriptable> Units => units;
+
+        public List<SpriteAssetScriptable> GetAllSprites()
+        {
+            var allValues = new List<SpriteAssetScriptable>();
+            allValues.AddRange(raw);
+            allValues.AddRange(weapon);
+            allValues.AddRange(armor);
+            allValues.AddRange(units);
+
+            return allValues;
+        }
     }
 
     [Serializable]

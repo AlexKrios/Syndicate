@@ -10,11 +10,11 @@ namespace Syndicate.Core.Configurations
     [Serializable]
     public class UnitScriptable
     {
-        [SerializeField] private string id;
+        [SerializeField] private string key;
         [SerializeField] private UnitTypeId unitTypeId;
         [SerializeField] private SpriteAssetId spriteAssetId;
 
-        public UnitId Id => (UnitId)id;
+        public UnitId Key => (UnitId)key;
         public UnitTypeId UnitTypeId => unitTypeId;
         public SpriteAssetId SpriteAssetId => spriteAssetId;
     }

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "250802416282",
+    "firebase_url": "https://syndicate-krios-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "syndicate-krios",
+    "storage_bucket": "syndicate-krios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250802416282:android:7bb3814b8b9c762cf94d23",
+        "android_client_info": {
+          "package_name": "com.krios.syndicate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwx2dGJJ9aygggJ7GAL_nmAeJkY5k_qLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

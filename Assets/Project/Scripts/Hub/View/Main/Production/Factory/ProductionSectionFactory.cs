@@ -1,9 +1,11 @@
 ﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
+    [UsedImplicitly]
     public class ProductionSectionFactory : IProductionSectionFactory
     {
         [Inject] private readonly DiContainer _container;

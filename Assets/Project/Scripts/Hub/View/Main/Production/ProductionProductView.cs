@@ -10,7 +10,7 @@ namespace Syndicate.Hub.View.Main
     {
         [SerializeField] private List<ProductionItemView> items;
 
-        public void SetData(List<ItemObject> itemObjects, Action<ProductionItemView> clickAction)
+        public void SetData(List<ICraftableItem> itemObjects, Action<ProductionItemView> clickAction)
         {
             for (var i = 0; i < items.Count; i++)
             {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using UnityEngine;
@@ -10,7 +12,8 @@ using Object = UnityEngine.Object;
 
 namespace Syndicate.Core.Sounds
 {
-    public class AudioService : IAudioService, IInitializable
+    [UsedImplicitly]
+    public class AudioService : IAudioService, IService
     {
         private const string AudioServiceName = "----- AudioService -----";
         private const string AudioSourceName = "AudioSource";
@@ -22,11 +25,13 @@ namespace Syndicate.Core.Sounds
         private Transform _parentAudioService;
         private readonly List<AudioSourceObject> _audioSourceList = new();
 
-        public void Initialize()
+        public UniTask Initialize()
         {
             _parentAudioService = new GameObject(AudioServiceName).transform;
 
             Object.DontDestroyOnLoad(_parentAudioService.gameObject);
+
+            return UniTask.CompletedTask;
         }
 
         public void Play(AudioAssetId assetId)

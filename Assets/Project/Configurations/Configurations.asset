@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad109af41e754180ac134ff24febd507, type: 3}
   m_Name: Configurations
   m_EditorClassIdentifier: Assembly-CSharp:Project.Scripts.Settings:ConfigurationsScriptable
+  experienceSet: {fileID: 11400000, guid: 136f65ff3eef49a4ca3cc22d859d4977, type: 2}
   unitTypeSet: {fileID: 11400000, guid: b41770b5250ae4c48ab4b0179572c37a, type: 2}
+  unitSet: {fileID: 11400000, guid: c0b31b2df76e9fa4aaa1842327ccbf9a, type: 2}
   productGroupSet: {fileID: 11400000, guid: eeeb852e51081ca45a0284a0e1de1aa7, type: 2}
   rawSet: {fileID: 11400000, guid: f4f22b02bfd2aaf419988f48132db9b2, type: 2}
   componentSet: {fileID: 11400000, guid: 4b24e4140d4127947a66a71908a6b394, type: 2}

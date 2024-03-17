@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
+using Syndicate.Core.Signals;
 using Syndicate.Utils;
 using TMPro;
 using UnityEngine;
@@ -14,8 +16,7 @@ namespace Syndicate.Hub.View.Main
 {
     public class ProductionSidebarView : MonoBehaviour
     {
-        public Action<ItemObject> OnCreateClick { get; set; }
-
+        [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly IAssetsService _assetsService;
         [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly IProductionService _productionService;
@@ -27,27 +28,45 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private LocalizeStringEvent itemDescription;
         [SerializeField] private List<ProductionSpecView> specifications;
         [SerializeField] private List<ProductionPartView> parts;
+        [SerializeField] private Button create;
 
-        private void OnEnable()
+        [Space]
+        [SerializeField] private Button queueButton;
+        [SerializeField] private GameObject queueObject;
+
+        private ICraftableItem _data;
+
+        private void Awake()
         {
-            OnCreateClick += CreateClick;
+            create.onClick.AddListener(CreateClick);
+            queueButton.onClick.AddListener(() => queueObject.SetActive(true));
+            _signalBus.Subscribe<ProductionChangeSignal>(SetCreateButtonState);
         }
 
-        private void OnDisable()
+        private async void OnEnable()
         {
-            OnCreateClick -= CreateClick;
+            //TODO Убрать асинхронность, когда запуск будет с прелодера
+            await UniTask.Delay(1000);
+            SetCreateButtonState();
         }
 
-        public void SetData(ItemObject itemObject)
+        public void SetData(ICraftableItem data)
         {
-            itemIcon.sprite = _assetsService.GetSprite(itemObject.SpriteAssetId);
-            itemName.StringReference = itemObject.NameLocale;
-            itemDescription.StringReference = itemObject.DescriptionLocale;
+            _data = data;
 
-            var recipe = itemObject.Recipe;
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            itemIcon.sprite = _assetsService.GetSprite(_data.SpriteAssetId);
+            itemName.StringReference = _data.NameLocale;
+            itemDescription.StringReference = _data.DescriptionLocale;
+
+            var recipe = _data.Recipe;
             timerValue.text = TimeUtil.DateCraftTimer(recipe.CraftTime);
-            var specificationsList = itemObject is ProductObject
-                ? _specificationsUtil.GetProductSpecificationValues(recipe.Parts)
+            var specificationsList = _data is ProductObject
+                ? _specificationsUtil.GetProductSpecificationValues(_data)
                 : recipe.Specifications;
             SetSpecificationData(specificationsList);
             SetPartsData(recipe.Parts);
@@ -79,22 +98,32 @@ namespace Syndicate.Hub.View.Main
                 }
 
                 var part = partObjects[i];
-                var partItemObject = _itemsProvider.GetItem(part.ItemType, part.ItemId);
+                var partItemObject = _itemsProvider.GetItem(part.ItemType, part.Key);
                 parts[i].SetData(partItemObject, part.Count);
             }
         }
 
-        private void CreateClick(ItemObject itemObject)
+        private async void CreateClick()
         {
+            await _productionService.RemoveItems(_data);
+
             var productionObject = new ProductionObject
             {
                 Id = Guid.NewGuid(),
-                Key = itemObject.id,
-                Type = itemObject.ItemTypeId,
-                TimeEnd = DateTime.Now.AddSeconds(itemObject.Recipe.CraftTime).ToFileTime()
+                Key = _data.Key,
+                Type = _data.ItemType,
+                TimeEnd = DateTime.Now.AddSeconds(_data.Recipe.CraftTime).ToFileTime(),
+                Index = _productionService.GetFreeCell()
             };
 
             _productionService.AddProduction(productionObject);
+
+            _signalBus.Fire(new ProductionChangeSignal());
+        }
+
+        private void SetCreateButtonState()
+        {
+            create.interactable = _productionService.IsHaveFreeCell() && _productionService.IsHaveNeedItems(_data);
         }
     }
 }

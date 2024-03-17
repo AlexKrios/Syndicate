@@ -4,6 +4,7 @@ using Syndicate.Core.Entities;
 using Syndicate.Core.StateMachine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
-    public class ProductionQueueCellView : MonoBehaviour
+    public class ProductionQueueCellView : MonoBehaviour, IPointerClickHandler
     {
         private const string MoneyPattern = "<sprite=0> {0}";
 
@@ -82,12 +83,23 @@ namespace Syndicate.Hub.View.Main
 
         public void SetStateFinish() => SetState<ProductionCellFinishState>();
 
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            _currentState?.Click();
+        }
+
         public void SetData(ProductionObject data) => Data = data;
 
         public void SetCellIcon(Sprite itemIcon)
         {
             iconImage.sprite = itemIcon;
             iconImage.gameObject.SetActive(true);
+        }
+
+        public void SetUnlockData(int cost, int level)
+        {
+            unlockCost.text = string.Format(MoneyPattern, cost);
+            ((IntVariable)unlockLevel.StringReference["value"]).Value = level;
         }
 
         public void SetTimerText(string timer)

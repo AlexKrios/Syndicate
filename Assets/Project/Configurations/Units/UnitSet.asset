@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: UnitSet
   m_EditorClassIdentifier: 
   items:
-  - id: unit_trooper
+  - key: unit_trooper
     unitTypeId:
       value: Trooper
     spriteAssetId:
-      value: Test1
+      value: raw_weapon

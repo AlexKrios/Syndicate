@@ -15,9 +15,9 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private Image icon;
 
         public Action<ProductionItemView> OnClickEvent { get; set; }
-        public ItemObject Data { get; set; }
+        public ICraftableItem Data { get; private set; }
 
-        public void SetData(ItemObject data)
+        public void SetData(ICraftableItem data)
         {
             Data = data;
 

@@ -1,3 +1,4 @@
+using Syndicate.Core.Signals;
 using Zenject;
 
 namespace Syndicate.DI
@@ -6,7 +7,7 @@ namespace Syndicate.DI
     {
         public static void DeclareSignals(this DiContainer container)
         {
-
+            container.DeclareSignal<ProductionChangeSignal>();
         }
     }
 }

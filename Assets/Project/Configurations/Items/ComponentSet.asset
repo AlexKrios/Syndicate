@@ -36,15 +36,12 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: trooper_weapon_component1
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Trooper
     recipe:
       parts:
       - itemType: 0
         key: weapon
-        count: 0
+        id: rawwn
+        count: 5
       specifications:
       - type:
           value: Attack
@@ -61,6 +58,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 50
       cost: 1000
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Trooper
   - name: "Trooper Weapon Component 2 \u2605"
     key: trooper_weapon_component2_star1
     id: trwpct2|1
@@ -84,14 +85,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: trooper_weapon_component2
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Trooper
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 4
       specifications:
       - type:
@@ -109,6 +107,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Trooper
   - name: "Trooper Weapon Component 3 \u2605"
     key: trooper_weapon_component3_star1
     id: trwpct3|1
@@ -132,14 +134,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: trooper_weapon_component3
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Trooper
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 3
       specifications:
       - type:
@@ -157,6 +156,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Trooper
   - name: "Defender Weapon Component 1 \u2605"
     key: defender_weapon_component1_star1
     id: dfwpct1|1
@@ -180,15 +183,12 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: defender_weapon_component1
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Defender
     recipe:
       parts:
       - itemType: 0
-        key: weapon
-        count: 5
+        key: armor
+        id: rawar
+        count: 3
       specifications:
       - type:
           value: Attack
@@ -205,6 +205,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Defender
   - name: "Defender Weapon Component 2 \u2605"
     key: defender_weapon_component2_star1
     id: dfwpct2|1
@@ -228,14 +232,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: defender_weapon_component2
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Defender
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -253,6 +254,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Defender
   - name: "Defender Weapon Component 3 \u2605"
     key: defender_weapon_component3_star1
     id: dfwpct3|1
@@ -276,14 +281,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: defender_weapon_product
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Defender
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -301,6 +303,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Defender
   - name: "Support Weapon Component 1 \u2605"
     key: support_weapon_component1_star1
     id: suwpct1|1
@@ -324,14 +330,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: support_weapon_component1
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Support
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -349,6 +352,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Support
   - name: "Support Weapon Component 2 \u2605"
     key: support_weapon_component2_star1
     id: suwpct2|1
@@ -372,14 +379,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: support_weapon_component2
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Support
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -397,9 +401,13 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Support
   - name: "Support Weapon Component 3 \u2605"
     key: support_weapon_component3_star1
-    id: support_weapon_component3_star1
+    id: suwpct3|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -420,14 +428,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: support_weapon_component3
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Support
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -445,9 +450,13 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Support
   - name: "Sniper Weapon Component 1 \u2605"
     key: sniper_weapon_component1_star1
-    id: sniper_weapon_component1_star1
+    id: snwpct1|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -468,14 +477,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: sniper_weapon_component1
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Sniper
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -493,9 +499,13 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Sniper
   - name: "Sniper Weapon Component 2 \u2605"
     key: sniper_weapon_component2_star1
-    id: sniper_weapon_component2_star1
+    id: snwpct2|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -516,14 +526,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: sniper_weapon_component2
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Sniper
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -541,9 +548,13 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Sniper
   - name: "Sniper Weapon Component 3 \u2605"
     key: sniper_weapon_component3_star1
-    id: sniper_weapon_component3_star1
+    id: snwpct3|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -564,14 +575,11 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: sniper_weapon_component3
-    productGroupId:
-      value: Weapon
-    unitTypeId:
-      value: Sniper
     recipe:
       parts:
       - itemType: 0
         key: weapon
+        id: rawwn
         count: 5
       specifications:
       - type:
@@ -589,6 +597,10 @@ MonoBehaviour:
       craftTime: 0
       experience: 0
       cost: 0
+    productGroupId:
+      value: Weapon
+    unitTypeId:
+      value: Sniper
   references:
     version: 2
     RefIds: []

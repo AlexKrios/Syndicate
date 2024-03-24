@@ -9,13 +9,13 @@ namespace Syndicate.Hub.View.Main
 
         [Space]
         [SerializeField] private UnitsSectionView units;
-        [SerializeField] private ProductionSectionView production;
+        [SerializeField] private ProductionView production;
 
         protected override void OnBind()
         {
             base.OnBind();
 
-            ViewModel.ProductionSection = production;
+            ViewModel.Production = production;
         }
     }
 }

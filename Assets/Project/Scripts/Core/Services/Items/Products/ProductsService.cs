@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
-using Syndicate.Core.Profile;
 using Zenject;
 
 namespace Syndicate.Core.Services
@@ -14,31 +13,36 @@ namespace Syndicate.Core.Services
     public class ProductsService : IProductsService, IService
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
-        [Inject] private readonly IGameService _gameService;
 
-        private PlayerProfile PlayerProfile => _gameService.GetPlayerProfile();
-        private Dictionary<ProductId, ProductObject> ProductObjects => PlayerProfile.Inventory.Products;
+        private Dictionary<ProductId, ProductObject> _productObjects;
 
         public UniTask Initialize()
         {
-            PlayerProfile.Inventory.Products = _configurations.ProductSet.Items
+            _productObjects = _configurations.ProductSet.Items
                 .ToDictionary(x => x.Key, x => new ProductObject(x));
 
             return UniTask.CompletedTask;
         }
 
+        public List<ProductObject> GetAllProducts() => _productObjects.Values.ToList();
+
         public ProductObject GetProduct(ProductId assetId)
         {
-            return ProductObjects.TryGetValue(assetId, out var productObject)
+            return _productObjects.TryGetValue(assetId, out var productObject)
                 ? productObject
                 : throw new Exception($"Can't find {nameof(ProductObject)} with id {assetId}");
         }
 
-        public List<ProductObject> GetAllProducts() => ProductObjects.Values.ToList();
+        public ProductObject GetProductById(string id)
+        {
+            var productObject = _productObjects.Values.FirstOrDefault(x => x.Id == id);
+            return productObject
+                   ?? throw new Exception($"Can't find {nameof(ProductObject)} with id {id}");
+        }
 
         public List<ProductObject> GetProductsByUnitType(UnitTypeId unitTypeId)
         {
-            return ProductObjects
+            return _productObjects
                 .Where(x => x.Value.UnitTypeId == unitTypeId)
                 .Select(x => x.Value).ToList();
         }

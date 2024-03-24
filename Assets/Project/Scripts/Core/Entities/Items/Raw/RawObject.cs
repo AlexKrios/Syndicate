@@ -4,7 +4,7 @@ namespace Syndicate.Core.Entities
 {
     public class RawObject : ItemBaseObject
     {
-        public RawObject(RawScriptable data)
+        public RawObject(RawItemScriptable data)
         {
             ItemType = ItemType.Raw;
             Key = data.Key;

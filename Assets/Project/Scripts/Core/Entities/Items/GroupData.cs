@@ -12,14 +12,12 @@ namespace Syndicate.Core.Entities
 
         public Dictionary<string, object> ToDictionary()
         {
-            var result = new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 ["ItemTypeId"] = ItemType.ToString(),
                 ["Id"] = Id,
                 ["Experience"] = Experience
             };
-
-            return result;
         }
     }
 }

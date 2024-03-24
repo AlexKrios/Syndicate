@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
-using Syndicate.Core.Profile;
 using Zenject;
 
 namespace Syndicate.Core.Services
@@ -14,26 +13,24 @@ namespace Syndicate.Core.Services
     public class RawService : IRawService, IService
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
-        [Inject] private readonly IGameService _gameService;
 
-        private PlayerProfile PlayerProfile => _gameService.GetPlayerProfile();
-        private Dictionary<RawId, RawObject> RawObjects => PlayerProfile.Inventory.Raw;
+        private Dictionary<RawItemId, RawObject> _rawObjects;
 
         public UniTask Initialize()
         {
-            PlayerProfile.Inventory.Raw = _configurations.RawSet.Items
+            _rawObjects = _configurations.RawSet.Items
                 .ToDictionary(x => x.Key, x => new RawObject(x));
 
             return UniTask.CompletedTask;
         }
 
-        public RawObject GetRaw(RawId assetId)
+        public RawObject GetRaw(RawItemId assetItemId)
         {
-            return RawObjects.TryGetValue(assetId, out var rawObject)
+            return _rawObjects.TryGetValue(assetItemId, out var rawObject)
                 ? rawObject
-                : throw new Exception($"Can't find {nameof(RawObject)} with id {assetId}");
+                : throw new Exception($"Can't find {nameof(RawObject)} with id {assetItemId}");
         }
 
-        public List<RawObject> GetAllRaw() => RawObjects.Values.ToList();
+        public List<RawObject> GetAllRaw() => _rawObjects.Values.ToList();
     }
 }

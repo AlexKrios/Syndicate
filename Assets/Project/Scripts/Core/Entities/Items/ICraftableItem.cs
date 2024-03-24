@@ -4,6 +4,7 @@ namespace Syndicate.Core.Entities
 {
     public interface ICraftableItem
     {
+        string Id { get; }
         string Key { get; }
 
         ItemType ItemType { get; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.StateMachine;
 using TMPro;
@@ -37,6 +38,7 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private List<GameObject> elementToReset;
 
         public ProductionObject Data { get; private set; }
+        private ProductionScriptable _queue;
 
         private readonly Dictionary<Type, IState> _stateMap = new();
         private IState _currentState;
@@ -69,8 +71,8 @@ namespace Syndicate.Hub.View.Main
         public void SetStateLocked()
         {
             SetState<ProductionCellLockedState>();
-            unlockCost.text = string.Format(MoneyPattern, 10);
-            ((IntVariable)unlockLevel.StringReference["value"]).Value = 10;
+            unlockCost.text = string.Format(MoneyPattern, _queue.Cost);
+            ((IntVariable)unlockLevel.StringReference["value"]).Value = _queue.Level;
         }
 
         public void SetStateReady()
@@ -89,6 +91,8 @@ namespace Syndicate.Hub.View.Main
         }
 
         public void SetData(ProductionObject data) => Data = data;
+
+        public void SetQueueUnlockData(ProductionScriptable queue) => _queue = queue;
 
         public void SetCellIcon(Sprite itemIcon)
         {

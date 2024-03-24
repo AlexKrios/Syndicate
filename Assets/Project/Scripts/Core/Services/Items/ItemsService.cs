@@ -1,72 +1,72 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Profile;
+using Syndicate.Utils;
 using Zenject;
 
 namespace Syndicate.Core.Services
 {
     [UsedImplicitly]
-    public class ItemsService : IItemsProvider, IItemsService
+    public class ItemsService : IItemsService
     {
         [Inject] private readonly IGameService _gameService;
-        [Inject] private readonly IRawService _rawService;
-        [Inject] private readonly IComponentsService _componentsService;
-        [Inject] private readonly IProductsService _productsService;
+        [Inject] private readonly IItemsProvider _itemsProvider;
 
         private PlayerProfile PlayerProfile => _gameService.GetPlayerProfile();
         private Dictionary<string, GroupData> Group => PlayerProfile.Inventory.GroupsData;
         private Dictionary<string, ItemData> Items => PlayerProfile.Inventory.ItemsData;
 
-        public ItemBaseObject GetItem(ItemType itemType, string itemId)
+        public GroupData GetGroupData(ItemBaseObject itemBase)
         {
-            return itemType switch
+            var id = ItemsUtil.ParseItemToId(itemBase);
+            if (!Group.TryGetValue(id, out _))
             {
-                ItemType.Raw => _rawService.GetRaw((RawId)itemId),
-                ItemType.Component => _componentsService.GetComponent((ComponentId)itemId),
-                ItemType.Product => _productsService.GetProduct((ProductId)itemId),
-                _ => null
-            };
-        }
-
-        public T GetItem<T>(string itemId) where T : ItemBaseObject
-        {
-            if (typeof(T) == typeof(RawObject))
-                return _rawService.GetRaw((RawId)itemId) as T;
-
-            if (typeof(T) == typeof(ComponentObject))
-                return _componentsService.GetComponent((ComponentId)itemId) as T;
-
-            if (typeof(T) == typeof(ProductObject))
-                return _productsService.GetProduct((ProductId)itemId) as T;
-
-            return null;
-        }
-
-        public GroupData GetGroupData(ItemType itemType, string key)
-        {
-            var itemObject = GetItem(itemType, key);
-            if (Group.TryGetValue(itemObject.Id, out var value))
-            {
-                return value;
+                var groupData = itemBase.ToGroupData(id);
+                Group.Add(id, groupData);
             }
 
-            var itemCountObject = itemObject.ToGroupData();
-            Group.Add(itemObject.Id, itemCountObject);
-            return itemCountObject;
+            return Group[id];
         }
+
+        public ItemData TryAddItem(ItemBaseObject itemBase)
+        {
+            var id = ItemsUtil.ParseItemToId(itemBase);
+            if (!Items.TryGetValue(id, out _))
+            {
+                var itemData = itemBase.ToItemData(id);
+                if (itemBase.ItemType != ItemType.Raw)
+                    itemData.Parts = ItemsUtil.ParseItemToParts(itemBase);
+
+                Items.Add(id, itemData);
+            }
+
+            return Items[id];
+        }
+
+        public List<ItemData> GetAllItems() => Items.Values.ToList();
+
+        public ItemData GetItemData(ItemBaseObject itemBase) => Items[ItemsUtil.ParseItemToId(itemBase)];
 
         public ItemData GetItemData(ItemType itemType, string key)
         {
-            var itemObject = GetItem(itemType, key);
-            if (Items.TryGetValue(itemObject.Id, out var value))
+            var itemBase = _itemsProvider.GetItem(itemType, key);
+            return Items[ItemsUtil.ParseItemToId(itemBase)];
+        }
+
+        public Dictionary<string, object> RemoveItems(ICraftableItem data)
+        {
+            var sendList = new Dictionary<string, object>();
+            foreach (var part in data.Recipe.Parts)
             {
-                return value;
+                var item = GetItemData(part.ItemType, part.Key);
+                item.Count -= part.Count;
+
+                sendList.Add($"{ApiService.ItemsPath}/{item.Id}/Count", item.Count);
             }
 
-            var itemData = itemObject.ToItemData();
-            Items.Add(itemObject.Id, itemData);
-            return itemData;
+            return sendList;
         }
     }
 }

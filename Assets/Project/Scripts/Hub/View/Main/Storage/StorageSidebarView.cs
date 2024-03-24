@@ -13,12 +13,14 @@ namespace Syndicate.Hub.View.Main
     public class StorageSidebarView : MonoBehaviour
     {
         [Inject] private readonly IAssetsService _assetsService;
+        [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly SpecificationsUtil _specificationsUtil;
 
         [SerializeField] private Image itemIcon;
         [SerializeField] private LocalizeStringEvent itemName;
         [SerializeField] private LocalizeStringEvent itemDescription;
         [SerializeField] private List<StorageSpecView> specifications;
+        [SerializeField] private List<StoragePartView> parts;
 
         public void SetData(ICraftableItem data)
         {
@@ -31,6 +33,7 @@ namespace Syndicate.Hub.View.Main
                 ? _specificationsUtil.GetProductSpecificationValues(data)
                 : recipe.Specifications;
             SetSpecificationData(specificationsList);
+            SetPartsData(recipe.Parts);
         }
 
         private void SetSpecificationData(IReadOnlyCollection<SpecificationObject> specificationsList)
@@ -45,6 +48,22 @@ namespace Syndicate.Hub.View.Main
                 }
 
                 specification.SetData(needSpecification);
+            }
+        }
+
+        private void SetPartsData(IReadOnlyList<PartObject> partObjects)
+        {
+            for (var i = 0; i < parts.Count; i++)
+            {
+                if (partObjects.ElementAtOrDefault(i) == null)
+                {
+                    parts[i].SetData(null);
+                    continue;
+                }
+
+                var part = partObjects[i];
+                var partItemObject = _itemsProvider.GetItem(part.ItemType, part.Key);
+                parts[i].SetData(partItemObject, part.Count);
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Syndicate.Utils
             return allValues.Select(x => x.Id.ToString()).ToArray();
         }
 
-        public static string[] GetRawValues()
+        public static string[] GetRawItemKeys()
         {
             var assetId = AssetDatabase.FindAssets($"t:{nameof(RawSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
@@ -31,7 +31,23 @@ namespace Syndicate.Utils
             return allValues.Select(x => x.Key.ToString()).ToArray();
         }
 
-        public static string[] GetComponentValues()
+        public static string GetRawItemIdsByKey(string key)
+        {
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(RawSetScriptable)}").First();
+            var path = AssetDatabase.GUIDToAssetPath(assetId);
+            var allValues = AssetDatabase.LoadAssetAtPath<RawSetScriptable>(path).Items;
+            return allValues.First(x => x.Key == key).Id;
+        }
+
+        public static string[] GetRawGroupValues()
+        {
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(RawSetScriptable)}").First();
+            var path = AssetDatabase.GUIDToAssetPath(assetId);
+            var allValues = AssetDatabase.LoadAssetAtPath<RawSetScriptable>(path).Groups;
+            return allValues.Select(x => x.Key.ToString()).ToArray();
+        }
+
+        public static string[] GetComponentItemKeys()
         {
             var assetId = AssetDatabase.FindAssets($"t:{nameof(ComponentSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
@@ -39,12 +55,28 @@ namespace Syndicate.Utils
             return allValues.Select(x => x.Key.ToString()).ToArray();
         }
 
-        public static string[] GetProductValues()
+        public static string GetComponentItemIdByKey(string key)
+        {
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(ComponentSetScriptable)}").First();
+            var path = AssetDatabase.GUIDToAssetPath(assetId);
+            var allValues = AssetDatabase.LoadAssetAtPath<ComponentSetScriptable>(path).Items;
+            return allValues.First(x => x.Key == key).Id;
+        }
+
+        public static string[] GetProductItemKeys()
         {
             var assetId = AssetDatabase.FindAssets($"t:{nameof(ProductSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
             var allValues = AssetDatabase.LoadAssetAtPath<ProductSetScriptable>(path).Items;
-            return allValues.Select(x => x.Id.ToString()).ToArray();
+            return allValues.Select(x => x.Key.ToString()).ToArray();
+        }
+
+        public static string GetProductItemIdByKey(string key)
+        {
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(ProductSetScriptable)}").First();
+            var path = AssetDatabase.GUIDToAssetPath(assetId);
+            var allValues = AssetDatabase.LoadAssetAtPath<ProductSetScriptable>(path).Items;
+            return allValues.First(x => x.Key == key).Id;
         }
 
         public static string[] GetProductGroupValues()

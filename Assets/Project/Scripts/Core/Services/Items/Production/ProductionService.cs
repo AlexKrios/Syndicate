@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Profile;
@@ -51,32 +50,19 @@ namespace Syndicate.Core.Services
             return freeIndex;
         }
 
-        public async UniTask RemoveItems(ICraftableItem data)
-        {
-            var sendList = new Dictionary<string, object>();
-            foreach (var part in data.Recipe.Parts)
-            {
-                var item = _itemsService.GetItemData(part.ItemType, part.Key);
-                item.Count -= part.Count;
-
-                sendList.Add(item.Id, item.ToDictionary());
-            }
-
-            await _apiService.SetCountItems(sendList);
-        }
-
         public List<ProductionObject> GetAllProduction() => Queue.Values.ToList();
 
         public async void AddProduction(ProductionObject productionObject)
         {
+            var itemsToRemove = _itemsService.RemoveItems(productionObject.ItemRef);
             Queue.Add(productionObject.Id, productionObject);
-            await _apiService.AddProduction(productionObject.Id, productionObject);
+            await _apiService.AddProduction(productionObject, itemsToRemove);
         }
 
-        public async UniTask RemoveProduction(Guid id)
+        public async void CompleteProduction(Guid id, ItemData itemData, GroupData groupData)
         {
             Queue.Remove(id);
-            await _apiService.RemoveProduction(id);
+            await _apiService.CompleteProduction(id, itemData, groupData);
         }
 
         public async void AddProductionSize()

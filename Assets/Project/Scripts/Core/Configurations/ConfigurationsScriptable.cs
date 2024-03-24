@@ -19,11 +19,15 @@ namespace Syndicate.Core.Configurations
         [SerializeField] private ComponentSetScriptable componentSet;
         [SerializeField] private ProductSetScriptable productSet;
 
+        [Header("Production")]
+        [SerializeField] private ProductionSetScriptable productionSet;
+
         public ExperienceSetScriptable ExperienceSet => experienceSet;
         public UnitSetScriptable UnitSet => unitSet;
         public RawSetScriptable RawSet => rawSet;
         public ComponentSetScriptable ComponentSet => componentSet;
         public ProductSetScriptable ProductSet => productSet;
+        public ProductionSetScriptable ProductionSet => productionSet;
 
         public UnitTypeScriptable GetUnitTypeData(UnitTypeId unitTypeId)
         {

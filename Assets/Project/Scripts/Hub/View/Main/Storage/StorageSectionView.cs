@@ -3,6 +3,7 @@ using System.Linq;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
+using Syndicate.Utils;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using Zenject;
@@ -12,7 +13,8 @@ namespace Syndicate.Hub.View.Main
     public class StorageSectionView : MonoBehaviour
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
-        [Inject] private readonly IProductsService _productsService;
+        [Inject] private readonly IItemsService _itemsService;
+        [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly IStorageSectionFactory _storageSectionFactory;
 
         [SerializeField] private LocalizeStringEvent productGroupType;
@@ -57,14 +59,15 @@ namespace Syndicate.Hub.View.Main
         private void Awake()
         {
             tabs.ForEach(x => x.OnClickEvent += OnTabClick);
-            CurrentTab = tabs.First();
         }
 
-        private void Start()
+        private void OnEnable()
         {
+            CurrentTab = tabs.First();
+
             CreateItems();
             SetTitleData();
-            sidebar.SetData(CurrentItem.Data);
+            sidebar.SetData(CurrentItem.GroupData);
         }
 
         private void OnTabClick(StorageTabView tab)
@@ -75,7 +78,7 @@ namespace Syndicate.Hub.View.Main
 
             CreateItems();
             SetTitleData();
-            sidebar.SetData(CurrentItem.Data);
+            sidebar.SetData(CurrentItem.GroupData);
         }
 
         private void CreateItems()
@@ -83,20 +86,25 @@ namespace Syndicate.Hub.View.Main
             if (items.Count != 0)
                 items.ForEach(x => x.gameObject.SetActive(false));
 
-            var unitTabType = CurrentTab.Type;
-            var productObjects = unitTabType == UnitTypeId.All
-                ? _productsService.GetAllProducts()
-                : _productsService.GetProductsByUnitType(unitTabType);
+            var itemObjects = _itemsService.GetAllItems()
+                .Where(x => x.ItemType != ItemType.Raw)
+                .Where(x => x.Count != 0)
+                .ToList();
 
-            for (var i = 0; i < productObjects.Count; i++)
+            for (var i = 0; i < itemObjects.Count; i++)
             {
+                var itemData = itemObjects[i];
+                var groupId = ItemsUtil.ParseItemToIds(itemData.Id);
+                var groupData = _itemsProvider.GetCraftableItemById(itemData.ItemType, groupId.First());
+                if (CurrentTab.Type != UnitTypeId.All && groupData.UnitTypeId != CurrentTab.Type) continue;
+
                 if (items.ElementAtOrDefault(i) == null)
                 {
                     var item = _storageSectionFactory.CreateItem(itemsParent);
                     items.Add(item);
                 }
 
-                items[i].SetData(productObjects[i]);
+                items[i].SetData(itemData, groupData);
                 items[i].OnClickEvent += OnItemClick;
                 items[i].gameObject.SetActive(true);
             }
@@ -111,13 +119,13 @@ namespace Syndicate.Hub.View.Main
             CurrentItem = item;
 
             SetTitleData();
-            sidebar.SetData(CurrentItem.Data);
+            sidebar.SetData(CurrentItem.GroupData);
         }
 
         private void SetTitleData()
         {
-            productGroupType.StringReference = _configurations.GetProductGroupData(CurrentItem.Data.ProductGroupId).Locale;
-            unitType.StringReference = _configurations.GetUnitTypeData(CurrentItem.Data.UnitTypeId).Locale;
+            productGroupType.StringReference = _configurations.GetProductGroupData(CurrentItem.GroupData.ProductGroupId).Locale;
+            unitType.StringReference = _configurations.GetUnitTypeData(CurrentItem.GroupData.UnitTypeId).Locale;
         }
     }
 }

@@ -19,17 +19,17 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private TMP_Text count;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        public void SetData(ItemBaseObject itemObject, int needCount = 0)
+        public void SetData(ItemBaseObject itemBase, int needCount = 0)
         {
-            icon.gameObject.SetActive(itemObject != null);
-            count.gameObject.SetActive(itemObject != null);
-            canvasGroup.alpha = itemObject != null ? NotNullAlpha : NullAlpha;
+            icon.gameObject.SetActive(itemBase != null);
+            count.gameObject.SetActive(itemBase != null);
+            canvasGroup.alpha = itemBase != null ? NotNullAlpha : NullAlpha;
 
-            if (itemObject != null)
+            if (itemBase != null)
             {
-                icon.sprite = _assetsService.GetSprite(itemObject.SpriteAssetId);
+                icon.sprite = _assetsService.GetSprite(itemBase.SpriteAssetId);
 
-                var item = _itemsService.GetItemData(itemObject.ItemType, itemObject.Key);
+                var item = _itemsService.GetItemData(itemBase);
                 count.text = $"{needCount}/{item.Count}";
             }
         }

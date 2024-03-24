@@ -14,7 +14,9 @@ namespace Syndicate.Core.Configurations
     {
         private RawSetScriptable _data;
 
-        private readonly List<bool> _infoFoldout = new();
+        private readonly List<bool> _infoItemFoldout = new();
+        private readonly List<bool> _infoGroupFoldout = new();
+
         private bool _recipeFoldout;
         private bool _specificationsFoldout;
 
@@ -22,9 +24,14 @@ namespace Syndicate.Core.Configurations
         {
             _data = (RawSetScriptable) target;
 
-            for (var i = 0; i < _data.Count; i++)
+            for (var i = 0; i < _data.Items.Count; i++)
             {
-                _infoFoldout.Add(false);
+                _infoItemFoldout.Add(false);
+            }
+
+            for (var i = 0; i < _data.Groups.Count; i++)
+            {
+                _infoGroupFoldout.Add(false);
             }
 
             EditorUtility.SetDirty(_data);
@@ -40,29 +47,43 @@ namespace Syndicate.Core.Configurations
 
                 EditorGUILayout.BeginHorizontal(EditorStyles.objectFieldThumb);
                 EditorGUI.indentLevel++;
-                _infoFoldout[index] = EditorGUILayout.Foldout(_infoFoldout[index], item.Name);
+                _infoItemFoldout[index] = EditorGUILayout.Foldout(_infoItemFoldout[index], item.Name);
                 EditorGUI.indentLevel--;
                 EditorGUILayout.EndHorizontal();
 
-                if (!_infoFoldout[index])
+                if (!_infoItemFoldout[index])
                     continue;
 
-                CreateProduct(item, index);
+                CreateItem(item, index);
+            }
+
+            EditorGUILayout.Space();
+
+            foreach (var group in _data.Groups)
+            {
+                var index = _data.Groups.IndexOf(group);
+
+                EditorGUILayout.BeginHorizontal(EditorStyles.objectFieldThumb);
+                EditorGUI.indentLevel++;
+                _infoGroupFoldout[index] = EditorGUILayout.Foldout(_infoGroupFoldout[index], group.Name);
+                EditorGUI.indentLevel--;
+                EditorGUILayout.EndHorizontal();
+
+                if (!_infoGroupFoldout[index])
+                    continue;
+
+                CreateGroup(group);
             }
 
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void CreateProduct(RawScriptable data, int index)
+        private void CreateItem(RawItemScriptable data, int index)
         {
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.BeginHorizontal(EditorStyles.objectField);
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter };
-            EditorGUILayout.LabelField("Info", style, GUILayout.ExpandWidth(true));
-            EditorGUILayout.EndHorizontal();
 
             data.Name = EditorGUILayout.TextField("Name", data.Name);
-            data.Key = (RawId)EditorGUILayout.TextField("Key", data.Key);
+            data.Key = (RawItemId)EditorGUILayout.TextField("Key", data.Key);
             data.Id = EditorGUILayout.TextField("Id", data.Id);
 
             EditorGUILayout.Space();
@@ -85,6 +106,16 @@ namespace Syndicate.Core.Configurations
                 .GetArrayElementAtIndex(index)
                 .FindPropertyRelative("descriptionLocale"), new GUIContent("Description Locale"));
             EditorGUI.indentLevel--;
+            EditorGUILayout.EndVertical();
+        }
+
+        private void CreateGroup(RawGroupScriptable data)
+        {
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            data.Name = EditorGUILayout.TextField("Name", data.Name);
+            data.Key = (RawGroupId)EditorGUILayout.TextField("Key", data.Key);
+
             EditorGUILayout.EndVertical();
         }
     }

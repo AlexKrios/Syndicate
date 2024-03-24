@@ -6,6 +6,6 @@ namespace Syndicate.Hub.View.Main
     {
         public MainViewType CurrentTabType { get; set; }
 
-        public ProductionSectionView ProductionSection { get; set; }
+        public ProductionView Production { get; set; }
     }
 }

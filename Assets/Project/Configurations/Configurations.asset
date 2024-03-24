@@ -19,3 +19,4 @@ MonoBehaviour:
   rawSet: {fileID: 11400000, guid: f4f22b02bfd2aaf419988f48132db9b2, type: 2}
   componentSet: {fileID: 11400000, guid: 4b24e4140d4127947a66a71908a6b394, type: 2}
   productSet: {fileID: 11400000, guid: 4a906f584ee47d74884f9e586519a5f2, type: 2}
+  productionSet: {fileID: 11400000, guid: ff77bf9bdc996ab4ebd97c86df2386e1, type: 2}

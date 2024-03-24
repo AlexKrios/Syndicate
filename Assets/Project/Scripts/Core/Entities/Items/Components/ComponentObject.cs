@@ -1,22 +1,19 @@
-﻿using Newtonsoft.Json;
-using Syndicate.Core.Configurations;
+﻿using Syndicate.Core.Configurations;
 
 namespace Syndicate.Core.Entities
 {
     public class ComponentObject : ItemBaseObject, ICraftableItem
     {
-        [JsonIgnore] public ProductGroupId ProductGroupId { get; }
-        [JsonIgnore] public UnitTypeId UnitTypeId { get; }
-
-        [JsonIgnore] public RecipeObject Recipe { get; }
+        public ProductGroupId ProductGroupId { get; }
+        public UnitTypeId UnitTypeId { get; }
 
         public int Experience { get; set; }
 
         public ComponentObject(ComponentScriptable data)
         {
             ItemType = ItemType.Component;
-            Key = data.Key;
             Id = data.Id;
+            Key = data.Key;
 
             NameLocale = data.NameLocale;
             DescriptionLocale = data.DescriptionLocale;

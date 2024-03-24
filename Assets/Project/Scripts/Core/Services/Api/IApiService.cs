@@ -16,11 +16,11 @@ namespace Syndicate.Core.Services
 
         UniTask SetCountItems(Dictionary<string, object> items);
 
-        UniTask AddProduction(Guid id, ProductionObject data);
+        UniTask AddProduction(ProductionObject data, Dictionary<string, object> items);
 
         UniTask RemoveProduction(Guid id);
 
-        UniTask CompleteProduction(ItemData itemData, GroupData groupData);
+        UniTask CompleteProduction(Guid id, ItemData itemData, GroupData groupData);
 
         UniTask SetProductionLevel(int value);
 

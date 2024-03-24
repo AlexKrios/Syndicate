@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
-using Syndicate.Core.Profile;
 using Zenject;
 
 namespace Syndicate.Core.Services
@@ -14,26 +13,31 @@ namespace Syndicate.Core.Services
     public class ComponentsService : IComponentsService, IService
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
-        [Inject] private readonly IGameService _gameService;
 
-        private PlayerProfile PlayerProfile => _gameService.GetPlayerProfile();
-        private Dictionary<ComponentId, ComponentObject> ComponentObjects => PlayerProfile.Inventory.Components;
+        private Dictionary<ComponentId, ComponentObject> _componentObjects;
 
         public UniTask Initialize()
         {
-            PlayerProfile.Inventory.Components = _configurations.ComponentSet.Items
+            _componentObjects = _configurations.ComponentSet.Items
                 .ToDictionary(x => x.Key, x => new ComponentObject(x));
 
             return UniTask.CompletedTask;
         }
 
-        public ComponentObject GetComponent(ComponentId assetId)
+        public List<ComponentObject> GetAllProducts() => _componentObjects.Values.ToList();
+
+        public ComponentObject GetComponent(ComponentId key)
         {
-            return ComponentObjects.TryGetValue(assetId, out var productObject)
+            return _componentObjects.TryGetValue(key, out var productObject)
                 ? productObject
-                : throw new Exception($"Can't find {nameof(ComponentObject)} with id {assetId}");
+                : throw new Exception($"Can't find {nameof(ComponentObject)} with key {key}");
         }
 
-        public List<ComponentObject> GetAllProducts() => ComponentObjects.Values.ToList();
+        public ComponentObject GetComponentById(string id)
+        {
+            var componentObject = _componentObjects.Values.FirstOrDefault(x => x.Id == id);
+            return componentObject
+                   ?? throw new Exception($"Can't find {nameof(ComponentObject)} with id {id}");
+        }
     }
 }

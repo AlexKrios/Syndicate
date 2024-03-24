@@ -9,12 +9,9 @@ namespace Syndicate.Preload.StateMachine
     public class GameInitializeState : AbstractState, IState
     {
         [Inject] private readonly IGameService _gameService;
-        [Inject] private readonly ISettingsService _settingsService;
-
-        public async void Enter()
+        public void Enter()
         {
-            await _gameService.CreateGame();
-            await _settingsService.Initialize();
+            _gameService.CreatePlayerProfile();
 
             stateMachine.Enter<ServiceInitializeState>();
         }

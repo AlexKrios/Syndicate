@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Syndicate.Preload.StateMachine
@@ -10,16 +9,18 @@ namespace Syndicate.Preload.StateMachine
     public class ServiceInitializeState : AbstractState, IState
     {
         [Inject] private readonly DiContainer _diContainer;
+        [Inject] private readonly ISettingsService _settingsService;
 
         public async void Enter()
         {
+            await _settingsService.Initialize();
             var services = _diContainer.ResolveAll<IService>();
             foreach (var service in services)
             {
                 await service.Initialize();
             }
 
-            SceneManager.LoadScene("Hub");
+            stateMachine.Enter<ProfileInitializeState>();
         }
 
         public void Click() { }

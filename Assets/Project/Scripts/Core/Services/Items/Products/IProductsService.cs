@@ -5,9 +5,9 @@ namespace Syndicate.Core.Services
 {
     public interface IProductsService
     {
-        ProductObject GetProduct(ProductId assetId);
-
         List<ProductObject> GetAllProducts();
+        ProductObject GetProduct(ProductId assetId);
+        ProductObject GetProductById(string id);
 
         List<ProductObject> GetProductsByUnitType(UnitTypeId unitTypeId);
     }

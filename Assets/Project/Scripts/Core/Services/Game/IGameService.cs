@@ -5,8 +5,10 @@ namespace Syndicate.Core.Services
 {
     public interface IGameService
     {
-        UniTask CreateGame();
-
         PlayerProfile GetPlayerProfile();
+
+        void CreatePlayerProfile();
+
+        UniTask LoadPlayerProfile();
     }
 }

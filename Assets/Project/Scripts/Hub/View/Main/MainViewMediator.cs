@@ -7,14 +7,14 @@ namespace Syndicate.Hub.View.Main
     {
         [Inject] private IViewModelFactory _viewModelFactory;
 
-        private ProductionSectionView _productionSection;
+        private ProductionView _production;
 
         public override void Initialize()
         {
             viewModel = _viewModelFactory.Build<MainViewModel>();
             base.Initialize();
 
-            _productionSection = viewModel.ProductionSection;
+            _production = viewModel.Production;
         }
     }
 }

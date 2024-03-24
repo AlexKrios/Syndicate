@@ -25,6 +25,7 @@ namespace Syndicate.DI
 
             Container.BindInterfacesTo<ApiService>().AsSingle();
             Container.BindInterfacesTo<GameService>().AsSingle();
+
             Container.BindInterfacesTo<AssetsService>().AsSingle();
 
             Container.BindInterfacesTo<SettingsService>().AsSingle();
@@ -37,16 +38,19 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<RawService>().AsSingle();
             Container.BindInterfacesTo<ComponentsService>().AsSingle();
             Container.BindInterfacesTo<ProductsService>().AsSingle();
+            Container.BindInterfacesTo<ItemsProvider>().AsSingle();
             Container.BindInterfacesTo<ItemsService>().AsSingle();
 
             Container.BindInterfacesTo<ProductionService>().AsSingle();
 
             Container.BindFactory<ServiceInitializeState, ServiceInitializeState.Factory>();
             Container.BindFactory<GameInitializeState, GameInitializeState.Factory>();
+            Container.BindFactory<ProfileInitializeState, ProfileInitializeState.Factory>();
             Container.BindInterfacesAndSelfTo<PreloadStateMachine>().AsSingle();
 
             Container.BindInterfacesTo<PreloadStarter>().AsSingle();
 
+            Container.Bind<ItemsUtil>().AsSingle();
             Container.Bind<SpecificationsUtil>().AsSingle();
         }
     }

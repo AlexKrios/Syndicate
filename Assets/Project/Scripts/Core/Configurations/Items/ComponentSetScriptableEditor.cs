@@ -143,10 +143,15 @@ namespace Syndicate.Core.Configurations
                 var optionsType = new[] { GUILayout.MaxWidth(100f), GUILayout.MinWidth(10f) };
                 part.ItemType = (ItemType) EditorGUILayout.EnumPopup(part.ItemType, optionsType);
 
-                var idsValues = GetValues(part.ItemType);
+                var idsValues = GetKeys(part.ItemType);
                 var index = Mathf.Max(0, Array.IndexOf(idsValues, part.Key));
                 index = EditorGUILayout.Popup(index, idsValues);
                 part.Key = idsValues[index];
+
+                var keyOption = new[] { GUILayout.MaxWidth(100f), GUILayout.MinWidth(10f) };
+                EditorGUI.BeginDisabledGroup(true);
+                part.Id = EditorGUILayout.TextField(GetIdByKey(part.ItemType, part.Key), keyOption);
+                EditorGUI.EndDisabledGroup();
 
                 var options = new[] { GUILayout.MaxWidth(50f), GUILayout.MinWidth(10f) };
                 part.Count = EditorGUILayout.IntField(part.Count, options);
@@ -195,13 +200,24 @@ namespace Syndicate.Core.Configurations
             EditorGUILayout.EndHorizontal();
         }
 
-        private static string[] GetValues(ItemType itemType)
+        private static string[] GetKeys(ItemType itemType)
         {
             return itemType switch
             {
-                ItemType.Raw => EntitiesUtil.GetRawValues(),
-                ItemType.Component => EntitiesUtil.GetComponentValues(),
-                ItemType.Product => EntitiesUtil.GetProductValues(),
+                ItemType.Raw => EntitiesUtil.GetRawItemKeys(),
+                ItemType.Component => EntitiesUtil.GetComponentItemKeys(),
+                ItemType.Product => EntitiesUtil.GetProductItemKeys(),
+                _ => null
+            };
+        }
+
+        private static string GetIdByKey(ItemType itemType, string key)
+        {
+            return itemType switch
+            {
+                ItemType.Raw => EntitiesUtil.GetRawItemIdsByKey(key),
+                ItemType.Component => EntitiesUtil.GetComponentItemIdByKey(key),
+                ItemType.Product => EntitiesUtil.GetProductItemIdByKey(key),
                 _ => null
             };
         }

@@ -15,7 +15,7 @@ MonoBehaviour:
   items:
   - name: Raw Weapon
     key: weapon
-    id: raw_weapon
+    id: rawwn
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
@@ -36,9 +36,15 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: raw_weapon
+    recipe:
+      parts: []
+      specifications: []
+      craftTime: 0
+      experience: 0
+      cost: 0
   - name: Raw Armor
     key: armor
-    id: raw_armor
+    id: rawar
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
@@ -59,6 +65,17 @@ MonoBehaviour:
       m_LocalVariables: []
     spriteAssetId:
       value: raw_armor
+    recipe:
+      parts: []
+      specifications: []
+      craftTime: 0
+      experience: 0
+      cost: 0
+  groups:
+  - name: Raw Group Weapon
+    key: raw_group_weapon
+  - name: Raw Group Armor
+    key: raw_group_armor
   references:
     version: 2
     RefIds: []

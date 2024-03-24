@@ -9,7 +9,6 @@ namespace Syndicate.Hub.View.Main
     public class ProductionCellFinishState : IState
     {
         [Inject] private readonly SignalBus _signalBus;
-        [Inject] private readonly IApiService _apiService;
         [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly IItemsService _itemsService;
         [Inject] private readonly IAssetsService _assetsService;
@@ -31,18 +30,18 @@ namespace Syndicate.Hub.View.Main
             _cell.SetReadyTimer();
         }
 
-        public async void Click()
+        public void Click()
         {
             var data = _cell.Data;
-            await _productionService.RemoveProduction(data.Id);
+            var itemBase = _itemsProvider.GetItem(data.Type, data.Key);
 
-            var groupData = _itemsService.GetGroupData(data.Type, data.Key);
+            var groupData = _itemsService.GetGroupData(itemBase);
             groupData.Experience++;
 
-            var itemData = _itemsService.GetItemData(data.Type, data.Key);
+            var itemData = _itemsService.GetItemData(itemBase);
             itemData.Count++;
 
-            await _apiService.CompleteProduction(itemData, groupData);
+            _productionService.CompleteProduction(data.Id, itemData, groupData);
 
             _cell.SetStateReady();
             _signalBus.Fire(new ProductionChangeSignal());

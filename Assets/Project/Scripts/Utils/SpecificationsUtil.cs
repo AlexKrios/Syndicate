@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using Zenject;
 
 namespace Syndicate.Utils
 {
+    [UsedImplicitly]
     public class SpecificationsUtil
     {
         [Inject] private readonly IComponentsService _componentsService;

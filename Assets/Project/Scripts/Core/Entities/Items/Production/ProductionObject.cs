@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Syndicate.Core.Entities
 {
     [Serializable]
     public class ProductionObject
     {
-        public Guid Id { get; set; }
-        public string Key { get; set; }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public ItemType Type { get; set; }
+        public Guid Guid { get; set; }
+        public string Id { get; set; }
 
         public long TimeEnd { get; set; }
         public int Index { get; set; }
@@ -23,9 +19,8 @@ namespace Syndicate.Core.Entities
         {
             return new Dictionary<string, object>
             {
-                ["Id"] = Id.ToString(),
-                ["Key"] = Key,
-                ["Type"] = Type.ToString(),
+                ["Guid"] = Guid.ToString(),
+                ["Id"] = Id,
                 ["TimeEnd"] = TimeEnd,
                 ["Index"] = Index
             };

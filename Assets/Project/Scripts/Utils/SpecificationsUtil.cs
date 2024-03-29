@@ -37,7 +37,7 @@ namespace Syndicate.Utils
                 if (part.ItemType != ItemType.Component)
                     continue;
 
-                var component = _componentsService.GetComponent((ComponentId)part.Key);
+                var component = _componentsService.GetComponentByKey((ComponentId)part.Key);
                 GetSpecificationValues(component.Recipe, false);
             }
 

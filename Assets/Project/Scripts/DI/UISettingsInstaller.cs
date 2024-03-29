@@ -9,12 +9,14 @@ namespace Syndicate.DI
     public class UISettingsInstaller : ScriptableObjectInstaller<UISettingsInstaller>
     {
         [SerializeField] private PopupService.Settings popups;
+        [SerializeField] private UnitSectionFactory.Settings units;
         [SerializeField] private ProductionSectionFactory.Settings production;
         [SerializeField] private StorageSectionFactory.Settings storage;
 
         public override void InstallBindings()
         {
             Container.BindInstance(popups);
+            Container.BindInstance(units);
             Container.BindInstance(production);
             Container.BindInstance(storage);
         }

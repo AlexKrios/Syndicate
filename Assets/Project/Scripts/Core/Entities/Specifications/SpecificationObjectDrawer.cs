@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using Syndicate.Utils;
 using UnityEditor;
@@ -27,3 +28,4 @@ namespace Syndicate.Core.Entities
         }
     }
 }
+#endif

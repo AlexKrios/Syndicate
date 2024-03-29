@@ -12,10 +12,10 @@ namespace Syndicate.Core.Configurations
     {
         [SerializeField] private string key;
         [SerializeField] private UnitTypeId unitTypeId;
-        [SerializeField] private SpriteAssetId spriteAssetId;
+        [SerializeField] private SpriteAssetId iconId;
 
         public UnitId Key => (UnitId)key;
         public UnitTypeId UnitTypeId => unitTypeId;
-        public SpriteAssetId SpriteAssetId => spriteAssetId;
+        public SpriteAssetId IconId => iconId;
     }
 }

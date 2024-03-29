@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - name: Raw Weapon
-    key: weapon
-    id: rawwn
+    key: raw_weapon
+    id: raw|wpn|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
@@ -43,8 +43,8 @@ MonoBehaviour:
       experience: 0
       cost: 0
   - name: Raw Armor
-    key: armor
-    id: rawar
+    key: raw_armor
+    id: raw|arm|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424

@@ -78,7 +78,7 @@ namespace Syndicate.Core.Services
 
         public async UniTask AddProduction(ProductionObject data, Dictionary<string, object> items)
         {
-            items.Add($"{UsersRoot}/{ProductionQueueRoot}/{data.Id.ToString()}", data.ToDictionary());
+            items.Add($"{UsersRoot}/{ProductionQueueRoot}/{data.Guid.ToString()}", data.ToDictionary());
             await FirebaseDatabase.RootReference.UpdateChildrenAsync(items);
         }
 

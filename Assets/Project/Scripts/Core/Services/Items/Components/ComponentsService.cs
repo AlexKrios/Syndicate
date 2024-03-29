@@ -26,7 +26,7 @@ namespace Syndicate.Core.Services
 
         public List<ComponentObject> GetAllProducts() => _componentObjects.Values.ToList();
 
-        public ComponentObject GetComponent(ComponentId key)
+        public ComponentObject GetComponentByKey(ComponentId key)
         {
             return _componentObjects.TryGetValue(key, out var productObject)
                 ? productObject

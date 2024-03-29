@@ -12,11 +12,13 @@ namespace Syndicate.Core.Configurations
         [SerializeField] private List<SpriteAssetScriptable> weapon;
         [SerializeField] private List<SpriteAssetScriptable> armor;
         [SerializeField] private List<SpriteAssetScriptable> units;
+        [SerializeField] private List<SpriteAssetScriptable> stars;
 
         public List<SpriteAssetScriptable> Raw => raw;
         public List<SpriteAssetScriptable> Weapon => weapon;
         public List<SpriteAssetScriptable> Armor => armor;
         public List<SpriteAssetScriptable> Units => units;
+        public List<SpriteAssetScriptable> Stars => stars;
 
         public List<SpriteAssetScriptable> GetAllSprites()
         {

@@ -2,6 +2,7 @@
 using Syndicate.Core.Services;
 using Syndicate.Core.Signals;
 using Syndicate.Core.StateMachine;
+using Syndicate.Utils;
 using Zenject;
 
 namespace Syndicate.Hub.View.Main
@@ -24,7 +25,7 @@ namespace Syndicate.Hub.View.Main
         public void Enter()
         {
             var data = _cell.Data;
-            var item = _itemsProvider.GetItem(data.Type, data.Key);
+            var item = _itemsProvider.GetItemById(ItemsUtil.ParseItemIdToGroupId(data.Id));
             var sprite = _assetsService.GetSprite(item.SpriteAssetId);
             _cell.SetCellIcon(sprite);
             _cell.SetReadyTimer();
@@ -33,15 +34,15 @@ namespace Syndicate.Hub.View.Main
         public void Click()
         {
             var data = _cell.Data;
-            var itemBase = _itemsProvider.GetItem(data.Type, data.Key);
+            var itemBase = _itemsProvider.GetItemById(ItemsUtil.ParseItemIdToGroupId(data.Id));
 
             var groupData = _itemsService.GetGroupData(itemBase);
             groupData.Experience++;
 
-            var itemData = _itemsService.GetItemData(itemBase);
+            var itemData = _itemsService.GetItemData(itemBase.Id);
             itemData.Count++;
 
-            _productionService.CompleteProduction(data.Id, itemData, groupData);
+            _productionService.CompleteProduction(data.Guid, itemData, groupData);
 
             _cell.SetStateReady();
             _signalBus.Fire(new ProductionChangeSignal());

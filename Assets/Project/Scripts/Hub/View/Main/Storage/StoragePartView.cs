@@ -1,6 +1,6 @@
 ﻿using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
-using TMPro;
+using Syndicate.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -13,24 +13,23 @@ namespace Syndicate.Hub.View.Main
         private const float NotNullAlpha = 1f;
 
         [Inject] private readonly IAssetsService _assetsService;
-        [Inject] private readonly IItemsService _itemsService;
 
         [SerializeField] private Image icon;
-        [SerializeField] private TMP_Text count;
+        [SerializeField] private Image star;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        public void SetData(ItemBaseObject itemBase, int needCount = 0)
+        public void SetData(ItemBaseObject itemBase)
         {
             icon.gameObject.SetActive(itemBase != null);
-            count.gameObject.SetActive(itemBase != null);
+            star.gameObject.SetActive(itemBase != null);
             canvasGroup.alpha = itemBase != null ? NotNullAlpha : NullAlpha;
 
             if (itemBase != null)
             {
                 icon.sprite = _assetsService.GetSprite(itemBase.SpriteAssetId);
 
-                var item = _itemsService.GetItemData(itemBase);
-                count.text = $"{needCount}/{item.Count}";
+                var starCount = ItemsUtil.ParseItemIdToStar(itemBase.Id);
+                star.sprite = _assetsService.GetStarSprite(starCount);
             }
         }
     }

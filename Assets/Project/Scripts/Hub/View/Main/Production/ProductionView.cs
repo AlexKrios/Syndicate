@@ -30,17 +30,20 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private LocalizeStringEvent unitType;
         [SerializeField] private List<ProductionTabView> tabs;
 
-        [Header("Products")] [SerializeField] private Transform productsParent;
+        [Header("Products")]
+        [SerializeField] private Transform productsParent;
         [SerializeField] private List<ProductionProductView> products;
 
         [Header("Sidebar")]
         [SerializeField] private Image itemIcon;
         [SerializeField] private TMP_Text timerValue;
+        [SerializeField] private Image starIcon;
         [SerializeField] private LocalizeStringEvent itemName;
         [SerializeField] private LocalizeStringEvent itemDescription;
         [SerializeField] private List<ProductionSpecView> specifications;
         [SerializeField] private List<ProductionPartView> parts;
         [SerializeField] private Button create;
+        [SerializeField] private Button star;
 
         [Header("Queue")]
         [SerializeField] private Button queueButton;
@@ -48,6 +51,7 @@ namespace Syndicate.Hub.View.Main
 
         private ProductionTabView _currentTab;
         private ProductionItemView _currentItem;
+        private int _currentStar;
 
         private ProductionTabView CurrentTab
         {
@@ -81,18 +85,18 @@ namespace Syndicate.Hub.View.Main
 
             create.onClick.AddListener(CreateClick);
             queueButton.onClick.AddListener(() => queueObject.SetActive(true));
+            star.onClick.AddListener(StarClick);
 
             tabs.ForEach(x => x.OnClickEvent += OnTabClick);
             CurrentTab = tabs.First();
+        }
 
+        private void OnEnable()
+        {
+            _currentStar = 1;
             CreateProducts();
             SetTitleData();
             SetSidebarData();
-        }
-
-        private void Start()
-        {
-            SetCreateButtonState();
         }
 
         private void SetTitleData()
@@ -119,26 +123,24 @@ namespace Syndicate.Hub.View.Main
             if (products.Count != 0)
                 products.ForEach(x => x.gameObject.SetActive(false));
 
-            var unitTabType = CurrentTab.Type;
-            var productObjects = unitTabType == UnitTypeId.All
-                ? _productsService.GetAllProducts()
-                : _productsService.GetProductsByUnitType(unitTabType);
+            var productObjects = _productsService.GetProductsByUnitType(CurrentTab.Type)
+                .Where(x => ItemsUtil.ParseItemIdToStar(x.Id) == _currentStar).ToList();
 
             for (var i = 0; i < productObjects.Count; i++)
             {
                 if (products.ElementAtOrDefault(i) == null)
                     products.Add(_productionSectionFactory.CreateProduct(productsParent));
 
-                var productItems = new List<ICraftableItem> { productObjects[i] };
-                var componentIds = productObjects[i].Recipe.Parts.Select(x => x.Key).ToList();
-                foreach (var componentId in componentIds)
+                var item = productObjects[i];
+                _productionService.RecalculateItemParts(item);
+                var productItems = new List<ICraftableItem> { item };
+                foreach (var part in item.Recipe.Parts)
                 {
-                    var component = _itemsProvider.GetItem<ComponentObject>(componentId);
+                    var component = _itemsProvider.GetCraftableItemById(part.Id);
                     productItems.Add(component);
                 }
 
                 productItems.ForEach(x => _itemsService.TryAddItem((ItemBaseObject)x));
-
                 products[i].SetData(productItems, OnItemClick);
                 products[i].gameObject.SetActive(true);
             }
@@ -163,6 +165,8 @@ namespace Syndicate.Hub.View.Main
             var data = CurrentItem.GroupData;
 
             itemIcon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
+            var starCount = ItemsUtil.ParseItemIdToStar(data.Id);
+            starIcon.sprite = _assetsService.GetStarSprite(starCount);
             itemName.StringReference = data.NameLocale;
             itemDescription.StringReference = data.DescriptionLocale;
 
@@ -171,13 +175,6 @@ namespace Syndicate.Hub.View.Main
             var specificationsList = data is ProductObject
                 ? _specificationsUtil.GetProductSpecificationValues(data)
                 : recipe.Specifications;
-            SetSpecificationData(specificationsList);
-            SetPartsData(recipe.Parts);
-            SetCreateButtonState();
-        }
-
-        private void SetSpecificationData(IReadOnlyCollection<SpecificationObject> specificationsList)
-        {
             foreach (var specification in specifications)
             {
                 var needSpecification = specificationsList.FirstOrDefault(x => x.Type == specification.Id);
@@ -189,22 +186,21 @@ namespace Syndicate.Hub.View.Main
 
                 specification.SetData(needSpecification);
             }
-        }
 
-        private void SetPartsData(IReadOnlyList<PartObject> partObjects)
-        {
             for (var i = 0; i < parts.Count; i++)
             {
-                if (partObjects.ElementAtOrDefault(i) == null)
+                if (recipe.Parts.ElementAtOrDefault(i) == null)
                 {
                     parts[i].SetData(null);
                     continue;
                 }
 
-                var part = partObjects[i];
-                var partItemObject = _itemsProvider.GetItem(part.ItemType, part.Key);
+                var part = recipe.Parts[i];
+                var partItemObject = _itemsProvider.GetItemById(part.Id);
                 parts[i].SetData(partItemObject, part.Count);
             }
+
+            SetCreateButtonState();
         }
 
         private void CreateClick()
@@ -212,9 +208,8 @@ namespace Syndicate.Hub.View.Main
             var data = CurrentItem.GroupData;
             var productionObject = new ProductionObject
             {
-                Id = Guid.NewGuid(),
-                Key = data.Key,
-                Type = data.ItemType,
+                Guid = Guid.NewGuid(),
+                Id = ItemsUtil.ParseItemToId((ItemBaseObject)data),
                 TimeEnd = DateTime.Now.AddSeconds(data.Recipe.CraftTime).ToFileTime(),
                 Index = _productionService.GetFreeCell(),
                 ItemRef = data
@@ -227,6 +222,16 @@ namespace Syndicate.Hub.View.Main
         private void SetCreateButtonState()
         {
             create.interactable = _productionService.IsHaveFreeCell() && _productionService.IsHaveNeedItems(CurrentItem.GroupData);
+        }
+
+        private void StarClick()
+        {
+            var nextStar = _currentStar + 1;
+            _currentStar = nextStar <= Constants.MaxStar ? nextStar : 1;
+
+            CreateProducts();
+            SetTitleData();
+            SetSidebarData();
         }
     }
 }

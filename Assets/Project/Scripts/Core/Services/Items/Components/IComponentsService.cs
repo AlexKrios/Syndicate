@@ -6,7 +6,7 @@ namespace Syndicate.Core.Services
     public interface IComponentsService
     {
         List<ComponentObject> GetAllProducts();
-        ComponentObject GetComponent(ComponentId key);
+        ComponentObject GetComponentByKey(ComponentId key);
         ComponentObject GetComponentById(string id);
     }
 }

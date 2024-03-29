@@ -6,7 +6,6 @@ namespace Syndicate.Core.Entities
     [Serializable]
     public class GroupData
     {
-        public ItemType ItemType { get; set; }
         public string Id { get; set; }
         public int Experience { get; set; }
 
@@ -14,7 +13,6 @@ namespace Syndicate.Core.Entities
         {
             return new Dictionary<string, object>
             {
-                ["ItemTypeId"] = ItemType.ToString(),
                 ["Id"] = Id,
                 ["Experience"] = Experience
             };

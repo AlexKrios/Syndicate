@@ -15,6 +15,7 @@ MonoBehaviour:
   items:
   - unitTypeId:
       value: Trooper
+    bgColor: {r: 0.93333334, g: 0.5372549, b: 0.12941177, a: 1}
     locale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
@@ -26,6 +27,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - unitTypeId:
       value: Defender
+    bgColor: {r: 0.2627451, g: 0.42745098, b: 0.6627451, a: 1}
     locale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
@@ -37,6 +39,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - unitTypeId:
       value: Support
+    bgColor: {r: 0.2, g: 0.6627451, b: 0.28235295, a: 1}
     locale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
@@ -48,6 +51,7 @@ MonoBehaviour:
       m_LocalVariables: []
   - unitTypeId:
       value: Sniper
+    bgColor: {r: 0.62352943, g: 0.3019608, b: 0.21960784, a: 1}
     locale:
       m_TableReference:
         m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424

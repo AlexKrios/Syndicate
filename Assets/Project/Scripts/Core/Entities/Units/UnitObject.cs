@@ -4,11 +4,11 @@ namespace Syndicate.Core.Entities
 {
     public class UnitObject
     {
-        public UnitId Key { get; set; }
+        public UnitId Key { get; }
 
-        public UnitTypeId UnitTypeId { get; set; }
+        public UnitTypeId UnitTypeId { get; }
 
-        public SpriteAssetId SpriteAssetId { get; set; }
+        public SpriteAssetId IconId { get; }
 
         public UnitObject(UnitScriptable data)
         {
@@ -16,7 +16,7 @@ namespace Syndicate.Core.Entities
 
             UnitTypeId = data.UnitTypeId;
 
-            SpriteAssetId = data.SpriteAssetId;
+            IconId = data.IconId;
         }
     }
 }

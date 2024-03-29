@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Profile;
+using Syndicate.Utils;
 using Zenject;
 
 namespace Syndicate.Core.Services
@@ -20,6 +21,9 @@ namespace Syndicate.Core.Services
         public int Level => PlayerProfile.Production.Level;
         public int Size => PlayerProfile.Production.Size;
         private Dictionary<Guid, ProductionObject> Queue => PlayerProfile.Production.Queue;
+        private Dictionary<string, string> Presets => PlayerProfile.Production.Presets;
+
+        public string GetItemPreset(string itemId) => Presets[itemId];
 
         public bool IsHaveFreeCell() => Size > Queue.Count;
 
@@ -27,7 +31,7 @@ namespace Syndicate.Core.Services
         {
             foreach (var part in data.Recipe.Parts)
             {
-                var item = _itemsService.GetItemData(part.ItemType, part.Key);
+                var item = _itemsService.GetItemData(part.Id);
                 if (item.Count < part.Count)
                     return false;
             }
@@ -50,12 +54,24 @@ namespace Syndicate.Core.Services
             return freeIndex;
         }
 
+        public void RecalculateItemParts(ICraftableItem item)
+        {
+            var parts = item.Recipe.Parts;
+            var preset = GetItemPreset(item.Id);
+            var itemIds = ItemsUtil.ParseItemIdToPartIds(preset);
+            for (var i = 0; i < itemIds.Length - 1; i++)
+            {
+                parts[i].Id = itemIds[i + 1];
+            }
+        }
+
         public List<ProductionObject> GetAllProduction() => Queue.Values.ToList();
 
         public async void AddProduction(ProductionObject productionObject)
         {
+            Queue.Add(productionObject.Guid, productionObject);
+
             var itemsToRemove = _itemsService.RemoveItems(productionObject.ItemRef);
-            Queue.Add(productionObject.Id, productionObject);
             await _apiService.AddProduction(productionObject, itemsToRemove);
         }
 

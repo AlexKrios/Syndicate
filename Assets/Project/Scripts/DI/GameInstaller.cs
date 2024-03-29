@@ -35,6 +35,8 @@ namespace Syndicate.DI
 
             Container.BindInterfacesTo<ExperienceService>().AsSingle();
 
+            Container.BindInterfacesTo<UnitsService>().AsSingle();
+
             Container.BindInterfacesTo<RawService>().AsSingle();
             Container.BindInterfacesTo<ComponentsService>().AsSingle();
             Container.BindInterfacesTo<ProductsService>().AsSingle();

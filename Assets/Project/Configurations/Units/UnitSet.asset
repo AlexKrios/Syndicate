@@ -16,5 +16,20 @@ MonoBehaviour:
   - key: unit_trooper
     unitTypeId:
       value: Trooper
-    spriteAssetId:
-      value: raw_weapon
+    iconId:
+      value: unit_trooper
+  - key: unit_defender
+    unitTypeId:
+      value: Defender
+    iconId:
+      value: unit_defender
+  - key: unit_support
+    unitTypeId:
+      value: Support
+    iconId:
+      value: unit_support
+  - key: unit_sniper
+    unitTypeId:
+      value: Sniper
+    iconId:
+      value: unit_sniper

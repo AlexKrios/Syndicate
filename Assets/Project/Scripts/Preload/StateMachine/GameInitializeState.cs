@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
+using UnityEngine;
 using Zenject;
 
 namespace Syndicate.Preload.StateMachine
@@ -11,6 +12,8 @@ namespace Syndicate.Preload.StateMachine
         [Inject] private readonly IGameService _gameService;
         public void Enter()
         {
+            Application.targetFrameRate = 500;
+
             _gameService.CreatePlayerProfile();
 
             stateMachine.Enter<ServiceInitializeState>();

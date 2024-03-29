@@ -1,4 +1,5 @@
 ﻿using System;
+using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using Syndicate.Core.View;
@@ -10,18 +11,21 @@ namespace Syndicate.Hub.View.Main
 {
     public class UnitItemView : ButtonWithActiveBorder
     {
+        [Inject] private readonly ConfigurationsScriptable _configurations;
         [Inject] private readonly IAssetsService _assetsService;
 
+        [SerializeField] private Image background;
         [SerializeField] private Image icon;
 
         public Action<UnitItemView> OnClickEvent { get; set; }
-        public ICraftableItem Data { get; private set; }
+        public UnitObject Data { get; private set; }
 
-        public void SetData(ICraftableItem data)
+        public void SetData(UnitObject data)
         {
             Data = data;
 
-            icon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
+            background.color = _configurations.GetUnitTypeData(Data.UnitTypeId).BgColor;
+            icon.sprite = _assetsService.GetSprite(data.IconId);
         }
 
         protected override void Click()

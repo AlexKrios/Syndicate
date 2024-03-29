@@ -10,5 +10,7 @@ namespace Syndicate.Core.Services
         AudioClip GetAudioClip(AudioAssetId assetId);
 
         Sprite GetSprite(SpriteAssetId assetId);
+
+        Sprite GetStarSprite(int starCount);
     }
 }

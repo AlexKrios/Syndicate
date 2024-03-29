@@ -36,9 +36,6 @@ namespace Syndicate.Core.Services
             if (!Items.TryGetValue(id, out _))
             {
                 var itemData = itemBase.ToItemData(id);
-                if (itemBase.ItemType != ItemType.Raw)
-                    itemData.Parts = ItemsUtil.ParseItemToParts(itemBase);
-
                 Items.Add(id, itemData);
             }
 
@@ -47,11 +44,9 @@ namespace Syndicate.Core.Services
 
         public List<ItemData> GetAllItems() => Items.Values.ToList();
 
-        public ItemData GetItemData(ItemBaseObject itemBase) => Items[ItemsUtil.ParseItemToId(itemBase)];
-
-        public ItemData GetItemData(ItemType itemType, string key)
+        public ItemData GetItemData(string id)
         {
-            var itemBase = _itemsProvider.GetItem(itemType, key);
+            var itemBase = _itemsProvider.GetItemById(id);
             return Items[ItemsUtil.ParseItemToId(itemBase)];
         }
 
@@ -60,7 +55,7 @@ namespace Syndicate.Core.Services
             var sendList = new Dictionary<string, object>();
             foreach (var part in data.Recipe.Parts)
             {
-                var item = GetItemData(part.ItemType, part.Key);
+                var item = GetItemData(part.Id);
                 item.Count -= part.Count;
 
                 sendList.Add($"{ApiService.ItemsPath}/{item.Id}/Count", item.Count);

@@ -53,10 +53,21 @@ MonoBehaviour:
   armor: []
   units:
   - id: unit_trooper
-    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}
+    sprite: {fileID: 21300000, guid: a213803aab275f9468429dc65520af6f, type: 3}
   - id: unit_defender
-    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}
+    sprite: {fileID: 21300000, guid: 790cb1a1323d0cc428703822eb6b3b97, type: 3}
   - id: unit_support
-    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}
+    sprite: {fileID: 21300000, guid: 361623dbe13440446b52335edf7cf283, type: 3}
   - id: unit_sniper
-    sprite: {fileID: 21300000, guid: 0d4f7d0d1f20fed4ab2093ace346775b, type: 3}
+    sprite: {fileID: 21300000, guid: 4fb1d8c2daf3ea948a089c46b68c83d4, type: 3}
+  stars:
+  - id: Star1
+    sprite: {fileID: 21300000, guid: 27d8ce2c443ab224781d935f8a332fd1, type: 3}
+  - id: Star2
+    sprite: {fileID: 21300000, guid: a87e9daafa00c1e41b3a14369d3f123e, type: 3}
+  - id: Star3
+    sprite: {fileID: 21300000, guid: 19be6395565d716469fc929ae0e3500a, type: 3}
+  - id: Star4
+    sprite: {fileID: 21300000, guid: 68d25f22e1def07469f13a2e208dc0dd, type: 3}
+  - id: Star5
+    sprite: {fileID: 21300000, guid: c7e44a9cd6c4f2a4098b19b5a5d16ca8, type: 3}

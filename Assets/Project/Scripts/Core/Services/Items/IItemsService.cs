@@ -9,8 +9,7 @@ namespace Syndicate.Core.Services
 
         ItemData TryAddItem(ItemBaseObject itemBase);
         List<ItemData> GetAllItems();
-        ItemData GetItemData(ItemBaseObject item);
-        ItemData GetItemData(ItemType itemType, string key);
+        ItemData GetItemData(string id);
 
         Dictionary<string, object> RemoveItems(ICraftableItem data);
     }

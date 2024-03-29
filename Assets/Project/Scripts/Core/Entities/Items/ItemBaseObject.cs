@@ -1,4 +1,5 @@
 ﻿using System;
+using Syndicate.Utils;
 using UnityEngine.Localization;
 
 namespace Syndicate.Core.Entities
@@ -21,8 +22,7 @@ namespace Syndicate.Core.Entities
         {
             return new GroupData
             {
-                ItemType = ItemType,
-                Id = id,
+                Id = ItemsUtil.ParseItemIdToGroupId(id),
                 Experience = 0
             };
         }
@@ -31,7 +31,6 @@ namespace Syndicate.Core.Entities
         {
             return new ItemData
             {
-                ItemType = ItemType,
                 Id = id,
                 Count = 0
             };

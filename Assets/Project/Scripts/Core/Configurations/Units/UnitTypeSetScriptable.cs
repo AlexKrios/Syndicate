@@ -12,9 +12,11 @@ namespace Syndicate.Core.Configurations
     public class UnitTypeScriptable
     {
         [SerializeField] private UnitTypeId unitTypeId;
+        [SerializeField] private Color bgColor;
         [SerializeField] private LocalizedString locale;
 
         public UnitTypeId UnitTypeId => unitTypeId;
+        public Color BgColor => bgColor;
         public LocalizedString Locale => locale;
     }
 }

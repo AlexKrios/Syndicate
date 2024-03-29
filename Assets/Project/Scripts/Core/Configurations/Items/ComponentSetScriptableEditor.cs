@@ -205,8 +205,11 @@ namespace Syndicate.Core.Configurations
             return itemType switch
             {
                 ItemType.Raw => EntitiesUtil.GetRawItemKeys(),
+                ItemType.RawGroup => EntitiesUtil.GetRawItemKeys(),
                 ItemType.Component => EntitiesUtil.GetComponentItemKeys(),
+                ItemType.ComponentGroup => EntitiesUtil.GetComponentItemKeys(),
                 ItemType.Product => EntitiesUtil.GetProductItemKeys(),
+                ItemType.ProductGroup => EntitiesUtil.GetProductItemKeys(),
                 _ => null
             };
         }
@@ -216,8 +219,11 @@ namespace Syndicate.Core.Configurations
             return itemType switch
             {
                 ItemType.Raw => EntitiesUtil.GetRawItemIdsByKey(key),
+                ItemType.RawGroup => EntitiesUtil.GetRawItemIdsByKey(key),
                 ItemType.Component => EntitiesUtil.GetComponentItemIdByKey(key),
+                ItemType.ComponentGroup => EntitiesUtil.GetComponentItemIdByKey(key),
                 ItemType.Product => EntitiesUtil.GetProductItemIdByKey(key),
+                ItemType.ProductGroup => EntitiesUtil.GetProductItemIdByKey(key),
                 _ => null
             };
         }

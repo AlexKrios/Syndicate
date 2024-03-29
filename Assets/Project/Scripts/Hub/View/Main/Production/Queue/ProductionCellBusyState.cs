@@ -22,7 +22,7 @@ namespace Syndicate.Hub.View.Main
         public void Enter()
         {
             var data = _cell.Data;
-            var item = _itemsProvider.GetItem(data.Type, data.Key);
+            var item = _itemsProvider.GetItemById(ItemsUtil.ParseItemIdToGroupId(data.Id));
             var sprite = _assetsService.GetSprite(item.SpriteAssetId);
             _cell.SetCellIcon(sprite);
 

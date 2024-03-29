@@ -49,6 +49,11 @@ namespace Syndicate.Core.Services
                 : throw new Exception($"Can't find {nameof(SpriteAssetId)} with id {assetId}");
         }
 
+        public Sprite GetStarSprite(int starCount)
+        {
+            return _settings.Sprite.Stars[starCount - 1].Sprite;
+        }
+
         [Serializable]
         public class Settings
         {

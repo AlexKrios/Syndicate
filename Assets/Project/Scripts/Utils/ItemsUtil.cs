@@ -1,39 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Syndicate.Core.Entities;
-using Syndicate.Core.Services;
-using Zenject;
 
 namespace Syndicate.Utils
 {
     [UsedImplicitly]
     public class ItemsUtil
     {
-        [Inject] private readonly IItemsProvider _itemsProvider;
-
-        public static string[] ParseItemToIds(string itemId)
+        public static string[] ParseItemIdToPartIds(string id)
         {
-            return itemId.Split("_");
+            return id.Split("_");
         }
 
-        public static int ParseItemToStar(string itemId)
+        public static string ParseItemIdToGroupId(string id)
         {
-            var stringStar = itemId.Split("|");
-            return Convert.ToInt32(stringStar[1]);
+            return id.Split("_").First();
         }
 
-        public static List<PartData> ParseItemToParts(ItemBaseObject itemData)
+        public static ItemType GetItemTypeById(string id)
         {
-            var parts = new List<PartData>();
-            var itemParts = itemData.Recipe.Parts;
-            itemParts.ForEach(x => parts.Add(new PartData
+            var itemTypeId = id.Split("|");
+            return itemTypeId.First() switch
             {
-                ItemType = x.ItemType,
-                Key = x.Key
-            }));
+                Constants.RawId => ItemType.Raw,
+                Constants.ComponentId => ItemType.Component,
+                Constants.ProductId => ItemType.Product,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
 
-            return parts;
+        public static int ParseItemIdToStar(string id)
+        {
+            var stringStar = id.Split("|");
+            return Convert.ToInt32(stringStar[2]);
         }
 
         public static string ParseItemToId(ItemBaseObject itemData)
@@ -49,12 +49,6 @@ namespace Syndicate.Utils
             }
 
             return id;
-        }
-
-        public ItemBaseObject ParseItemIdToItem(ItemData itemData)
-        {
-            var stringParts = itemData.Id.Split("_");
-            return _itemsProvider.GetItemById(itemData.ItemType, stringParts[0]);
         }
     }
 }

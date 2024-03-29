@@ -5,8 +5,10 @@ namespace Syndicate.Core.Services
 {
     public interface IRawService
     {
-        RawObject GetRaw(RawItemId assetItemId);
+        RawObject GetRawByKey(RawItemId key);
 
         List<RawObject> GetAllRaw();
+
+        RawObject GetRawById(string id);
     }
 }

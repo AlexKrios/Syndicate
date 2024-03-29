@@ -26,11 +26,11 @@ namespace Syndicate.Core.Services
 
         public List<ProductObject> GetAllProducts() => _productObjects.Values.ToList();
 
-        public ProductObject GetProduct(ProductId assetId)
+        public ProductObject GetProductByKey(ProductId key)
         {
-            return _productObjects.TryGetValue(assetId, out var productObject)
+            return _productObjects.TryGetValue(key, out var productObject)
                 ? productObject
-                : throw new Exception($"Can't find {nameof(ProductObject)} with id {assetId}");
+                : throw new Exception($"Can't find {nameof(ProductObject)} with key {key}");
         }
 
         public ProductObject GetProductById(string id)
@@ -42,6 +42,9 @@ namespace Syndicate.Core.Services
 
         public List<ProductObject> GetProductsByUnitType(UnitTypeId unitTypeId)
         {
+            if (unitTypeId == UnitTypeId.All)
+                return _productObjects.Values.ToList();
+
             return _productObjects
                 .Where(x => x.Value.UnitTypeId == unitTypeId)
                 .Select(x => x.Value).ToList();

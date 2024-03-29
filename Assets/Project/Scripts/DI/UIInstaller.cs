@@ -23,6 +23,7 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<SettingsViewMediator>().AsSingle();
 
             Container.BindInterfacesTo<MainViewMediator>().AsSingle();
+            Container.BindInterfacesTo<UnitSectionFactory>().AsSingle();
             Container.BindInterfacesTo<ProductionSectionFactory>().AsSingle();
             Container.BindInterfacesTo<StorageSectionFactory>().AsSingle();
 

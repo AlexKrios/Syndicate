@@ -2,6 +2,8 @@
 using System.Linq;
 using Syndicate.Core.View;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Syndicate.Hub.View.Main
@@ -11,6 +13,7 @@ namespace Syndicate.Hub.View.Main
         [Inject] private IPopupService _popupService;
 
         [SerializeField] private List<NavigationTabView> tabs;
+        [SerializeField] private Button battleButton;
 
         private MainViewModel _mainViewModel;
         private NavigationTabView _currentTab;
@@ -20,6 +23,8 @@ namespace Syndicate.Hub.View.Main
             _mainViewModel = _popupService.Get<MainViewModel>(true);
 
             tabs.ForEach(x => x.OnClickEvent += OnTabClick);
+
+            battleButton.onClick.AddListener(() => SceneManager.LoadScene("Battle"));
 
             CurrentTab = tabs.First();
         }

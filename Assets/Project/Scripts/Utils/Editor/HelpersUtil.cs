@@ -11,13 +11,14 @@ namespace Syndicate.Utils
     {
         private const string PreloaderPath = "Assets/Project/Scenes/Preloader.unity";
         private const string HubPath = "Assets/Project/Scenes/Hub.unity";
+        private const string BattlePath = "Assets/Project/Scenes/Battle.unity";
 
         static HelpersUtil()
         {
             EditorApplication.update = Update;
         }
 
-        [MenuItem("Helper/Open Preloader", false, 1)]
+        [MenuItem("Helper/Open Preloader", false, 0)]
         public static void OpenLauncher()
         {
             EditorSceneManager.SaveOpenScenes();
@@ -29,6 +30,13 @@ namespace Syndicate.Utils
         {
             EditorSceneManager.SaveOpenScenes();
             EditorSceneManager.OpenScene(HubPath);
+        }
+
+        [MenuItem("Helper/Open Battle", false, 2)]
+        public static void OpenBattle()
+        {
+            EditorSceneManager.SaveOpenScenes();
+            EditorSceneManager.OpenScene(BattlePath);
         }
 
         [MenuItem("Helper/Run Preloader", false, 101)]

@@ -14,5 +14,6 @@ public class BattleUnitObject
         Damage = data.Damage;
         Initiative = data.Initiative;
         Armor = data.Armor;
+        
     }
 }

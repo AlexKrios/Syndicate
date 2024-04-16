@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Syndicate.Battle
 {
@@ -7,7 +8,6 @@ namespace Syndicate.Battle
     {
         public Action OnEndTurn;
         public Action OnStartTurn;
-        public Action EnemyAttack;
 
         public enum Side
         {
@@ -52,17 +52,13 @@ namespace Syndicate.Battle
         public void Turn()
         {
             //anim
-
-            EnemyAttack?.Invoke();
-
+            
             EndTurn();
         }
 
-        public void EndTurn()
+        private void EndTurn()
         {
             OnEndTurn?.Invoke();
-
-            //if EndBattle
         }
     }
 }

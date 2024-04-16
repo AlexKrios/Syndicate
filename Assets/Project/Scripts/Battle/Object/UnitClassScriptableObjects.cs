@@ -1,6 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using Syndicate.Core.Configurations;
 using UnityEngine;
+using Zenject;
 
-[CreateAssetMenu(fileName = "Unit", menuName = "ScriptableObjects/Unit", order = 1)]
+[CreateAssetMenu(fileName = "Unit", menuName = "Scriptable/Unit", order = 0)]
 public class UnitClassScriptableObjects : ScriptableObject
 {
     public enum Side
@@ -8,15 +12,10 @@ public class UnitClassScriptableObjects : ScriptableObject
         Allies,
         Enemy
     }
-
-    public enum UnitClass
-    {
-        Rifler,
-        Sniper,
-        Defender,
-        Support
-    }
-
+    
+    public GameObject prefabAlly;
+    public GameObject prefabEnemy;
+    
     public int Health;
     public int Damage;
     public int Initiative;
@@ -25,9 +24,7 @@ public class UnitClassScriptableObjects : ScriptableObject
     private bool IsAlive;
     private bool CanAttack;
     private bool IsStep;
-    private bool IsTarget;
     
 
     public Side side;
-    public UnitClass unitClass;
 }

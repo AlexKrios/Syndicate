@@ -1,25 +1,24 @@
 ﻿using JetBrains.Annotations;
 using Syndicate.Core.StateMachine;
+using Syndicate.Core.View;
 using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
     public class ProductionCellReadyState : IState
     {
-        private readonly ProductionQueueCellView _cell;
-
-        public ProductionCellReadyState(ProductionQueueCellView cell)
-        {
-            _cell = cell;
-        }
+        [Inject] private IScreenService _screenService;
 
         public void Enter() { }
 
-        public void Click() { }
+        public void Click()
+        {
+            _screenService.Show<ProductionViewModel>();
+        }
 
         public void Exit() { }
 
         [UsedImplicitly]
-        public class Factory : PlaceholderFactory<ProductionQueueCellView, ProductionCellReadyState> { }
+        public class Factory : PlaceholderFactory<ProductionCellReadyState> { }
     }
 }

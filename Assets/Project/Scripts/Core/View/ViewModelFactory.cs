@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Zenject;
 
 namespace Syndicate.Core.View
 {
+    [UsedImplicitly]
     public class ViewModelFactory : IViewModelFactory
     {
         private readonly DiContainer _container;

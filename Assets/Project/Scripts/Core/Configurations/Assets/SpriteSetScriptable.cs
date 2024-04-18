@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Syndicate.Core.Configurations
 {
-    [CreateAssetMenu(fileName = "SpriteSet", menuName = "Scriptable/Assets/Sprite Set", order = 21)]
+    [CreateAssetMenu(fileName = "SpriteSet", menuName = "Scriptable/Assets/Sprite Set", order = -61)]
     public class SpriteSetScriptable : ScriptableObject
     {
         [SerializeField] private List<SpriteAssetScriptable> raw;

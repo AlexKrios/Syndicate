@@ -333,7 +333,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers:
   - {fileID: 11400000, guid: 0918e4358222a0d45bcbeac9327d8ed6, type: 2}
-  - {fileID: 11400000, guid: e7898fee7f1e38d4aa56fa01ce2c6fb4, type: 2}
   _monoInstallers:
   - {fileID: 8561945723736629981}
   - {fileID: 8714620030254492198}
@@ -377,5 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c7a6a6f3bf4425bed1fd5891baf10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screens: {fileID: 11400000, guid: 9a36ca88488d4164f977d97f9cea9d64, type: 2}
+  popups: {fileID: 11400000, guid: c0715ab1a4f15f5409bbd2a3b289ff8e, type: 2}
+  components: {fileID: 11400000, guid: d497f46eae1be274d8a4afb796464c85, type: 2}
   screenParent: {fileID: 5745880261719466142}
   popupParent: {fileID: 2765392858731667452}

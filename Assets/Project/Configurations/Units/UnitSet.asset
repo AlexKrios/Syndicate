@@ -18,18 +18,145 @@ MonoBehaviour:
       value: Trooper
     iconId:
       value: unit_trooper
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
+      m_TableEntryReference:
+        m_KeyId: 93598518587392
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 0
+    - type:
+        value: Health
+      value: 0
+    - type:
+        value: Defense
+      value: 0
+    - type:
+        value: Initiative
+      value: 0
   - key: unit_defender
     unitTypeId:
       value: Defender
     iconId:
       value: unit_defender
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
+      m_TableEntryReference:
+        m_KeyId: 93598518587393
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 0
+    - type:
+        value: Health
+      value: 0
+    - type:
+        value: Defense
+      value: 0
+    - type:
+        value: Initiative
+      value: 0
   - key: unit_support
     unitTypeId:
       value: Support
     iconId:
       value: unit_support
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
+      m_TableEntryReference:
+        m_KeyId: 93598518587394
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 0
+    - type:
+        value: Health
+      value: 0
+    - type:
+        value: Defense
+      value: 0
+    - type:
+        value: Initiative
+      value: 0
   - key: unit_sniper
     unitTypeId:
       value: Sniper
     iconId:
       value: unit_sniper
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
+      m_TableEntryReference:
+        m_KeyId: 93598518587395
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 0
+    - type:
+        value: Health
+      value: 0
+    - type:
+        value: Defense
+      value: 0
+    - type:
+        value: Initiative
+      value: 0
+  references:
+    version: 2
+    RefIds: []

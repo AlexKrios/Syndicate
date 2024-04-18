@@ -103,6 +103,10 @@ MonoBehaviour:
     m_Key: storage
     m_Metadata:
       m_Items: []
+  - m_Id: 12705929077436416
+    m_Key: close
+    m_Metadata:
+      m_Items: []
   - m_Id: 653424042684426
     m_Key: select
     m_Metadata:

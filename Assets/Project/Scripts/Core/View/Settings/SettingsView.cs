@@ -12,7 +12,7 @@ using Zenject;
 
 namespace Syndicate.Core.View
 {
-    public class SettingsView : ViewBase<SettingsViewModel>
+    public class SettingsView : PopupViewBase<SettingsViewModel>
     {
         [Inject] private readonly ISettingsService _settingsService;
         [Inject] private readonly IMusicService _musicService;
@@ -21,7 +21,7 @@ namespace Syndicate.Core.View
         /*[Inject] private readonly AuthService _authService;
         [Inject] private readonly SceneService _sceneService;*/
 
-        [SerializeField] private Button signOut;
+        //[SerializeField] private Button signOut;
         [SerializeField] private Button close;
 
         [Header("Music Slider Components")]

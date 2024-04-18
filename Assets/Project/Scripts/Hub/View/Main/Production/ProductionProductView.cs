@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Syndicate.Core.Entities;
+using Syndicate.Core.View;
 using UnityEngine;
 
 namespace Syndicate.Hub.View.Main
 {
-    public class ProductionProductView : MonoBehaviour
+    public class ProductionProductView : ComponentViewBase
     {
         [SerializeField] private List<ProductionItemView> items;
 

@@ -25,7 +25,7 @@ namespace Syndicate.Core.Services
 
         public UniTask Initialize()
         {
-            Experience = PlayerProfile.Inventory.Experience;
+            Experience = PlayerProfile.Profile.Experience;
             Level = GetLevelByExperience(Experience);
 
             OnExperienceSet?.Invoke();
@@ -36,7 +36,7 @@ namespace Syndicate.Core.Services
 
         public async void SetExperience(int experience)
         {
-            PlayerProfile.Inventory.Experience += experience;
+            PlayerProfile.Profile.Experience += experience;
             if (Experience >= GetCurrentLevelCap())
             {
                 Level++;

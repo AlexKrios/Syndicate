@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Syndicate.Core.View
 {
     [RequireComponent(typeof(Button))]
-    public abstract class ButtonWithActiveBorder : MonoBehaviour
+    public abstract class ButtonWithActiveBorder : ComponentViewBase
     {
         [SerializeField] private Transform activeBorder;
 

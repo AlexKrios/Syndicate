@@ -1,4 +1,5 @@
 ﻿using Syndicate.Core.Configurations;
+using UnityEngine;
 
 namespace Syndicate.Core.Entities
 {
@@ -10,6 +11,8 @@ namespace Syndicate.Core.Entities
 
         public SpriteAssetId IconId { get; }
 
+        public GameObject Prefab { get; }
+
         public UnitObject(UnitScriptable data)
         {
             Key = data.Key;
@@ -17,6 +20,8 @@ namespace Syndicate.Core.Entities
             UnitTypeId = data.UnitTypeId;
 
             IconId = data.IconId;
+
+            Prefab = data.Prefab;
         }
     }
 }

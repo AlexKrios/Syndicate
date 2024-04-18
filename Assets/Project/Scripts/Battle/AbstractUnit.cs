@@ -1,6 +1,6 @@
 using System;
+using Syndicate.Core.Entities;
 using UnityEngine;
-using Zenject;
 
 namespace Syndicate.Battle
 {
@@ -8,20 +8,6 @@ namespace Syndicate.Battle
     {
         public Action OnEndTurn;
         public Action OnStartTurn;
-
-        public enum Side
-        {
-            Allies,
-            Enemies
-        }
-
-        public enum UnitClass
-        {
-            Rifler,
-            Sniper,
-            Defender,
-            Support
-        }
 
         public GameObject floorAttack;
         public GameObject floorDefend;
@@ -35,15 +21,15 @@ namespace Syndicate.Battle
         public bool CanAttack { get; set; }
         public bool IsStep { get; set; }
 
+        public SideType side;
 
-        public Side side;
-        public UnitClass unitClass;
-
+        public BattleUnitObject Data { get; set; }
+        
         public void StartTurn()
         {
             OnStartTurn?.Invoke();
 
-            if (side == Side.Enemies)
+            if (side == SideType.Enemies)
             {
                 Turn();
             }

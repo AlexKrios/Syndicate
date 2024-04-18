@@ -7,7 +7,7 @@ namespace Syndicate.DI
     {
         public override void InstallBindings()
         {
-            Container.Bind<BattleManager>().AsSingle().NonLazy();
+            Container.Bind<BattleManager>().AsSingle();
         }
     }
 }

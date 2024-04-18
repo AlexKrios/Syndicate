@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Syndicate.Core.Entities;
+using Syndicate.Core.Services;
 using UnityEngine;
 using Zenject;
 
@@ -8,60 +10,54 @@ namespace Syndicate.Battle
 {
     public class BattleManager
     {
-        public List<AbstractUnit> listUnits = new();
+        [Inject] private IUnitsService _unitsService;
+        [Inject] private readonly DiContainer _container;
 
-        public List<AbstractUnit> listAllies = new();
-        public List<AbstractUnit> listEnemies = new();
-        
-        public AbstractUnit _activeUnit;
-        
-        private Ray _ray;
+        private readonly List<AbstractUnit> listUnits = new();
 
-        private bool _enemyTurn;
+        private readonly List<AbstractUnit> listAllies = new();
+        private readonly List<AbstractUnit> listEnemies = new();
 
-        private bool nextBattleTurn;
+        private List<string> unitListID = new()
+        {
+            "unit_trooper",
+            "unit_defender",
+            "unit_support",
+            "unit_sniper"
+        };
+
+        private AbstractUnit _activeUnit;
         
         public void InstantiateUnits()
         {
-            foreach (var point in Units.Instance.spawnPointAllies)
+            foreach (var point in BattleStarter.Instance.spawnPointAllies)
             {
-                var unitInstantiate = Object.Instantiate(Units.Instance.listScriptableUnits[0].prefabAlly, point);
-                
-                var unitObject = new BattleUnitObject(Units.Instance.listScriptableUnits[0]);
+                var unitData = _unitsService.GetUnit(new UnitId(unitListID[0]));
+                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.Prefab, point);
+                var unitBattleData = new BattleUnitObject(unitData);
+                unitInstantiate.Data = unitBattleData;
 
-                var unitComponent = unitInstantiate.GetComponent<AbstractUnit>();
-                
-                unitComponent.Health = unitObject.Health;
-                unitComponent.Damage = unitObject.Damage;
-                unitComponent.Initiative = unitObject.Initiative;
-                unitComponent.Armor = unitObject.Armor;
-                
-                unitComponent.CanAttack = false;
-                unitComponent.IsStep = false;
-                unitComponent.IsAlive = true;
+                unitInstantiate.CanAttack = false;
+                unitInstantiate.IsStep = false;
+                unitInstantiate.IsAlive = true;
 
-                unitComponent.OnStartTurn += UnitStartTurn;
-                unitComponent.OnEndTurn += UnitEndTurn;
+                unitInstantiate.OnStartTurn += UnitStartTurn;
+                unitInstantiate.OnEndTurn += UnitEndTurn;
                 
-                listAllies.Add(unitComponent);
-                listUnits.Add(unitComponent);
+                listAllies.Add(unitInstantiate);
+                listUnits.Add(unitInstantiate);
             }
-            foreach (var point in Units.Instance.spawnPointEnemies)
+            foreach (var point in BattleStarter.Instance.spawnPointEnemies)
             {
-                var unitInstantiate = Object.Instantiate(Units.Instance.listScriptableUnits[0].prefabEnemy, point);
-                
-                var unitObject = new BattleUnitObject(Units.Instance.listScriptableUnits[0]);
-
+                var unitData = _unitsService.GetUnit(new UnitId(unitListID[0]));
+                var unitInstantiate = Object.Instantiate(unitData.Prefab, point);
                 var unitComponent = unitInstantiate.GetComponent<AbstractUnit>();
-                
-                unitComponent.Health = unitObject.Health;
-                unitComponent.Damage = unitObject.Damage;
-                unitComponent.Initiative = unitObject.Initiative;
-                unitComponent.Armor = unitObject.Armor;
                 
                 unitComponent.CanAttack = false;
                 unitComponent.IsStep = false;
                 unitComponent.IsAlive = true;
+
+                unitComponent.side = SideType.Enemies;
                 
                 unitComponent.OnStartTurn += UnitStartTurn;
                 unitComponent.OnEndTurn += UnitEndTurn;
@@ -86,16 +82,18 @@ namespace Syndicate.Battle
 
         public async void Attack(AbstractUnit target)
         {
-            if (target.side == AbstractUnit.Side.Enemies)
+            if (target.side == SideType.Enemies)
             {
-                Quaternion startQuaternion = _activeUnit.transform.rotation;
-
-                _activeUnit.transform.rotation =
-                     Quaternion.LookRotation(target.transform.position);
+                var activeUnitT = _activeUnit.transform;
+                var startQuaternion = activeUnitT.rotation;
+                
+                activeUnitT.rotation = Quaternion.LookRotation(target.transform.position);
 
                 await UniTask.Delay(1000);
                 
-                _activeUnit.transform.rotation = startQuaternion;
+                //TODO Поменять после внедрения класса для изменения трансформа
+                // ReSharper disable once Unity.InefficientPropertyAccess
+                activeUnitT.rotation = startQuaternion;
 
                 target.Health -= _activeUnit.Damage - target.Armor;
                 _activeUnit.IsStep = true;
@@ -120,7 +118,7 @@ namespace Syndicate.Battle
 
                 SortingUnits();
             }
-            else if (_activeUnit.unitClass == AbstractUnit.UnitClass.Support && target.side == AbstractUnit.Side.Allies)
+            else if (_activeUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support && target.side == SideType.Allies)
             {
                 target.Health += _activeUnit.Damage;
                 _activeUnit.IsStep = true;
@@ -135,7 +133,7 @@ namespace Syndicate.Battle
 
                 SortingUnits();
             }
-            else if (target.side == AbstractUnit.Side.Allies && _activeUnit.side == AbstractUnit.Side.Enemies)
+            else if (target.side == SideType.Allies && _activeUnit.side == SideType.Enemies)
             {
                 target.Health -= _activeUnit.Damage - target.Armor;
                 _activeUnit.IsStep = true;
@@ -205,7 +203,7 @@ namespace Syndicate.Battle
 
         private void UnitStartTurn()
         {
-            if (_activeUnit.side == AbstractUnit.Side.Allies)
+            if (_activeUnit.side == SideType.Allies)
             {
                 foreach (var unit in listUnits)
                 {
@@ -215,7 +213,7 @@ namespace Syndicate.Battle
                     }
                 }
 
-                if (_activeUnit.unitClass == AbstractUnit.UnitClass.Support)
+                if (_activeUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support)
                 {
                     foreach (var ally in listAllies)
                     {
@@ -233,7 +231,7 @@ namespace Syndicate.Battle
                     }
                 }
             }
-            else if(_activeUnit.side == AbstractUnit.Side.Enemies)
+            else if(_activeUnit.side == SideType.Enemies)
             {
                 Attack(listAllies[0]);
             }

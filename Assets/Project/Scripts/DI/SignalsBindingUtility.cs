@@ -9,7 +9,6 @@ namespace Syndicate.DI
         public static void DeclareSignals(this DiContainer container)
         {
             container.DeclareSignal<ProductionChangeSignal>();
-            container.DeclareSignal<BattleInputSignal>();
         }
     }
 }

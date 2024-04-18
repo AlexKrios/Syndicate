@@ -3,16 +3,14 @@ using Syndicate.Battle;
 using UnityEngine;
 using Zenject;
 
-public class Units : MonoBehaviour
+public class BattleStarter : MonoBehaviour
 {
     [Inject] private BattleManager _battleManager;
     
-    public List<UnitClassScriptableObjects> listScriptableUnits;
-
     public List<Transform> spawnPointAllies;
     public List<Transform> spawnPointEnemies;
 
-    public static Units Instance;
+    public static BattleStarter Instance;
     
     private void Awake()
     {

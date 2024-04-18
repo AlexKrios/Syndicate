@@ -13,9 +13,11 @@ namespace Syndicate.Core.Configurations
         [SerializeField] private string key;
         [SerializeField] private UnitTypeId unitTypeId;
         [SerializeField] private SpriteAssetId iconId;
+        [SerializeField] private GameObject prefab;
 
         public UnitId Key => (UnitId)key;
         public UnitTypeId UnitTypeId => unitTypeId;
         public SpriteAssetId IconId => iconId;
+        public GameObject Prefab => prefab;
     }
 }

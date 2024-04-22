@@ -71,14 +71,14 @@ namespace Syndicate.Core.Services
         public async UniTask CreateCountItems(ItemData itemData)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{InventoryRoot}/{ItemsDataRoot}/{itemData.Id}")
+                .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsDataRoot}/{itemData.Id}")
                 .SetRawJsonValueAsync(JsonConvert.SerializeObject(itemData));
         }
 
         public async UniTask SetCountItems(Dictionary<string, object> items)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{InventoryRoot}/{ItemsDataRoot}")
+                .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsDataRoot}")
                 .UpdateChildrenAsync(items);
         }
 
@@ -88,25 +88,25 @@ namespace Syndicate.Core.Services
 
         public async UniTask AddProduction(ProductionObject data, Dictionary<string, object> items)
         {
-            items.Add($"{UsersRoot}/{ProductionQueueRoot}/{data.Guid.ToString()}", data.ToDictionary());
+            items.Add($"{UsersRoot}/{UserId}/{ProductionQueueRoot}/{data.Guid.ToString()}", data.ToDictionary());
             await FirebaseDatabase.RootReference.UpdateChildrenAsync(items);
         }
 
         public async UniTask RemoveProduction(Guid id)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{ProductionQueueRoot}/{id.ToString()}")
+                .Child($"{UsersRoot}/{UserId}/{ProductionQueueRoot}/{id.ToString()}")
                 .SetValueAsync(null);
         }
 
         public async UniTask CompleteProduction(Guid id, ItemData itemData, GroupData groupData)
         {
-            var itemDataPath = $"{UsersRoot}/{InventoryRoot}/{ItemsDataRoot}/{itemData.Id}";
+            var itemDataPath = $"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsDataRoot}/{itemData.Id}";
             var itemSnapshot = await FirebaseDatabase.RootReference.Child(itemDataPath).GetValueAsync();
             if (!itemSnapshot.Exists)
             {
                 await FirebaseDatabase.RootReference
-                    .Child($"{UsersRoot}/{InventoryRoot}/{ItemsDataRoot}/{itemData.Id}")
+                    .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsDataRoot}/{itemData.Id}")
                     .SetRawJsonValueAsync(JsonConvert.SerializeObject(itemData));
             }
 
@@ -117,20 +117,20 @@ namespace Syndicate.Core.Services
                 { $"{InventoryRoot}/{ItemsDataRoot}/{itemData.Id}/Count", itemData.Count }
             };
 
-            await FirebaseDatabase.RootReference.Child(UsersRoot).UpdateChildrenAsync(sendList);
+            await FirebaseDatabase.RootReference.Child($"{UsersRoot}/{UserId}").UpdateChildrenAsync(sendList);
         }
 
         public async UniTask SetProductionLevel(int value)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{ProductionLevelRoot}")
+                .Child($"{UsersRoot}/{UserId}/{ProductionLevelRoot}")
                 .SetValueAsync(value);
         }
 
         public async UniTask SetProductionSize(int value)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{ProductionSizeRoot}")
+                .Child($"{UsersRoot}/{UserId}/{ProductionSizeRoot}")
                 .SetValueAsync(value);
         }
 

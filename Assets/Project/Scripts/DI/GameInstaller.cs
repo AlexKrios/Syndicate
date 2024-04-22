@@ -22,11 +22,11 @@ namespace Syndicate.DI
             Container.Bind<ConfigurationsScriptable>().FromInstance(configurations).AsSingle().NonLazy();
             Container.Bind<InputLocker>().FromInstance(inputLocker).AsSingle().NonLazy();
 
-            Container.BindInterfacesTo<AssetsService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<AssetsService>().AsSingle();
 
-            Container.BindInterfacesTo<ApiService>().AsSingle().NonLazy();
-            Container.BindInterfacesTo<GameService>().AsSingle().NonLazy();
-            Container.BindInterfacesTo<AuthService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<ApiService>().AsSingle();
+            Container.BindInterfacesTo<GameService>().AsSingle();
+            Container.BindInterfacesTo<AuthService>().AsSingle();
 
             Container.BindInterfacesTo<SettingsService>().AsSingle();
 

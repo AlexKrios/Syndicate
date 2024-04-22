@@ -3,7 +3,6 @@ using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
 using Syndicate.Core.View;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 

@@ -32,38 +32,44 @@ namespace Syndicate.Battle
         {
             foreach (var point in BattleStarter.Instance.spawnPointAllies)
             {
-                var unitData = _unitsService.GetUnit(new UnitId(unitListID[0]));
-                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.Prefab, point);
-                var unitBattleData = new BattleUnitObject(unitData);
-                unitInstantiate.Data = unitBattleData;
+                for (int i = 0; i < unitListID.Count; i++)
+                {
+                    var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
+                    var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.Prefab, point);
+                    var unitBattleData = new BattleUnitObject(unitData);
+                    unitInstantiate.Data = unitBattleData;
 
-                unitInstantiate.CanAttack = false;
-                unitInstantiate.IsStep = false;
-                unitInstantiate.IsAlive = true;
+                    unitInstantiate.CanAttack = false;
+                    unitInstantiate.IsStep = false;
+                    unitInstantiate.IsAlive = true;
 
-                unitInstantiate.OnStartTurn += UnitStartTurn;
-                unitInstantiate.OnEndTurn += UnitEndTurn;
+                    unitInstantiate.OnStartTurn += UnitStartTurn;
+                    unitInstantiate.OnEndTurn += UnitEndTurn;
                 
-                listAllies.Add(unitInstantiate);
-                listUnits.Add(unitInstantiate);
+                    listAllies.Add(unitInstantiate);
+                    listUnits.Add(unitInstantiate);
+                }
             }
             foreach (var point in BattleStarter.Instance.spawnPointEnemies)
             {
-                var unitData = _unitsService.GetUnit(new UnitId(unitListID[0]));
-                var unitInstantiate = Object.Instantiate(unitData.Prefab, point);
-                var unitComponent = unitInstantiate.GetComponent<AbstractUnit>();
+                for (int i = 0; i < unitListID.Count; i++)
+                {
+                    var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
+                    var unitInstantiate = Object.Instantiate(unitData.Prefab, point);
+                    var unitComponent = unitInstantiate.GetComponent<AbstractUnit>();
                 
-                unitComponent.CanAttack = false;
-                unitComponent.IsStep = false;
-                unitComponent.IsAlive = true;
+                    unitComponent.CanAttack = false;
+                    unitComponent.IsStep = false;
+                    unitComponent.IsAlive = true;
 
-                unitComponent.side = SideType.Enemies;
+                    unitComponent.side = SideType.Enemies;
                 
-                unitComponent.OnStartTurn += UnitStartTurn;
-                unitComponent.OnEndTurn += UnitEndTurn;
+                    unitComponent.OnStartTurn += UnitStartTurn;
+                    unitComponent.OnEndTurn += UnitEndTurn;
                 
-                listEnemies.Add(unitComponent);
-                listUnits.Add(unitComponent);
+                    listEnemies.Add(unitComponent);
+                    listUnits.Add(unitComponent);
+                }
             }
             
             SortingUnits();

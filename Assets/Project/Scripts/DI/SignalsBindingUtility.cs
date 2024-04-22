@@ -7,6 +7,10 @@ namespace Syndicate.DI
     {
         public static void DeclareSignals(this DiContainer container)
         {
+            container.DeclareSignal<SignInSignal>();
+            container.DeclareSignal<SignUpSignal>();
+            container.DeclareSignal<VerificationSignal>();
+
             container.DeclareSignal<ProductionChangeSignal>();
         }
     }

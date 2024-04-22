@@ -128,10 +128,56 @@ MonoBehaviour:
     m_Localized: Close
     m_Metadata:
       m_Items: []
+  - m_Id: 17002081193013248
+    m_Localized: Please verify your email address<br>Verification email has been
+      sent to:<br><br>{value}
+    m_Metadata:
+      m_Items:
+      - rid: 2309355063780573196
+  - m_Id: 17011736753451008
+    m_Localized: Sign In
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17011736766033920
+    m_Localized: Sign Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17011736770228224
+    m_Localized: Email Verification
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551140540416
+    m_Localized: Email already in use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123328
+    m_Localized: Invalid email format
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123329
+    m_Localized: Too many requests<br>Please try again later
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123330
+    m_Localized: The password must be 6 characters longer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123331
+    m_Localized: Missing password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123332
+    m_Localized: User not found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123333
+    m_Localized: Unverified email
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 2309355063780573196
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00b0f3441e6f050000b0b37a32770500
+        m_Entries: 00b0f3441e6f050000b0b37a3277050000b0f3814d673c00

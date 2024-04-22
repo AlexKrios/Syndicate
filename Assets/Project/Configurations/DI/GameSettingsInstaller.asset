@@ -12,14 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfca1bb1a0634650a126b0e590892b1c, type: 3}
   m_Name: GameSettingsInstaller
   m_EditorClassIdentifier: 
-  localizations:
-    localization:
-    - {fileID: 4900000, guid: b7d23f6d0c8935645ad0b8e3df107c89, type: 3}
-    - {fileID: 4900000, guid: a85b2d5bfe487524eb38af895c7499fd, type: 3}
   assets:
     music: {fileID: 11400000, guid: bcf33613ff862b84a8c290e3c63257f2, type: 2}
     audio: {fileID: 11400000, guid: 06882854566e00d49a3d1e01b46e7516, type: 2}
     sprite: {fileID: 11400000, guid: 57b6c710f6a57ee4197702ca77cc9a47, type: 2}
+    localize: {fileID: 11400000, guid: 05bec622c3a90d64b92325b9da15b0a7, type: 2}
   music:
     mixerGroup: {fileID: 24300002, guid: 2ae5e646676ef2148a6c255d5dd7b02d, type: 2}
   audio:

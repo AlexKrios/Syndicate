@@ -1,6 +1,9 @@
 ﻿using JetBrains.Annotations;
+using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
+using Syndicate.Core.View;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -10,12 +13,21 @@ namespace Syndicate.Preload.StateMachine
     public class ProfileInitializeState : AbstractState, IState
     {
         [Inject] private readonly IGameService _gameService;
+        [Inject] private readonly IPopupService _popupService;
+
+        private PlayerProfile PlayerProfile => _gameService.GetPlayerProfile();
 
         public async void Enter()
         {
             await _gameService.LoadPlayerProfile();
-
-            SceneManager.LoadScene("Hub");
+            if (string.IsNullOrEmpty(PlayerProfile.Profile.Name))
+            {
+                _popupService.Show<ChangeNameViewModel>();
+            }
+            else
+            {
+                SceneManager.LoadScene("Hub");
+            }
         }
 
         public void Click() { }

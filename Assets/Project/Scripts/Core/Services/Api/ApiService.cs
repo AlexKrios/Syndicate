@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Firebase.Auth;
 using Firebase.Database;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -14,6 +15,7 @@ namespace Syndicate.Core.Services
     {
         private const string UsersRoot = "Users";
         private const string InventoryRoot = "Inventory";
+        private const string ProfileRoot = "Profile";
         private const string ExperienceRoot = "Experience";
         private const string GroupsDataRoot = "GroupsData";
         private const string ItemsDataRoot = "ItemsData";
@@ -24,6 +26,7 @@ namespace Syndicate.Core.Services
         public static readonly string ItemsPath = $"{UsersRoot}/{InventoryRoot}/{ItemsDataRoot}";
 
         private static FirebaseDatabase FirebaseDatabase => FirebaseDatabase.DefaultInstance;
+        private static string UserId => FirebaseAuth.DefaultInstance.CurrentUser.UserId;
 
         public ApiService()
         {
@@ -33,7 +36,7 @@ namespace Syndicate.Core.Services
         public async UniTask<PlayerProfile> GetPlayerProfile()
         {
             var dataSnapshotTask = FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}")
+                .Child($"{UsersRoot}/{UserId}")
                 .GetValueAsync();
 
             await UniTask.WaitUntil(() => dataSnapshotTask.IsCompleted);
@@ -45,14 +48,21 @@ namespace Syndicate.Core.Services
         public async UniTask SetStartPlayerProfile(PlayerProfile profile)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}")
+                .Child($"{UsersRoot}/{UserId}")
                 .SetRawJsonValueAsync(JsonConvert.SerializeObject(profile));
+        }
+
+        public async UniTask SetPlayerName(string name)
+        {
+            await FirebaseDatabase.RootReference
+                .Child($"{UsersRoot}/{UserId}/{ProfileRoot}/Name")
+                .SetValueAsync(name);
         }
 
         public async UniTask SetExperience(int experience)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{InventoryRoot}/{ExperienceRoot}")
+                .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{ExperienceRoot}")
                 .SetValueAsync(experience);
         }
 

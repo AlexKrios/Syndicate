@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Syndicate.Core.Configurations
 {
-    [CreateAssetMenu(fileName = "AudioSet", menuName = "Scriptable/Assets/Audio Set", order = -83)]
+    [CreateAssetMenu(fileName = "AudioSet", menuName = "Scriptable/Assets/Audio Set", order = -84)]
     public class AudioSetScriptable : ListScriptableObject<AudioAssetScriptable> { }
 
     [Serializable]

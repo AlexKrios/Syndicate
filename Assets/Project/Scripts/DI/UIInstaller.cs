@@ -32,6 +32,7 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<ComponentViewFactory>().AsSingle();
 
             Container.BindInterfacesTo<LoadingViewMediator>().AsSingle();
+            Container.BindInterfacesTo<ChangeNameViewMediator>().AsSingle();
             Container.BindInterfacesTo<SettingsViewMediator>().AsSingle();
             Container.BindInterfacesTo<MainViewMediator>().AsSingle();
             Container.BindInterfacesTo<ProductionViewMediator>().AsSingle();

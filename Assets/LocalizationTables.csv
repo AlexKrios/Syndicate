@@ -32,3 +32,16 @@
 "complete","Complete","Готово"
 
 "need_level","Level {value}","Уровень {value}"
+
+"sign_in","Sign In","Вход"
+"sign_up","Sign Up","Регистрация"
+"verification","Email Verification","Подтверждение почты"
+"verification_email","Please verify your email address<br>Verification email has been sent to:<br><br>{value}","Подтвердите свою почту<br>Письмо с подтверждением было выслано:<br><br>{value}"
+
+"auth_email_already_in_use","Email already in use","Емейл уже используется"
+"auth_invalid_email","Invalid email format","Неверный формат емейл"
+"auth_too_many_requests","Too many requests<br>Please try again later","Слишком частые запросы<br>Пожалуйста попробуйте позже ещё раз"
+"auth_weak_password","The password must be 6 characters longer","Пароль должен быть длиннее 6 символов"
+"auth_missing_password","Missing password","Введите пароль"
+"auth_user_not_found","User not found","Пользователь не найден"
+"auth_unverified_email","Unverified email","Неподтверждённый емейл"

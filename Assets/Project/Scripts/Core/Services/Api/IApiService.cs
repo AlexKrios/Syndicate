@@ -12,6 +12,8 @@ namespace Syndicate.Core.Services
 
         UniTask SetStartPlayerProfile(PlayerProfile profile);
 
+        UniTask SetPlayerName(string name);
+
         UniTask SetExperience(int experience);
 
         UniTask SetCountItems(Dictionary<string, object> items);

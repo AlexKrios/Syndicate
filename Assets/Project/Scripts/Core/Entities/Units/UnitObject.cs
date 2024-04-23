@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Syndicate.Core.Configurations;
+using UnityEngine;
 using UnityEngine.Localization;
 
 namespace Syndicate.Core.Entities
@@ -20,6 +21,9 @@ namespace Syndicate.Core.Entities
         public int Experience { get; set; }
         public Dictionary<ProductGroupId, string> Outfit { get; set; }
 
+        public GameObject PrefabAlly { get; }
+        public GameObject PrefabEnemy { get; }
+
         public UnitObject(UnitScriptable data)
         {
             Key = data.Key;
@@ -32,6 +36,10 @@ namespace Syndicate.Core.Entities
             DescriptionLocale = data.DescriptionLocale;
 
             Specifications = data.Specifications;
+
+            PrefabAlly = data.PrefabAlly;
+
+            PrefabEnemy = data.PrefabEnemy;
         }
     }
 }

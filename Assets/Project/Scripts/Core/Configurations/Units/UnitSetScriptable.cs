@@ -18,6 +18,8 @@ namespace Syndicate.Core.Configurations
         [SerializeField] private LocalizedString nameLocale;
         [SerializeField] private LocalizedString descriptionLocale;
         [SerializeField] private List<SpecificationObject> specifications;
+        [SerializeField] private GameObject prefabAlly;
+        [SerializeField] private GameObject prefabEnemy;
 
         public UnitId Key => (UnitId)key;
         public UnitTypeId UnitTypeId => unitTypeId;
@@ -25,5 +27,7 @@ namespace Syndicate.Core.Configurations
         public LocalizedString NameLocale => nameLocale;
         public LocalizedString DescriptionLocale => descriptionLocale;
         public List<SpecificationObject> Specifications => specifications;
+        public GameObject PrefabAlly => prefabAlly;
+        public GameObject PrefabEnemy => prefabEnemy;
     }
 }

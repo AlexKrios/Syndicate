@@ -1,3 +1,4 @@
+using Syndicate.Battle;
 using Syndicate.Core.Signals;
 using Zenject;
 

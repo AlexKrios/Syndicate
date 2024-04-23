@@ -6,7 +6,7 @@ using Zenject;
 namespace Syndicate.Preload.StateMachine
 {
     [UsedImplicitly]
-    public class ServiceInitializeState : AbstractState, IState
+    public class ServiceInitializeState : PreloadState, IState
     {
         [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly ISettingsService _settingsService;
@@ -20,7 +20,7 @@ namespace Syndicate.Preload.StateMachine
                 await service.Initialize();
             }
 
-            stateMachine.Enter<ProfileInitializeState>();
+            stateMachine.Enter<AuthInitializeState>();
         }
 
         public void Click() { }

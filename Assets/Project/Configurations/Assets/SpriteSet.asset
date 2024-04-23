@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd79dbd971544330967acb4604ba7b42, type: 3}
   m_Name: SpriteSet
   m_EditorClassIdentifier: 
+  specifications:
+  - id: specification_attack
+    sprite: {fileID: -1463414088, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
+  - id: specification_health
+    sprite: {fileID: 2036980653, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
+  - id: specification_defence
+    sprite: {fileID: 128544552, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
+  - id: specification_initiative
+    sprite: {fileID: 1228426036, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
   raw:
   - id: raw_weapon
     sprite: {fileID: 21300000, guid: f372a2b194408154e905fb0535f68b35, type: 3}

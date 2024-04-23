@@ -24,5 +24,10 @@ namespace Syndicate.Core.StateMachine
             _currentState = GetState<TState>();
             _currentState.Enter();
         }
+
+        public void ResetStates()
+        {
+            _stateMap.Clear();
+        }
     }
 }

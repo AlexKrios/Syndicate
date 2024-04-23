@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f88c298dd2c4bbbac1902c2ad619a2c, type: 3}
+  m_Name: UIScreenSet
+  m_EditorClassIdentifier: 
+  screens:
+  - {fileID: 6825654209882250467, guid: 3e90b89df53682243ae61936d5a17182, type: 3}
+  - {fileID: 3919316934032354759, guid: cace457f135af054caf70b74da13e1ea, type: 3}
+  - {fileID: 4085979556208085374, guid: 38e7c3e79e89b4e4d99e3672e22d0758, type: 3}
+  - {fileID: 601882893750463596, guid: 48b0205a150342f47b68305746ae66ce, type: 3}

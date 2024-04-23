@@ -47,6 +47,7 @@ namespace Syndicate.Core.Services
         public ItemData GetItemData(string id)
         {
             var itemBase = _itemsProvider.GetItemById(id);
+            TryAddItem(itemBase);
             return Items[ItemsUtil.ParseItemToId(itemBase)];
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Syndicate.Core.Configurations
 {
-    [CreateAssetMenu(fileName = "ExperienceSet", menuName = "Scriptable/Experience Set", order = -20)]
+    [CreateAssetMenu(fileName = "ExperienceSet", menuName = "Scriptable/Profile/Experience Set", order = 0)]
     public class ExperienceSetScriptable : ListScriptableObject<ExperienceScriptable> { }
 
     [Serializable]

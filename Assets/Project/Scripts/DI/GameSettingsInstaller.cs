@@ -5,8 +5,8 @@ using Zenject;
 
 namespace Syndicate.DI
 {
-    [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Scriptable/DI/Game Settings")]
-    public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
+    [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Scriptable/DI/Game Settings", order = -102)]
+    public class GameSettingsInstaller : ScriptableObjectInstaller
     {
         [SerializeField] private AssetsService.Settings assets;
         [SerializeField] private MusicService.Settings music;

@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using UnityEngine;
+using UnityEngine.Localization;
 using Zenject;
 
 namespace Syndicate.Core.Services
@@ -18,12 +19,14 @@ namespace Syndicate.Core.Services
         private Dictionary<MusicAssetId, AudioClip> _musicAssetsIndex;
         private Dictionary<AudioAssetId, AudioClip> _audioAssetsIndex;
         private Dictionary<SpriteAssetId, Sprite> _spriteAssetsIndex;
+        private Dictionary<LocalizeAssetId, LocalizedString> _localizeAssetsIndex;
 
         public UniTask Initialize()
         {
             _musicAssetsIndex = _settings.Music.Items.ToDictionary(x => x.Id, x => x.AudioClip);
             _audioAssetsIndex = _settings.Audio.Items.ToDictionary(x => x.Id, x => x.AudioClip);
             _spriteAssetsIndex = _settings.Sprite.GetAllSprites().ToDictionary(x => x.Id, x => x.Sprite);
+            _localizeAssetsIndex = _settings.Localize.Items.ToDictionary(x => x.Id, x => x.LocalizedString);
 
             return UniTask.CompletedTask;
         }
@@ -54,16 +57,25 @@ namespace Syndicate.Core.Services
             return _settings.Sprite.Stars[starCount - 1].Sprite;
         }
 
+        public LocalizedString GetLocalize(LocalizeAssetId assetId)
+        {
+            return _localizeAssetsIndex.TryGetValue(assetId, out var localize)
+                ? localize
+                : throw new Exception($"Can't find {nameof(LocalizeAssetId)} with id {assetId}");
+        }
+
         [Serializable]
         public class Settings
         {
             [SerializeField] private MusicSetScriptable music;
             [SerializeField] private AudioSetScriptable audio;
             [SerializeField] private SpriteSetScriptable sprite;
+            [SerializeField] private LocalizeSetScriptable localize;
 
             public MusicSetScriptable Music => music;
             public AudioSetScriptable Audio => audio;
             public SpriteSetScriptable Sprite => sprite;
+            public LocalizeSetScriptable Localize => localize;
         }
     }
 }

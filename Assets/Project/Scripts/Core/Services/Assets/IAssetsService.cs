@@ -1,5 +1,6 @@
 ﻿using Syndicate.Core.Entities;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Syndicate.Core.Services
 {
@@ -10,7 +11,8 @@ namespace Syndicate.Core.Services
         AudioClip GetAudioClip(AudioAssetId assetId);
 
         Sprite GetSprite(SpriteAssetId assetId);
-
         Sprite GetStarSprite(int starCount);
+
+        LocalizedString GetLocalize(LocalizeAssetId assetId);
     }
 }

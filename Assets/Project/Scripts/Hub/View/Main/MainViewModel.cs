@@ -1,11 +1,11 @@
-﻿using Syndicate.Core.View;
+﻿using JetBrains.Annotations;
+using Syndicate.Core.View;
 
 namespace Syndicate.Hub.View.Main
 {
+    [UsedImplicitly]
     public class MainViewModel : ViewModelBase
     {
-        public MainViewType CurrentTabType { get; set; }
-
         public ProductionView Production { get; set; }
     }
 }

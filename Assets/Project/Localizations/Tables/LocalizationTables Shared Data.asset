@@ -103,6 +103,10 @@ MonoBehaviour:
     m_Key: storage
     m_Metadata:
       m_Items: []
+  - m_Id: 12705929077436416
+    m_Key: close
+    m_Metadata:
+      m_Items: []
   - m_Id: 653424042684426
     m_Key: select
     m_Metadata:
@@ -117,6 +121,50 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1538433574219776
     m_Key: need_level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17011736753451008
+    m_Key: sign_in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17011736766033920
+    m_Key: sign_up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17011736770228224
+    m_Key: verification
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17002081193013248
+    m_Key: verification_email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551140540416
+    m_Key: auth_email_already_in_use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123328
+    m_Key: auth_invalid_email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123329
+    m_Key: auth_too_many_requests
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123330
+    m_Key: auth_weak_password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123331
+    m_Key: auth_missing_password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123332
+    m_Key: auth_user_not_found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17271551153123333
+    m_Key: auth_unverified_email
     m_Metadata:
       m_Items: []
   m_Metadata:

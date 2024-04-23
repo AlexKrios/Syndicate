@@ -5,6 +5,7 @@ using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using Syndicate.Core.Signals;
+using Syndicate.Core.View;
 using Syndicate.Utils;
 using TMPro;
 using UnityEngine;
@@ -14,18 +15,20 @@ using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
-    public class ProductionView : MonoBehaviour
+    public class ProductionView : ViewBase<ProductionViewModel>
     {
         [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly ConfigurationsScriptable _configurations;
+        [Inject] private readonly IScreenService _screenService;
         [Inject] private readonly IAssetsService _assetsService;
         [Inject] private readonly IItemsService _itemsService;
         [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly IProductsService _productsService;
-        [Inject] private readonly IProductionSectionFactory _productionSectionFactory;
+        [Inject] private readonly IComponentViewFactory _componentViewFactory;
         [Inject] private readonly IProductionService _productionService;
         [Inject] private readonly SpecificationsUtil _specificationsUtil;
 
+        [SerializeField] private Button close;
         [SerializeField] private LocalizeStringEvent productGroupType;
         [SerializeField] private LocalizeStringEvent unitType;
         [SerializeField] private List<ProductionTabView> tabs;
@@ -83,20 +86,26 @@ namespace Syndicate.Hub.View.Main
         {
             _signalBus.Subscribe<ProductionChangeSignal>(SetCreateButtonState);
 
+            close.onClick.AddListener(CloseClick);
             create.onClick.AddListener(CreateClick);
             queueButton.onClick.AddListener(() => queueObject.SetActive(true));
             star.onClick.AddListener(StarClick);
 
             tabs.ForEach(x => x.OnClickEvent += OnTabClick);
-            CurrentTab = tabs.First();
         }
 
         private void OnEnable()
         {
+            CurrentTab = tabs.First();
             _currentStar = 1;
             CreateProducts();
             SetTitleData();
             SetSidebarData();
+        }
+
+        private void CloseClick()
+        {
+            _screenService.Back();
         }
 
         private void SetTitleData()
@@ -129,7 +138,7 @@ namespace Syndicate.Hub.View.Main
             for (var i = 0; i < productObjects.Count; i++)
             {
                 if (products.ElementAtOrDefault(i) == null)
-                    products.Add(_productionSectionFactory.CreateProduct(productsParent));
+                    products.Add(_componentViewFactory.Create<ProductionProductView>(productsParent));
 
                 var item = productObjects[i];
                 _productionService.RecalculateItemParts(item);

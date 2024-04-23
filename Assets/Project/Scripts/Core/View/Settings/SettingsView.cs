@@ -3,23 +3,24 @@ using System.Globalization;
 using System.Linq;
 using Syndicate.Core.Services;
 using Syndicate.Core.Sounds;
+using Syndicate.Hub.View.Main;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
 namespace Syndicate.Core.View
 {
-    public class SettingsView : ViewBase<SettingsViewModel>
+    public class SettingsView : PopupViewBase<SettingsViewModel>
     {
+        [Inject] private readonly IAuthService _authService;
         [Inject] private readonly ISettingsService _settingsService;
         [Inject] private readonly IMusicService _musicService;
         [Inject] private readonly IAudioService _audioService;
-
-        /*[Inject] private readonly AuthService _authService;
-        [Inject] private readonly SceneService _sceneService;*/
+        [Inject] private readonly IScreenService _screenService;
 
         [SerializeField] private Button signOut;
         [SerializeField] private Button close;
@@ -76,18 +77,21 @@ namespace Syndicate.Core.View
             audioSlider.value = _settingsService.AudioVolume;
             UpdateGraphicSliderValue((float)_settingsService.Graphics);
 
+            signOut.onClick.AddListener(OnSignOutClick);
             /*if (!_authService.IsGooglePlayConnected())
                 _signOut.onClick.AddListener(OnSignOutClick);
             else
                 _signOut.gameObject.SetActive(false);*/
         }
 
-        /*private async void OnSignOutClick()
+        private void OnSignOutClick()
         {
-            /*_authService.SignOut();
-            await _sceneService.LoadScene(SceneName.Auth);
-            Close();
-        }*/
+            _authService.SignOut();
+            ViewModel.Hide?.Invoke();
+            _screenService.Get<MainViewModel>(true).Hide?.Invoke();
+
+            SceneManager.LoadScene("Preloader");
+        }
 
         private void UpdateMusicSliderValue(float value)
         {

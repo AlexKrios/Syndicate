@@ -379,6 +379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c7a6a6f3bf4425bed1fd5891baf10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screens: {fileID: 11400000, guid: 9a36ca88488d4164f977d97f9cea9d64, type: 2}
+  popups: {fileID: 11400000, guid: c0715ab1a4f15f5409bbd2a3b289ff8e, type: 2}
+  components: {fileID: 11400000, guid: d497f46eae1be274d8a4afb796464c85, type: 2}
   screenParent: {fileID: 5745880261719466142}
   popupParent: {fileID: 2765392858731667452}
 --- !u!114 &-5376928835271945041

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Syndicate.Core.Configurations
 {
-    [CreateAssetMenu(fileName = "Configurations", menuName = "Scriptable/Configurations", order = -50)]
+    [CreateAssetMenu(fileName = "Configurations", menuName = "Scriptable/Configurations", order = 999)]
     public class ConfigurationsScriptable : ScriptableObject
     {
         [SerializeField] private ExperienceSetScriptable experienceSet;

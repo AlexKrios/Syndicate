@@ -7,7 +7,7 @@ using Zenject;
 namespace Syndicate.Preload.StateMachine
 {
     [UsedImplicitly]
-    public class GameInitializeState : AbstractState, IState
+    public class GameInitializeState : PreloadState, IState
     {
         [Inject] private readonly IGameService _gameService;
         public void Enter()

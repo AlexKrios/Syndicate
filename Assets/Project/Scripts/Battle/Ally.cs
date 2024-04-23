@@ -15,7 +15,7 @@ namespace Syndicate.Battle
                 {
                     Debug.Log("Heal");
                     target.Data.Health += Damage;
-                    Debug.Log(target.Data.Healthв);
+                    Debug.Log(target.Data.Health);
                 }
                 else if (target.side == SideType.Enemies)
                 {

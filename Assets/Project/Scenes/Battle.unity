@@ -199,11 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cae17ed358a114aa297da36a93f0bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listScriptableUnits:
-  - {fileID: 11400000, guid: ac3ddebc24bc18c428d30ad0b10e3423, type: 2}
-  - {fileID: 11400000, guid: 562581548570c8f4dbc58754ab30220f, type: 2}
-  - {fileID: 11400000, guid: 057a2400259636d428bdde5e3fdeffd4, type: 2}
-  - {fileID: 11400000, guid: 1dd9ad737cb47b041bd9b4aed444ab9a, type: 2}
   spawnPointAllies:
   - {fileID: 812633710}
   - {fileID: 1364161206}
@@ -228,7 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938dc5b3c313c1c4fb13ea5958d29718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitObj: {fileID: 0}
 --- !u!1 &568737100
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,8 +25,9 @@ public class BattleInputHandler : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     //_battleSignalBus.Fire(HitObj = new BattleInputSignal());
-                    
-                    _battleManager.Attack(hit.transform.GetComponent<AbstractUnit>());
+
+                    _battleManager._targetUnit = hit.transform.GetComponent<AbstractUnit>();
+                    _battleManager._currentUnit.Attack(_battleManager._targetUnit);
                 }
             }
         }

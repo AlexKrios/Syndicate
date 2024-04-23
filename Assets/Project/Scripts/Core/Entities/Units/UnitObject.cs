@@ -11,7 +11,8 @@ namespace Syndicate.Core.Entities
 
         public SpriteAssetId IconId { get; }
 
-        public GameObject Prefab { get; }
+        public GameObject PrefabAlly { get; }
+        public GameObject PrefabEnemy { get; }
 
         public UnitObject(UnitScriptable data)
         {
@@ -21,7 +22,9 @@ namespace Syndicate.Core.Entities
 
             IconId = data.IconId;
 
-            Prefab = data.Prefab;
+            PrefabAlly = data.PrefabAlly;
+            
+            PrefabEnemy = data.PrefabEnemy;
         }
     }
 }

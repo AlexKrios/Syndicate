@@ -18,22 +18,26 @@ MonoBehaviour:
       value: Trooper
     iconId:
       value: unit_trooper
-    prefab: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - key: unit_defender
     unitTypeId:
       value: Defender
     iconId:
       value: unit_defender
-    prefab: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - key: unit_support
     unitTypeId:
       value: Support
     iconId:
       value: unit_support
-    prefab: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - key: unit_sniper
     unitTypeId:
       value: Sniper
     iconId:
       value: unit_sniper
-    prefab: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
+    prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}

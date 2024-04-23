@@ -13,157 +13,88 @@ namespace Syndicate.Battle
         [Inject] private IUnitsService _unitsService;
         [Inject] private readonly DiContainer _container;
 
-        private readonly List<AbstractUnit> listUnits = new();
+        public readonly List<AbstractUnit> listUnits = new();
 
-        private readonly List<AbstractUnit> listAllies = new();
-        private readonly List<AbstractUnit> listEnemies = new();
+        public readonly List<AbstractUnit> listAllies = new();
+        public readonly List<AbstractUnit> listEnemies = new();
+        
+        public AbstractUnit _currentUnit { get; set; }
+        public AbstractUnit _targetUnit { get; set; }
 
         private List<string> unitListID = new()
         {
             "unit_trooper",
             "unit_defender",
             "unit_support",
+            "unit_sniper",
             "unit_sniper"
         };
-
-        private AbstractUnit _activeUnit;
         
         public void InstantiateUnits()
         {
-            foreach (var point in BattleStarter.Instance.spawnPointAllies)
+            for (int i = 0; i < unitListID.Count; i++)
             {
-                for (int i = 0; i < unitListID.Count; i++)
+                if (unitListID.ElementAtOrDefault(i) == null)
                 {
-                    var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
-                    var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.Prefab, point);
-                    var unitBattleData = new BattleUnitObject(unitData);
-                    unitInstantiate.Data = unitBattleData;
-
-                    unitInstantiate.CanAttack = false;
-                    unitInstantiate.IsStep = false;
-                    unitInstantiate.IsAlive = true;
-
-                    unitInstantiate.OnStartTurn += UnitStartTurn;
-                    unitInstantiate.OnEndTurn += UnitEndTurn;
-                
-                    listAllies.Add(unitInstantiate);
-                    listUnits.Add(unitInstantiate);
+                    continue;
                 }
+                
+                var point = BattleStarter.Instance.spawnPointAllies[i];
+                var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
+                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabAlly, point);
+                var unitBattleData = new BattleUnitObject(unitData);
+                unitInstantiate.Data = unitBattleData;
+
+                unitInstantiate.CanAttack = false;
+                unitInstantiate.IsStep = false;
+                unitInstantiate.IsAlive = true;
+
+                unitInstantiate.OnStartTurn += UnitStartTurn;
+                unitInstantiate.OnEndTurn += UnitEndTurn;
+                
+                listAllies.Add(unitInstantiate);
+                listUnits.Add(unitInstantiate);
             }
-            foreach (var point in BattleStarter.Instance.spawnPointEnemies)
+            
+            for (int i = 0; i < unitListID.Count; i++)
             {
-                for (int i = 0; i < unitListID.Count; i++)
+                if (unitListID.ElementAtOrDefault(i) == null)
                 {
-                    var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
-                    var unitInstantiate = Object.Instantiate(unitData.Prefab, point);
-                    var unitComponent = unitInstantiate.GetComponent<AbstractUnit>();
-                
-                    unitComponent.CanAttack = false;
-                    unitComponent.IsStep = false;
-                    unitComponent.IsAlive = true;
-
-                    unitComponent.side = SideType.Enemies;
-                
-                    unitComponent.OnStartTurn += UnitStartTurn;
-                    unitComponent.OnEndTurn += UnitEndTurn;
-                
-                    listEnemies.Add(unitComponent);
-                    listUnits.Add(unitComponent);
+                    continue;
                 }
+                
+                var point = BattleStarter.Instance.spawnPointEnemies[i];
+                var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
+                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabEnemy, point);
+                var unitBattleData = new BattleUnitObject(unitData);
+                unitInstantiate.Data = unitBattleData;
+
+                unitInstantiate.CanAttack = false;
+                unitInstantiate.IsStep = false;
+                unitInstantiate.IsAlive = true;
+
+                unitInstantiate.side = SideType.Enemies;
+                
+                unitInstantiate.OnStartTurn += UnitStartTurn;
+                unitInstantiate.OnEndTurn += UnitEndTurn;
+                
+                listEnemies.Add(unitInstantiate);
+                listUnits.Add(unitInstantiate);
             }
             
             SortingUnits();
         }
 
-        private void SortingUnits()
+        public void SortingUnits()
         {
             var sortList = listUnits
                 .OrderByDescending(x => x.IsAlive)
                 .ThenByDescending(x => !x.IsStep)
                 .ThenByDescending(x => x.Initiative).ToList();
-            _activeUnit = sortList[0];
-            _activeUnit.CanAttack = true;
-            _activeUnit.StartTurn();
-        }
-
-        public async void Attack(AbstractUnit target)
-        {
-            if (target.side == SideType.Enemies)
-            {
-                var activeUnitT = _activeUnit.transform;
-                var startQuaternion = activeUnitT.rotation;
-                
-                activeUnitT.rotation = Quaternion.LookRotation(target.transform.position);
-
-                await UniTask.Delay(1000);
-                
-                //TODO Поменять после внедрения класса для изменения трансформа
-                // ReSharper disable once Unity.InefficientPropertyAccess
-                activeUnitT.rotation = startQuaternion;
-
-                target.Health -= _activeUnit.Damage - target.Armor;
-                _activeUnit.IsStep = true;
-                _activeUnit.CanAttack = false;
-                _activeUnit.floorAttack.SetActive(false);
-                foreach (var enemy in listEnemies)
-                {
-                    enemy.floorDefend.SetActive(false);
-                }
-
-                if (target.Health <= 0)
-                {
-                    target.IsAlive = false;
-                    
-                    listEnemies.Remove(target);
-                    listUnits.Remove(target);
-
-                    Object.Destroy(target.gameObject);
-                }
-
-                CheckBattleEnd();
-
-                SortingUnits();
-            }
-            else if (_activeUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support && target.side == SideType.Allies)
-            {
-                target.Health += _activeUnit.Damage;
-                _activeUnit.IsStep = true;
-                _activeUnit.CanAttack = false;
-                _activeUnit.floorAttack.SetActive(false);
-                foreach (var ally in listAllies)
-                {
-                    ally.floorDefend.SetActive(false);
-                }
-                
-                CheckBattleEnd();
-
-                SortingUnits();
-            }
-            else if (target.side == SideType.Allies && _activeUnit.side == SideType.Enemies)
-            {
-                target.Health -= _activeUnit.Damage - target.Armor;
-                _activeUnit.IsStep = true;
-                _activeUnit.CanAttack = false;
-                _activeUnit.floorAttack.SetActive(false);
-                foreach (var enemy in listEnemies)
-                {
-                    enemy.floorDefend.SetActive(false);
-                }
-
-                if (target.Health <= 0)
-                {
-                    target.IsAlive = false;
-                    
-                    listAllies.Remove(target);
-                    listUnits.Remove(target);
-
-                    Object.Destroy(target.gameObject);
-                }
-
-                CheckBattleEnd();
-
-                SortingUnits();
-            }   
+            _currentUnit = sortList[0];
+            _currentUnit.CanAttack = true;
+            _currentUnit.ActiveUnit = true;
+            _currentUnit.StartTurn();
         }
 
         private void EndRound()
@@ -194,7 +125,7 @@ namespace Syndicate.Battle
             SortingUnits();
         }
 
-        private void CheckBattleEnd()
+        public void CheckBattleEnd()
         {
             var isAllyDead = listAllies.All(x => !x.IsAlive);
             var isEnemyDead = listEnemies.All(x => !x.IsAlive);
@@ -205,11 +136,9 @@ namespace Syndicate.Battle
             }
         }
 
-
-
         private void UnitStartTurn()
         {
-            if (_activeUnit.side == SideType.Allies)
+            if (_currentUnit.side == SideType.Allies)
             {
                 foreach (var unit in listUnits)
                 {
@@ -219,15 +148,20 @@ namespace Syndicate.Battle
                     }
                 }
 
-                if (_activeUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support)
+                if (_currentUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support)
                 {
                     foreach (var ally in listAllies)
                     {
                         ally.floorDefend.SetActive(true);
                     }
 
-                    _activeUnit.floorDefend.SetActive(false);
-                    _activeUnit.floorAttack.SetActive(true);
+                    foreach (var enemy in listEnemies)
+                    {
+                        enemy.floorDefend.SetActive(true);
+                    }
+
+                    _currentUnit.floorDefend.SetActive(false);
+                    _currentUnit.floorAttack.SetActive(true);
                 }
                 else
                 {
@@ -236,10 +170,6 @@ namespace Syndicate.Battle
                         enemy.floorDefend.SetActive(true);
                     }
                 }
-            }
-            else if(_activeUnit.side == SideType.Enemies)
-            {
-                Attack(listAllies[0]);
             }
         }
     }

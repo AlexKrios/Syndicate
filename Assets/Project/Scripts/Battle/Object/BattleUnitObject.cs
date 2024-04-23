@@ -14,7 +14,7 @@ public class BattleUnitObject
     public BattleUnitObject(UnitObject data)
     {
         Health = 100;
-        Damage = 10;
+        Damage = 40;
         Initiative = 20;
         Armor = 5;
         OriginalData = data;

@@ -18,6 +18,37 @@ MonoBehaviour:
       value: Trooper
     iconId:
       value: unit_trooper
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 25
+    - type:
+        value: Health
+      value: 100
+    - type:
+        value: Defense
+      value: 5
+    - type:
+        value: Initiative
+      value: 20
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - key: unit_defender
@@ -25,6 +56,37 @@ MonoBehaviour:
       value: Defender
     iconId:
       value: unit_defender
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 15
+    - type:
+        value: Health
+      value: 120
+    - type:
+        value: Defense
+      value: 15
+    - type:
+        value: Initiative
+      value: 15
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - key: unit_support
@@ -32,6 +94,37 @@ MonoBehaviour:
       value: Support
     iconId:
       value: unit_support
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 20
+    - type:
+        value: Health
+      value: 80
+    - type:
+        value: Defense
+      value: 5
+    - type:
+        value: Initiative
+      value: 10
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - key: unit_sniper
@@ -39,5 +132,39 @@ MonoBehaviour:
       value: Sniper
     iconId:
       value: unit_sniper
+    nameLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    descriptionLocale:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    specifications:
+    - type:
+        value: Attack
+      value: 45
+    - type:
+        value: Health
+      value: 60
+    - type:
+        value: Defense
+      value: 0
+    - type:
+        value: Initiative
+      value: 12
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
+  references:
+    version: 2
+    RefIds: []

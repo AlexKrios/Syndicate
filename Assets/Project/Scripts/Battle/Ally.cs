@@ -1,11 +1,10 @@
 using Syndicate.Core.Entities;
-using UnityEngine;
 
 namespace Syndicate.Battle
 {
     public class Ally : AbstractUnit
     {
-        public override void Attack(AbstractUnit target)
+        protected override void Attack(AbstractUnit target)
         {
             base.Attack(target);
 
@@ -13,45 +12,37 @@ namespace Syndicate.Battle
             {
                 if (target.side == SideType.Allies)
                 {
-                    Debug.Log("Heal");
-                    target.Data.Health += Damage;
-                    Debug.Log(target.Data.Health);
+                    target.Data.CurrentHealth += Data.OriginalData.Attack;
                 }
                 else if (target.side == SideType.Enemies)
                 {
-                    Debug.Log("Attack");
-                    target.Data.Health -= Damage - target.Armor;
+                    target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
                 }
 
-                foreach (var ally in _battleManager.listAllies)
+                foreach (var ally in BattleManager.ListAllies)
                 {
                     ally.floorDefend.SetActive(false);
                 }
             }
             else
             {
-                Debug.Log("Different Attack");
-                target.Data.Health -= Data.Damage - target.Data.Armor;
+                target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
             }
             
-            foreach (var enemy in _battleManager.listEnemies)
+            foreach (var enemy in BattleManager.ListEnemies)
             {
                 enemy.floorDefend.SetActive(false);
             }
             
-            if (target.Data.Health <= 0)
+            if (target.Data.CurrentHealth <= 0)
             {
                 target.IsAlive = false;
                     
-                _battleManager.listEnemies.Remove(target);
-                _battleManager.listUnits.Remove(target);
+                BattleManager.ListEnemies.Remove(target);
+                BattleManager.ListUnits.Remove(target);
 
                 Destroy(target.gameObject);
             }
-
-            _battleManager.CheckBattleEnd();
-
-            _battleManager.SortingUnits();
         }
     }
 }

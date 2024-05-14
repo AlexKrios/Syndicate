@@ -1,6 +1,5 @@
 using System;
 using Cysharp.Threading.Tasks;
-using Syndicate.Core.Entities;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +7,7 @@ namespace Syndicate.Battle
 {
     public abstract class AbstractUnit : MonoBehaviour
     {
-        [Inject] public BattleManager _battleManager;
+        [Inject] protected BattleManager BattleManager;
 
         public Action OnEndTurn;
         public Action OnStartTurn;
@@ -16,14 +15,7 @@ namespace Syndicate.Battle
         public GameObject floorAttack;
         public GameObject floorDefend;
 
-        public int Health { get; set; }
-        public int Damage { get; set; }
-        public int Initiative { get; set; }
-        public int Armor { get; set; }
-
-        public bool ActiveUnit { get; set; }
         public bool IsAlive { get; set; }
-        public bool CanAttack { get; set; }
         public bool IsStep { get; set; }
 
         public SideType side;
@@ -40,35 +32,44 @@ namespace Syndicate.Battle
             }
         }
 
-        public void Turn()
+        public async void Turn()
         {
-            if(_battleManager._currentUnit.side == SideType.Enemies)
-            {
-                _battleManager._currentUnit.Attack(_battleManager.listAllies[0]);
-            }
+            var activeUnitT = transform;
+            var startQuaternion = activeUnitT.rotation;
+
+            activeUnitT.rotation = Quaternion.LookRotation(BattleManager.TargetUnit.transform.position);
+
+            await UniTask.Delay(1000);
             
+            if (BattleManager.CurrentUnit.side == SideType.Enemies)
+            {
+                Attack(BattleManager.ListAllies[0]);
+            }
+            else
+            {
+                Attack(BattleManager.TargetUnit);
+            }
+
+            //TODO Поменять после внедрения класса для изменения трансформа
+            // ReSharper disable once Unity.InefficientPropertyAccess
+            activeUnitT.rotation = startQuaternion;
+
             EndTurn();
         }
 
         private void EndTurn()
         {
             OnEndTurn?.Invoke();
-        }
-
-        public virtual void Attack(AbstractUnit target)
-        {
-            var activeUnitT = transform;
-            var startQuaternion = activeUnitT.rotation;
-                
-            activeUnitT.rotation = Quaternion.LookRotation(target.transform.position);
             
-            //TODO Поменять после внедрения класса для изменения трансформа
-            // ReSharper disable once Unity.InefficientPropertyAccess
-            activeUnitT.rotation = startQuaternion;
+            BattleManager.CheckBattleEnd();
 
-            IsStep = true;
-            CanAttack = false;
-            floorAttack.SetActive(false);
+            BattleManager.SortingUnits();
         }
+
+        protected virtual void Attack(AbstractUnit target)
+        {
+            IsStep = true;
+            floorAttack.SetActive(false);
+        }   
     }
 }

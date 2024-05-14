@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Syndicate.Core.Configurations;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -23,6 +24,11 @@ namespace Syndicate.Core.Entities
 
         public GameObject PrefabAlly { get; }
         public GameObject PrefabEnemy { get; }
+
+        public int Attack => Specifications.First(x => x.Type == SpecificationId.Attack).Value;
+        public int Health => Specifications.First(x => x.Type == SpecificationId.Health).Value;
+        public int Defense => Specifications.First(x => x.Type == SpecificationId.Defense).Value;
+        public int Initiative => Specifications.First(x => x.Type == SpecificationId.Initiative).Value;
 
         public UnitObject(UnitScriptable data)
         {

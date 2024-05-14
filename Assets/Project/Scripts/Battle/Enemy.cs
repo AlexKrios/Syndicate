@@ -1,11 +1,10 @@
 using Syndicate.Core.Entities;
-using UnityEngine;
 
 namespace Syndicate.Battle
 {
     public class Enemy : AbstractUnit
     {
-        public override void Attack(AbstractUnit target)
+        protected override void Attack(AbstractUnit target)
         {
             base.Attack(target);
             
@@ -13,36 +12,36 @@ namespace Syndicate.Battle
             {
                 if (target.side == SideType.Enemies)
                 {
-                    target.Data.Health += Damage;
+                    target.Data.CurrentHealth += Data.OriginalData.Attack;
                 }
                 else if (target.side == SideType.Allies)
                 {
-                    target.Data.Health -= Data.Damage - target.Data.Armor;
+                    target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
                 }
                 
-                foreach (var enemy in _battleManager.listEnemies)
+                foreach (var enemy in BattleManager.ListEnemies)
                 {
                     enemy.floorDefend.SetActive(false);
                 }
             }
             else
             {
-                target.Data.Health -= Data.Damage - target.Data.Armor;
+                target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
             }
 
-            if (target.Data.Health <= 0)
+            if (target.Data.CurrentHealth <= 0)
             {
                 target.IsAlive = false;
                     
-                _battleManager.listAllies.Remove(target);
-                _battleManager.listUnits.Remove(target);
+                BattleManager.ListAllies.Remove(target);
+                BattleManager.ListUnits.Remove(target);
 
                 Destroy(target.gameObject);
             }
 
-            _battleManager.CheckBattleEnd();
+            BattleManager.CheckBattleEnd();
 
-            _battleManager.SortingUnits();
+            BattleManager.SortingUnits();
         }
     }
 }

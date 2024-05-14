@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
+using Project.Scripts.Battle;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using UnityEngine;
@@ -8,20 +9,21 @@ using Zenject;
 
 namespace Syndicate.Battle
 {
+    [UsedImplicitly]
     public class BattleManager
     {
         [Inject] private IUnitsService _unitsService;
         [Inject] private readonly DiContainer _container;
 
-        public readonly List<AbstractUnit> listUnits = new();
+        public readonly List<AbstractUnit> ListUnits = new();
 
-        public readonly List<AbstractUnit> listAllies = new();
-        public readonly List<AbstractUnit> listEnemies = new();
+        public readonly List<AbstractUnit> ListAllies = new();
+        public readonly List<AbstractUnit> ListEnemies = new();
         
-        public AbstractUnit _currentUnit { get; set; }
-        public AbstractUnit _targetUnit { get; set; }
+        public AbstractUnit CurrentUnit { get; private set; }
+        public AbstractUnit TargetUnit { get; set; }
 
-        private List<string> unitListID = new()
+        private readonly List<string> unitListID = new()
         {
             "unit_trooper",
             "unit_defender",
@@ -45,15 +47,14 @@ namespace Syndicate.Battle
                 var unitBattleData = new BattleUnitObject(unitData);
                 unitInstantiate.Data = unitBattleData;
 
-                unitInstantiate.CanAttack = false;
                 unitInstantiate.IsStep = false;
                 unitInstantiate.IsAlive = true;
 
                 unitInstantiate.OnStartTurn += UnitStartTurn;
                 unitInstantiate.OnEndTurn += UnitEndTurn;
                 
-                listAllies.Add(unitInstantiate);
-                listUnits.Add(unitInstantiate);
+                ListAllies.Add(unitInstantiate);
+                ListUnits.Add(unitInstantiate);
             }
             
             for (int i = 0; i < unitListID.Count; i++)
@@ -69,7 +70,6 @@ namespace Syndicate.Battle
                 var unitBattleData = new BattleUnitObject(unitData);
                 unitInstantiate.Data = unitBattleData;
 
-                unitInstantiate.CanAttack = false;
                 unitInstantiate.IsStep = false;
                 unitInstantiate.IsAlive = true;
 
@@ -78,8 +78,8 @@ namespace Syndicate.Battle
                 unitInstantiate.OnStartTurn += UnitStartTurn;
                 unitInstantiate.OnEndTurn += UnitEndTurn;
                 
-                listEnemies.Add(unitInstantiate);
-                listUnits.Add(unitInstantiate);
+                ListEnemies.Add(unitInstantiate);
+                ListUnits.Add(unitInstantiate);
             }
             
             SortingUnits();
@@ -87,35 +87,46 @@ namespace Syndicate.Battle
 
         public void SortingUnits()
         {
-            var sortList = listUnits
+            var sortList = ListUnits
                 .OrderByDescending(x => x.IsAlive)
                 .ThenByDescending(x => !x.IsStep)
-                .ThenByDescending(x => x.Initiative).ToList();
-            _currentUnit = sortList[0];
-            _currentUnit.CanAttack = true;
-            _currentUnit.ActiveUnit = true;
-            _currentUnit.StartTurn();
+                .ThenByDescending(x => x.Data.OriginalData.Initiative).ToList();
+            CurrentUnit = sortList[0];
+            CurrentUnit.StartTurn();
         }
-
-        private void EndRound()
+        
+        private void UnitStartTurn()
         {
-            foreach (var unit in listUnits)
+            if (CurrentUnit.side == SideType.Allies)
             {
-                unit.IsStep = false;
+                CurrentUnit.floorAttack.SetActive(true);
+
+                if (CurrentUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support)
+                {
+                    foreach (var ally in ListAllies)
+                    {
+                        ally.floorDefend.SetActive(true);
+                    }
+
+                    foreach (var enemy in ListEnemies)
+                    {
+                        enemy.floorDefend.SetActive(true);
+                    }
+                }
+                else
+                {
+                    foreach (var enemy in ListEnemies)
+                    {
+                        enemy.floorDefend.SetActive(true);
+                    }
+                }
             }
-
-            Debug.Log("Round End");
         }
-
-        private void EndBattle()
-        {
-            Debug.Log("Battle End");
-        }
-
+        
         private void UnitEndTurn()
         {
-            var isAllyBattleContinue = listAllies.All(x => x.IsStep);
-            var isEnemyBattleContinue = listEnemies.All(x => x.IsStep);
+            var isAllyBattleContinue = ListAllies.All(x => x.IsStep);
+            var isEnemyBattleContinue = ListEnemies.All(x => x.IsStep);
             
             if (isAllyBattleContinue && isEnemyBattleContinue)
             {
@@ -127,50 +138,28 @@ namespace Syndicate.Battle
 
         public void CheckBattleEnd()
         {
-            var isAllyDead = listAllies.All(x => !x.IsAlive);
-            var isEnemyDead = listEnemies.All(x => !x.IsAlive);
+            var isAllyDead = ListAllies.All(x => !x.IsAlive);
+            var isEnemyDead = ListEnemies.All(x => !x.IsAlive);
 
             if (isAllyDead || isEnemyDead)
             {
                 EndBattle();
             }
         }
-
-        private void UnitStartTurn()
+        
+        private void EndRound()
         {
-            if (_currentUnit.side == SideType.Allies)
+            foreach (var unit in ListUnits)
             {
-                foreach (var unit in listUnits)
-                {
-                    if (unit.CanAttack)
-                    {
-                        unit.floorAttack.SetActive(true);
-                    }
-                }
-
-                if (_currentUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support)
-                {
-                    foreach (var ally in listAllies)
-                    {
-                        ally.floorDefend.SetActive(true);
-                    }
-
-                    foreach (var enemy in listEnemies)
-                    {
-                        enemy.floorDefend.SetActive(true);
-                    }
-
-                    _currentUnit.floorDefend.SetActive(false);
-                    _currentUnit.floorAttack.SetActive(true);
-                }
-                else
-                {
-                    foreach (var enemy in listEnemies)
-                    {
-                        enemy.floorDefend.SetActive(true);
-                    }
-                }
+                unit.IsStep = false;
             }
+
+            Debug.Log("Round End");
+        }
+
+        private void EndBattle()
+        {
+            Debug.Log("Battle End");
         }
     }
 }

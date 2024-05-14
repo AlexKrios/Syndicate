@@ -3,18 +3,21 @@ using Syndicate.Battle;
 using UnityEngine;
 using Zenject;
 
-public class BattleStarter : MonoBehaviour
+namespace Project.Scripts.Battle
 {
-    [Inject] private BattleManager _battleManager;
-    
-    public List<Transform> spawnPointAllies;
-    public List<Transform> spawnPointEnemies;
-
-    public static BattleStarter Instance;
-    
-    private void Awake()
+    public class BattleStarter : MonoBehaviour
     {
-        Instance = this;
-        _battleManager.InstantiateUnits();
+        [Inject] private BattleManager _battleManager;
+    
+        public List<Transform> spawnPointAllies;
+        public List<Transform> spawnPointEnemies;
+
+        public static BattleStarter Instance;
+    
+        private void Awake()
+        {
+            Instance = this;
+            _battleManager.InstantiateUnits();
+        }
     }
 }

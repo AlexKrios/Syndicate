@@ -19,17 +19,20 @@ namespace Project.Scripts.Battle
         private void RayMechanic()
         {
             if (Camera.main != null) _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(_ray, out _hit, 100))
+            
+            if (_battleManager.CanClick)
             {
-                if (_hit.transform.GetComponent<AbstractUnit>())
+                if (Physics.Raycast(_ray, out _hit, 100))
                 {
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    if (_hit.transform.GetComponent<AbstractUnit>())
                     {
-                        //_battleSignalBus.Fire(HitObj = new BattleInputSignal());
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            //_battleSignalBus.Fire(HitObj = new BattleInputSignal());
 
-                        _battleManager.TargetUnit = _hit.transform.GetComponent<AbstractUnit>();
-                        _battleManager.CurrentUnit.Turn();
+                            _battleManager.TargetUnit = _hit.transform.GetComponent<AbstractUnit>();
+                            _battleManager.CurrentUnit.Turn();
+                        }
                     }
                 }
             }

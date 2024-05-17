@@ -24,6 +24,8 @@ namespace Syndicate.Battle
         
         public void StartTurn()
         {
+            BattleManager.CanClick = true;
+        
             OnStartTurn?.Invoke();
 
             if (side == SideType.Enemies)
@@ -34,9 +36,11 @@ namespace Syndicate.Battle
 
         public async void Turn()
         {
+            BattleManager.CanClick = false;
+            
             var activeUnitT = transform;
             var startQuaternion = activeUnitT.rotation;
-
+            
             activeUnitT.rotation = Quaternion.LookRotation(BattleManager.TargetUnit.transform.position);
 
             await UniTask.Delay(1000);
@@ -45,7 +49,7 @@ namespace Syndicate.Battle
             {
                 Attack(BattleManager.ListAllies[0]);
             }
-            else
+            else if (BattleManager.CurrentUnit.side == SideType.Allies)
             {
                 Attack(BattleManager.TargetUnit);
             }
@@ -59,17 +63,31 @@ namespace Syndicate.Battle
 
         private void EndTurn()
         {
-            OnEndTurn?.Invoke();
-            
             BattleManager.CheckBattleEnd();
-
-            BattleManager.SortingUnits();
+            
+            OnEndTurn?.Invoke();
         }
 
         protected virtual void Attack(AbstractUnit target)
         {
             IsStep = true;
             floorAttack.SetActive(false);
+            
+            if (target.Data.CurrentHealth <= 0)
+            {
+                if (BattleManager.CurrentUnit.side == SideType.Allies)
+                {
+                    BattleManager.ListEnemies.Remove(target);
+                }
+                else if (BattleManager.CurrentUnit.side == SideType.Enemies)
+                {
+                    BattleManager.ListAllies.Remove(target);
+                }
+                
+                BattleManager.ListUnits.Remove(target);
+                
+                Destroy(target.gameObject);
+            }
         }   
     }
 }

@@ -1,4 +1,5 @@
 using Syndicate.Core.Entities;
+using UnityEngine;
 
 namespace Syndicate.Battle
 {
@@ -18,30 +19,11 @@ namespace Syndicate.Battle
                 {
                     target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
                 }
-                
-                foreach (var enemy in BattleManager.ListEnemies)
-                {
-                    enemy.floorDefend.SetActive(false);
-                }
             }
             else
             {
                 target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
             }
-
-            if (target.Data.CurrentHealth <= 0)
-            {
-                target.IsAlive = false;
-                    
-                BattleManager.ListAllies.Remove(target);
-                BattleManager.ListUnits.Remove(target);
-
-                Destroy(target.gameObject);
-            }
-
-            BattleManager.CheckBattleEnd();
-
-            BattleManager.SortingUnits();
         }
     }
 }

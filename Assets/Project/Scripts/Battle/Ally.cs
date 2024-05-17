@@ -1,4 +1,5 @@
 using Syndicate.Core.Entities;
+using UnityEngine;
 
 namespace Syndicate.Battle
 {
@@ -32,16 +33,6 @@ namespace Syndicate.Battle
             foreach (var enemy in BattleManager.ListEnemies)
             {
                 enemy.floorDefend.SetActive(false);
-            }
-            
-            if (target.Data.CurrentHealth <= 0)
-            {
-                target.IsAlive = false;
-                    
-                BattleManager.ListEnemies.Remove(target);
-                BattleManager.ListUnits.Remove(target);
-
-                Destroy(target.gameObject);
             }
         }
     }

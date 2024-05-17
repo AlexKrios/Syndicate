@@ -23,6 +23,8 @@ namespace Syndicate.Battle
         public AbstractUnit CurrentUnit { get; private set; }
         public AbstractUnit TargetUnit { get; set; }
 
+        public bool CanClick;
+
         private readonly List<string> unitListID = new()
         {
             "unit_trooper",
@@ -99,8 +101,6 @@ namespace Syndicate.Battle
         {
             if (CurrentUnit.side == SideType.Allies)
             {
-                CurrentUnit.floorAttack.SetActive(true);
-
                 if (CurrentUnit.Data.OriginalData.UnitTypeId == UnitTypeId.Support)
                 {
                     foreach (var ally in ListAllies)
@@ -112,6 +112,8 @@ namespace Syndicate.Battle
                     {
                         enemy.floorDefend.SetActive(true);
                     }
+                    
+                    CurrentUnit.floorDefend.SetActive(false);
                 }
                 else
                 {
@@ -120,6 +122,8 @@ namespace Syndicate.Battle
                         enemy.floorDefend.SetActive(true);
                     }
                 }
+                
+                CurrentUnit.floorAttack.SetActive(true);
             }
         }
         

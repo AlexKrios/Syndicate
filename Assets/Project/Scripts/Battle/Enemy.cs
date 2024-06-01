@@ -1,5 +1,4 @@
 using Syndicate.Core.Entities;
-using UnityEngine;
 
 namespace Syndicate.Battle
 {

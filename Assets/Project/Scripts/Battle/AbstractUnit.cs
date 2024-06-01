@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,8 @@ namespace Syndicate.Battle
     public abstract class AbstractUnit : MonoBehaviour
     {
         [Inject] protected BattleManager BattleManager;
+
+        public Animator animator;
 
         public Action OnEndTurn;
         public Action OnStartTurn;
@@ -19,6 +22,7 @@ namespace Syndicate.Battle
         public bool IsStep { get; set; }
 
         public SideType side;
+        private static readonly int TurnTrigger = Animator.StringToHash("Turn");
 
         public BattleUnitObject Data { get; set; }
         
@@ -38,11 +42,31 @@ namespace Syndicate.Battle
         {
             BattleManager.CanClick = false;
             
-            var activeUnitT = transform;
-            var startQuaternion = activeUnitT.rotation;
-            
-            activeUnitT.rotation = Quaternion.LookRotation(BattleManager.TargetUnit.transform.position);
+            floorAttack.SetActive(false);
 
+            foreach (var enemy in BattleManager.ListEnemies)
+            {
+                enemy.floorDefend.SetActive(false);
+            }
+            foreach (var ally in BattleManager.ListAllies)
+            {
+                ally.floorDefend.SetActive(false);
+            }
+
+            var targetTransform = BattleManager.TargetUnit.transform.position;
+            
+            var activeUnitT = transform;
+            var startRotation = activeUnitT.rotation;
+            var position = activeUnitT.position;
+            
+            var direction = Quaternion.LookRotation(targetTransform - position);
+
+            transform.DORotateQuaternion(direction, 0.6f);
+
+            //activeUnitT.rotation = Quaternion.LookRotation(BattleManager.TargetUnit.transform.position);
+
+            animator.SetFloat(TurnTrigger, targetTransform.x);
+            
             await UniTask.Delay(1000);
             
             if (BattleManager.CurrentUnit.side == SideType.Enemies)
@@ -54,10 +78,14 @@ namespace Syndicate.Battle
                 Attack(BattleManager.TargetUnit);
             }
 
+            transform.DORotateQuaternion(startRotation, 0.6f);
+            
             //TODO Поменять после внедрения класса для изменения трансформа
             // ReSharper disable once Unity.InefficientPropertyAccess
-            activeUnitT.rotation = startQuaternion;
+            //activeUnitT.rotation = startQuaternion;
 
+            animator.SetFloat(TurnTrigger, startRotation.x);
+            
             EndTurn();
         }
 
@@ -71,7 +99,6 @@ namespace Syndicate.Battle
         protected virtual void Attack(AbstractUnit target)
         {
             IsStep = true;
-            floorAttack.SetActive(false);
             
             if (target.Data.CurrentHealth <= 0)
             {

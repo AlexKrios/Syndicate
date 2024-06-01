@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: UnitSet
   m_EditorClassIdentifier: 
   items:
-  - key: unit_trooper
+  - name: Trooper
+    key: unit_trooper
     unitTypeId:
       value: Trooper
-    iconId:
+    spriteAssetId:
       value: unit_trooper
     nameLocale:
       m_TableReference:
@@ -51,10 +52,11 @@ MonoBehaviour:
       value: 20
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
-  - key: unit_defender
+  - name: Defender
+    key: unit_defender
     unitTypeId:
       value: Defender
-    iconId:
+    spriteAssetId:
       value: unit_defender
     nameLocale:
       m_TableReference:
@@ -89,10 +91,11 @@ MonoBehaviour:
       value: 15
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
-  - key: unit_support
+  - name: Support
+    key: unit_support
     unitTypeId:
       value: Support
-    iconId:
+    spriteAssetId:
       value: unit_support
     nameLocale:
       m_TableReference:
@@ -127,10 +130,11 @@ MonoBehaviour:
       value: 10
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
-  - key: unit_sniper
+  - name: Sniper
+    key: unit_sniper
     unitTypeId:
       value: Sniper
-    iconId:
+    spriteAssetId:
       value: unit_sniper
     nameLocale:
       m_TableReference:

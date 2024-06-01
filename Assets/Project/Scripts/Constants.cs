@@ -22,6 +22,6 @@
         public const string Weapon = "wea";
         public const string Armor = "arm";
 
-        public const int MaxStar = 5;
+        public const int MaxStar = 3;
     }
 }

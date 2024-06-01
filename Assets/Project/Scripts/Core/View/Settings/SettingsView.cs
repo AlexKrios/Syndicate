@@ -55,38 +55,39 @@ namespace Syndicate.Core.View
             }
         }
 
-        private void Awake()
+        protected override void OnBind()
         {
+            base.OnBind();
+
+            close.onClick.AddListener(Close);
+            signOut.onClick.AddListener(OnSignOutClick);
             musicSlider.onValueChanged.AddListener(UpdateMusicSliderValue);
             audioSlider.onValueChanged.AddListener(UpdateAudioSliderValue);
             graphicSlider.onValueChanged.AddListener(UpdateGraphicSliderValue);
 
             languages.ForEach(x => x.OnClickEvent += OnLanguageClick);
-            ActiveLanguage = languages.First(x => x.Type == _settingsService.Language);
-        }
-
-        protected override void OnBind()
-        {
-            base.OnBind();
-
-            ViewModel.GameObject = gameObject;
-
-            close.onClick.AddListener(() => ViewModel.Hide?.Invoke());
 
             musicSlider.value = _settingsService.MusicVolume;
             audioSlider.value = _settingsService.AudioVolume;
             UpdateGraphicSliderValue((float)_settingsService.Graphics);
 
-            signOut.onClick.AddListener(OnSignOutClick);
             /*if (!_authService.IsGooglePlayConnected())
                 _signOut.onClick.AddListener(OnSignOutClick);
             else
                 _signOut.gameObject.SetActive(false);*/
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            ActiveLanguage = languages.First(x => x.Type == _settingsService.Language);
+        }
+
         private void OnSignOutClick()
         {
             _authService.SignOut();
+
             ViewModel.Hide?.Invoke();
             _screenService.Get<MainViewModel>(true).Hide?.Invoke();
 

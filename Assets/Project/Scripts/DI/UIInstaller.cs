@@ -30,13 +30,7 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<PopupViewFactory>().AsSingle();
             Container.BindInterfacesTo<PopupService>().AsSingle();
             Container.BindInterfacesTo<ComponentViewFactory>().AsSingle();
-
-            Container.BindInterfacesTo<LoadingViewMediator>().AsSingle();
-            Container.BindInterfacesTo<ChangeNameViewMediator>().AsSingle();
-            Container.BindInterfacesTo<SettingsViewMediator>().AsSingle();
-            Container.BindInterfacesTo<MainViewMediator>().AsSingle();
-            Container.BindInterfacesTo<ProductionViewMediator>().AsSingle();
-            Container.BindInterfacesTo<StorageViewMediator>().AsSingle();
+            Container.BindInterfacesTo<ViewBuilder>().AsSingle();
 
             Container.BindFactory<ProductionCellReadyState, ProductionCellReadyState.Factory>();
             Container.BindFactory<ProductionQueueCellView, ProductionCellBusyState, ProductionCellBusyState.Factory>();

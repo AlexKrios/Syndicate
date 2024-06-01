@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Syndicate.Core.View
 {
-    public class AuthView : ViewBase<AuthViewModel>
+    public class AuthView : ScreenViewBase<AuthViewModel>
     {
         [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly IAuthService _authService;

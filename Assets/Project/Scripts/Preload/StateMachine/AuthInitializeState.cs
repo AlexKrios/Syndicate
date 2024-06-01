@@ -22,6 +22,7 @@ namespace Syndicate.Preload.StateMachine
                 switch (x)
                 {
                     case AuthStatus.Success:
+                        stateMachine.SetLoadingPercent(60);
                         stateMachine.Enter<ProfileInitializeState>();
                         break;
                     case AuthStatus.Failure:

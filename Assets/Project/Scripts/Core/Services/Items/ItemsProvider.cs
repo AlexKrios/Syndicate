@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using Syndicate.Core.Entities;
 using Syndicate.Utils;
 using Zenject;
@@ -12,41 +14,63 @@ namespace Syndicate.Core.Services
         [Inject] private readonly IComponentsService _componentsService;
         [Inject] private readonly IProductsService _productsService;
 
-        public ItemBaseObject GetItemById(string id)
+        public void LoadItemsData(ItemDto item)
         {
-            var itemType = ItemsUtil.GetItemTypeById(id);
+            var itemType = ItemsUtil.GetItemTypeByKey(item.Key);
+            switch (itemType)
+            {
+                case ItemType.Raw:
+                    _rawService.LoadRawObjectData(item);
+                    break;
+
+                case ItemType.Component:
+                    _componentsService.LoadComponentObjectData(item);
+                    break;
+
+                case ItemType.Product:
+                    _productsService.LoadProductObjectData(item);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public ItemBaseObject GetItemByKey(string key)
+        {
+            var itemType = ItemsUtil.GetItemTypeByKey(key);
             return itemType switch
             {
-                ItemType.Raw => _rawService.GetRawById((RawItemId)id),
-                ItemType.Component => _componentsService.GetComponentById((ComponentId)id),
-                ItemType.Product => _productsService.GetProductById((ProductId)id),
+                ItemType.Raw => _rawService.GetRawByKey((RawItemId)key),
+                ItemType.Component => _componentsService.GetComponentByKey((ComponentId)key),
+                ItemType.Product => _productsService.GetProductByKey((ProductId)key),
                 _ => null
             };
         }
 
-        public T GetItemById<T>(string id) where T : ItemBaseObject
+        public ICraftableItem GetCraftableItemByKey(string key)
         {
-            if (typeof(T) == typeof(RawObject))
-                return _rawService.GetRawByKey((RawItemId)id) as T;
-
-            if (typeof(T) == typeof(ComponentObject))
-                return _componentsService.GetComponentByKey((ComponentId)id) as T;
-
-            if (typeof(T) == typeof(ProductObject))
-                return _productsService.GetProductByKey((ProductId)id) as T;
-
-            return null;
-        }
-
-        public ICraftableItem GetCraftableItemById(string id)
-        {
-            var itemType = ItemsUtil.GetItemTypeById(id);
+            var itemType = ItemsUtil.GetItemTypeByKey(key);
             return itemType switch
             {
-                ItemType.Component => _componentsService.GetComponentById((ComponentId)id),
-                ItemType.Product => _productsService.GetProductById((ProductId)id),
+                ItemType.Component => _componentsService.GetComponentByKey((ComponentId)key),
+                ItemType.Product => _productsService.GetProductByKey((ProductId)key),
                 _ => null
             };
+        }
+
+        public List<ItemBaseObject> RemoveItems(ICraftableItem data)
+        {
+            var sendList = new List<ItemBaseObject>();
+            foreach (var part in data.Recipe.Parts)
+            {
+                var item = GetItemByKey(part.Key);
+                item.Count -= part.Count;
+
+                sendList.Add(item);
+            }
+
+            return sendList;
         }
     }
 }

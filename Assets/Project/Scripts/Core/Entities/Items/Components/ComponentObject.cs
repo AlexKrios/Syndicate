@@ -7,12 +7,9 @@ namespace Syndicate.Core.Entities
         public ProductGroupId ProductGroupId { get; }
         public UnitTypeId UnitTypeId { get; }
 
-        public int Experience { get; set; }
-
         public ComponentObject(ComponentScriptable data)
         {
             ItemType = ItemType.Component;
-            Id = data.Id;
             Key = data.Key;
 
             NameLocale = data.NameLocale;

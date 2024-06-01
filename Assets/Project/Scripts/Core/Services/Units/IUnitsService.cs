@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Syndicate.Core.Entities;
+using Syndicate.Core.Profile;
 
 namespace Syndicate.Core.Services
 {
     public interface IUnitsService
     {
-        UnitObject GetUnit(UnitId assetId);
+        void LoadUnits(UnitsState state);
 
         List<UnitObject> GetAllUnits();
+        UnitObject GetUnit(UnitId assetId);
     }
 }

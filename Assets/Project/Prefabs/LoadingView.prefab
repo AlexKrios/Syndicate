@@ -162,6 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4409838921641237616}
   - component: {fileID: 2480660249402937579}
+  - component: {fileID: 7902947716238970688}
   m_Layer: 0
   m_Name: LoadingView
   m_TagString: Untagged
@@ -203,7 +204,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e02f1f15e0a49d09713bb342a8ae8e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 7902947716238970688}
   slider: {fileID: 7645176558176830909}
+--- !u!225 &7902947716238970688
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777475933760239746}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6253642689232282000
 GameObject:
   m_ObjectHideFlags: 0

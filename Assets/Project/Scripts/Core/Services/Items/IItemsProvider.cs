@@ -1,11 +1,15 @@
-﻿using Syndicate.Core.Entities;
+﻿using System.Collections.Generic;
+using Syndicate.Core.Entities;
 
 namespace Syndicate.Core.Services
 {
     public interface IItemsProvider
     {
-        ItemBaseObject GetItemById(string id);
+        void LoadItemsData(ItemDto item);
 
-        ICraftableItem GetCraftableItemById(string id);
+        ItemBaseObject GetItemByKey(string id);
+        ICraftableItem GetCraftableItemByKey(string id);
+
+        List<ItemBaseObject> RemoveItems(ICraftableItem data);
     }
 }

@@ -84,8 +84,6 @@ namespace Syndicate.Core.Configurations
 
             data.Name = EditorGUILayout.TextField("Name", data.Name);
             data.Key = (RawItemId)EditorGUILayout.TextField("Key", data.Key);
-            data.Id = EditorGUILayout.TextField("Id", data.Id);
-
             EditorGUILayout.Space();
 
             var spritesString = EntitiesUtil.GetSpriteAssetValues();

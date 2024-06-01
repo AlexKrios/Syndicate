@@ -4,10 +4,11 @@ namespace Syndicate.Core.Entities
 {
     public interface ICraftableItem
     {
-        string Id { get; }
         string Key { get; }
-
         ItemType ItemType { get; }
+
+        int Count { get; set; }
+        int Experience { get; set; }
 
         ProductGroupId ProductGroupId { get; }
         UnitTypeId UnitTypeId { get; }
@@ -18,7 +19,5 @@ namespace Syndicate.Core.Entities
         SpriteAssetId SpriteAssetId { get; }
 
         RecipeObject Recipe { get; }
-
-        int Experience { get; }
     }
 }

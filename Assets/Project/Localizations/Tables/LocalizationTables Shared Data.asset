@@ -119,6 +119,14 @@ MonoBehaviour:
     m_Key: complete
     m_Metadata:
       m_Items: []
+  - m_Id: 19667835335979008
+    m_Key: upgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30977881558724608
+    m_Key: equip
+    m_Metadata:
+      m_Items: []
   - m_Id: 1538433574219776
     m_Key: need_level
     m_Metadata:

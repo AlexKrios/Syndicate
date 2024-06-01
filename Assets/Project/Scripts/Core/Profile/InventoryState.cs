@@ -6,8 +6,8 @@ namespace Syndicate.Core.Profile
     public class InventoryState
     {
         public int Cash { get; set; }
+        public int Diamond { get; set; }
 
-        public Dictionary<string, GroupData> GroupsData { get; } = new();
-        public Dictionary<string, ItemData> ItemsData { get; } = new();
+        public Dictionary<string, ItemDto> ItemsData { get; } = new();
     }
 }

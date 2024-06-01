@@ -10,12 +10,14 @@ namespace Syndicate.Preload.StateMachine
     public class GameInitializeState : PreloadState, IState
     {
         [Inject] private readonly IGameService _gameService;
+
         public void Enter()
         {
             Application.targetFrameRate = 500;
 
             _gameService.CreatePlayerProfile();
 
+            stateMachine.SetLoadingPercent(20);
             stateMachine.Enter<ServiceInitializeState>();
         }
 

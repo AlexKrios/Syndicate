@@ -2,8 +2,5 @@
 
 namespace Syndicate.Hub.View.Main
 {
-    public class ProductionViewModel : ViewModelBase
-    {
-
-    }
+    public class ProductionViewModel : ViewModelBase, IScreenViewModel { }
 }

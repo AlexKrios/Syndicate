@@ -62,12 +62,6 @@ namespace Syndicate.Utils
                 EditorSceneManager.OpenScene(PlayerPrefs.GetString("restoreScenePath"));
             }
         }
-
-        [MenuItem("Helper/Reset PlayerPrefs", false, 201)]
-        public static void ResetPlayerPrefs()
-        {
-            PlayerPrefs.DeleteAll();
-        }
     }
 }
 #endif

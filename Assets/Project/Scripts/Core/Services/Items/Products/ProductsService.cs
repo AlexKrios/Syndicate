@@ -14,7 +14,7 @@ namespace Syndicate.Core.Services
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
 
-        private Dictionary<ProductId, ProductObject> _productObjects;
+        private Dictionary<ProductId, ProductObject> _productObjects = new();
 
         public UniTask Initialize()
         {
@@ -24,6 +24,13 @@ namespace Syndicate.Core.Services
             return UniTask.CompletedTask;
         }
 
+        public void LoadProductObjectData(ItemDto data)
+        {
+            var raw = _productObjects[(ProductId)data.Key];
+            raw.Count = data.Count;
+            raw.Experience = data.Experience;
+        }
+
         public List<ProductObject> GetAllProducts() => _productObjects.Values.ToList();
 
         public ProductObject GetProductByKey(ProductId key)
@@ -31,13 +38,6 @@ namespace Syndicate.Core.Services
             return _productObjects.TryGetValue(key, out var productObject)
                 ? productObject
                 : throw new Exception($"Can't find {nameof(ProductObject)} with key {key}");
-        }
-
-        public ProductObject GetProductById(string id)
-        {
-            var productObject = _productObjects.Values.FirstOrDefault(x => x.Id == id);
-            return productObject
-                   ?? throw new Exception($"Can't find {nameof(ProductObject)} with id {id}");
         }
 
         public List<ProductObject> GetProductsByUnitType(UnitTypeId unitTypeId)

@@ -24,20 +24,20 @@ namespace Syndicate.Core.Services
             return UniTask.CompletedTask;
         }
 
-        public List<ComponentObject> GetAllProducts() => _componentObjects.Values.ToList();
+        public void LoadComponentObjectData(ItemDto data)
+        {
+            var raw = _componentObjects[(ComponentId)data.Key];
+            raw.Count = data.Count;
+            raw.Experience = data.Experience;
+        }
+
+        public List<ComponentObject> GetAllComponents() => _componentObjects.Values.ToList();
 
         public ComponentObject GetComponentByKey(ComponentId key)
         {
             return _componentObjects.TryGetValue(key, out var productObject)
                 ? productObject
                 : throw new Exception($"Can't find {nameof(ComponentObject)} with key {key}");
-        }
-
-        public ComponentObject GetComponentById(string id)
-        {
-            var componentObject = _componentObjects.Values.FirstOrDefault(x => x.Id == id);
-            return componentObject
-                   ?? throw new Exception($"Can't find {nameof(ComponentObject)} with id {id}");
         }
     }
 }

@@ -20,10 +20,12 @@ namespace Syndicate.Core.Entities
         public List<SpecificationObject> Specifications { get; }
 
         public int Experience { get; set; }
-        public Dictionary<ProductGroupId, string> Outfit { get; set; }
+        public Dictionary<ProductGroupId, string> Outfit { get; set; } = new();
 
         public GameObject PrefabAlly { get; }
         public GameObject PrefabEnemy { get; }
+
+        public bool IsUnlocked { get; set; }
 
         public int Attack => Specifications.First(x => x.Type == SpecificationId.Attack).Value;
         public int Health => Specifications.First(x => x.Type == SpecificationId.Health).Value;
@@ -36,7 +38,7 @@ namespace Syndicate.Core.Entities
 
             UnitTypeId = data.UnitTypeId;
 
-            IconId = data.IconId;
+            IconId = data.SpriteAssetId;
 
             NameLocale = data.NameLocale;
             DescriptionLocale = data.DescriptionLocale;
@@ -46,6 +48,16 @@ namespace Syndicate.Core.Entities
             PrefabAlly = data.PrefabAlly;
 
             PrefabEnemy = data.PrefabEnemy;
+        }
+
+        public UnitDto ToDto()
+        {
+            return new UnitDto
+            {
+                Key = Key,
+                Experience = Experience,
+                Outfit = Outfit
+            };
         }
     }
 }

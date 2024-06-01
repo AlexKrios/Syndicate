@@ -9,7 +9,6 @@ namespace Syndicate.Core.Entities
         public string Key { get; set; }
         public int Experience { get; set; }
 
-        public Dictionary<ProductGroupId, string> Outfit { get; set; }
-        public bool IsLocked { get; set; }
+        public Dictionary<ProductGroupId, string> Outfit { get; set; } = new();
     }
 }

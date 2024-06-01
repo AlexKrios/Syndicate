@@ -28,7 +28,7 @@ namespace Syndicate.Hub.View.Main
             {
                 icon.sprite = _assetsService.GetSprite(itemBase.SpriteAssetId);
 
-                var starCount = ItemsUtil.ParseItemIdToStar(itemBase.Id);
+                var starCount = ItemsUtil.ParseItemKeyToStar(itemBase.Key);
                 star.sprite = _assetsService.GetStarSprite(starCount);
             }
         }

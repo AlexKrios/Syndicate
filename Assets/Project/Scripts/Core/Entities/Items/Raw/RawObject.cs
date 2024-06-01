@@ -8,7 +8,6 @@ namespace Syndicate.Core.Entities
         {
             ItemType = ItemType.Raw;
             Key = data.Key;
-            Id = data.Id;
 
             NameLocale = data.NameLocale;
             DescriptionLocale = data.DescriptionLocale;

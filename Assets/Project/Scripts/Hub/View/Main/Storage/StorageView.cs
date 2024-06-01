@@ -12,13 +12,14 @@ using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
-    public class StorageView : ViewBase<StorageViewModel>
+    public class StorageView : ScreenViewBase<StorageViewModel>
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
         [Inject] private readonly IScreenService _screenService;
         [Inject] private readonly IAssetsService _assetsService;
-        [Inject] private readonly IItemsService _itemsService;
         [Inject] private readonly IItemsProvider _itemsProvider;
+        [Inject] private readonly IProductsService _productsService;
+        [Inject] private readonly IComponentsService _componentsService;
         [Inject] private readonly IComponentViewFactory _componentViewFactory;
         [Inject] private readonly SpecificationsUtil _specificationsUtil;
 
@@ -36,7 +37,7 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private Image starIcon;
         [SerializeField] private LocalizeStringEvent itemName;
         [SerializeField] private LocalizeStringEvent itemDescription;
-        [SerializeField] private List<StorageSpecView> specifications;
+        [SerializeField] private List<SpecificationView> specifications;
         [SerializeField] private List<StoragePartView> parts;
 
         private StorageTabView _currentTab;
@@ -90,8 +91,8 @@ namespace Syndicate.Hub.View.Main
 
         private void SetTitleData()
         {
-            productGroupType.StringReference = _configurations.GetProductGroupData(CurrentItem.GroupData.ProductGroupId).Locale;
-            unitType.StringReference = _configurations.GetUnitTypeData(CurrentItem.GroupData.UnitTypeId).Locale;
+            productGroupType.StringReference = _configurations.GetProductGroupData(CurrentItem.ItemData.ProductGroupId).Locale;
+            unitType.StringReference = _configurations.GetUnitTypeData(CurrentItem.ItemData.UnitTypeId).Locale;
         }
 
         private void OnTabClick(StorageTabView tab)
@@ -110,22 +111,22 @@ namespace Syndicate.Hub.View.Main
             if (items.Count != 0)
                 items.ForEach(x => x.gameObject.SetActive(false));
 
-            var itemObjects = _itemsService.GetAllItems()
-                .Where(x => ItemsUtil.GetItemTypeById(x.Id) != ItemType.Raw)
-                .Where(x => x.Count != 0)
-                .ToList();
+            var productObjects = _productsService.GetAllProducts().Where(x => x.Count != 0).ToList();
+            var componentObjects = _componentsService.GetAllComponents().Where(x => x.Count != 0).ToList();
+            var itemObjects = new List<ICraftableItem>();
+            itemObjects.AddRange(productObjects);
+            itemObjects.AddRange(componentObjects);
 
             for (var i = 0; i < itemObjects.Count; i++)
             {
                 var itemData = itemObjects[i];
-                var groupId = ItemsUtil.ParseItemIdToGroupId(itemData.Id);
-                var groupData = _itemsProvider.GetCraftableItemById(groupId);
-                if (CurrentTab.Type != UnitTypeId.All && groupData.UnitTypeId != CurrentTab.Type) continue;
+                if (CurrentTab.Type != UnitTypeId.All && itemData.UnitTypeId != CurrentTab.Type)
+                    continue;
 
                 if (items.ElementAtOrDefault(i) == null)
                     items.Add(_componentViewFactory.Create<StorageItemView>(itemsParent));
 
-                items[i].SetData(itemData, groupData);
+                items[i].SetData(itemData);
                 items[i].OnClickEvent += OnItemClick;
                 items[i].gameObject.SetActive(true);
             }
@@ -145,10 +146,10 @@ namespace Syndicate.Hub.View.Main
 
         private void SetSidebarData()
         {
-            var data = CurrentItem.GroupData;
+            var data = CurrentItem.ItemData;
 
             itemIcon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
-            var starCount = ItemsUtil.ParseItemIdToStar(data.Id);
+            var starCount = ItemsUtil.ParseItemKeyToStar(data.Key);
             starIcon.sprite = _assetsService.GetStarSprite(starCount);
             itemName.StringReference = data.NameLocale;
             itemDescription.StringReference = data.DescriptionLocale;
@@ -187,7 +188,7 @@ namespace Syndicate.Hub.View.Main
                 }
 
                 var part = partObjects[i];
-                var partItemObject = _itemsProvider.GetItemById(part.Id);
+                var partItemObject = _itemsProvider.GetItemByKey(part.Key);
                 parts[i].SetData(partItemObject);
             }
         }

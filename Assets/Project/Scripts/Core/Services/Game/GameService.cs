@@ -1,8 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Profile;
-using Syndicate.Utils;
 using Zenject;
 
 namespace Syndicate.Core.Services
@@ -10,17 +10,19 @@ namespace Syndicate.Core.Services
     [UsedImplicitly]
     public class GameService : IGameService
     {
-        [Inject] private readonly IApiService _apiService;
+        [Inject] private readonly ConfigurationsScriptable _configurations;
+        [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly IRawService _rawService;
-        [Inject] private readonly IProductsService _productsService;
+        [Inject] private readonly IApiService _apiService;
+        [Inject] private readonly IUnitsService _unitsService;
 
-        private PlayerProfile _playerProfile;
+        private PlayerState _playerState;
 
-        public PlayerProfile GetPlayerProfile() => _playerProfile;
+        public PlayerState GetPlayerState() => _playerState;
 
         public void CreatePlayerProfile()
         {
-            _playerProfile = new PlayerProfile();
+            _playerState = new PlayerState();
         }
 
         public async UniTask LoadPlayerProfile()
@@ -28,24 +30,28 @@ namespace Syndicate.Core.Services
             var data = await _apiService.GetPlayerProfile();
             if (data != null)
             {
-                _playerProfile = data;
+                _playerState = data;
             }
             else
             {
                 foreach (var raw in _rawService.GetAllRaw())
                 {
-                    var itemData = new ItemData { Id = raw.Id, Count = 50 };
-                    _playerProfile.Inventory.ItemsData.Add(raw.Id, itemData);
+                    raw.Count = 50;
+                    _playerState.Inventory.ItemsData.Add(raw.Key, raw.ToDto());
                 }
 
-                foreach (var product in _productsService.GetAllProducts())
-                {
-                    var productWithComponentId = ItemsUtil.ParseItemToId(product);
-                    _playerProfile.Production.Presets.Add(product.Id, productWithComponentId);
-                }
+                var unitDto = new UnitObject(_configurations.UnitSet.Items[0]).ToDto();
+                unitDto.Outfit.Add(ProductGroupId.Weapon, "pro|trooper_weapon_product|2");
+                _playerState.Units.Roster.Add(unitDto.Key, unitDto);
 
-                await _apiService.SetStartPlayerProfile(_playerProfile);
+                await _apiService.SetStartPlayerProfile(_playerState);
             }
+
+            foreach (var (_, value) in _playerState.Inventory.ItemsData)
+            {
+                _itemsProvider.LoadItemsData(value);
+            }
+            _unitsService.LoadUnits(_playerState.Units);
         }
     }
 }

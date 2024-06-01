@@ -30,6 +30,8 @@
 "select","Select","Выбрать"
 "create","Create","Создать"
 "complete","Complete","Готово"
+"upgrade","Upgrade","Улучшение"
+"equip","Equip","Экипировать"
 
 "need_level","Level {value}","Уровень {value}"
 

@@ -19,18 +19,16 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private Image star;
 
         public Action<StorageItemView> OnClickEvent { get; set; }
-        public ItemData ItemData { get; private set; }
-        public ICraftableItem GroupData { get; private set; }
+        public ICraftableItem ItemData { get; private set; }
 
-        public void SetData(ItemData itemData, ICraftableItem groupData)
+        public void SetData(ICraftableItem itemData)
         {
             ItemData = itemData;
-            GroupData = groupData;
 
-            icon.sprite = _assetsService.GetSprite(groupData.SpriteAssetId);
+            icon.sprite = _assetsService.GetSprite(itemData.SpriteAssetId);
             count.text = itemData.Count.ToString();
 
-            var starCount = ItemsUtil.ParseItemIdToStar(groupData.Id);
+            var starCount = ItemsUtil.ParseItemKeyToStar(itemData.Key);
             star.sprite = _assetsService.GetStarSprite(starCount);
         }
 

@@ -1,14 +1,15 @@
 ﻿using Syndicate.Core.Services;
+using Syndicate.Preload.StateMachine;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
 namespace Syndicate.Core.View
 {
-    public class ChangeNameView : ViewBase<ChangeNameViewModel>
+    public class ChangeNameView : ScreenViewBase<ChangeNameViewModel>
     {
+        [Inject] private readonly PreloadStateMachine _stateMachine;
         [Inject] private readonly IApiService _apiService;
 
         [Space]
@@ -32,7 +33,7 @@ namespace Syndicate.Core.View
             await _apiService.SetPlayerName(_name);
 
             ViewModel.Hide?.Invoke();
-            SceneManager.LoadScene("Hub");
+            await _stateMachine.SetLoadingFinish();
         }
 
         private void ReadNameField(string text)

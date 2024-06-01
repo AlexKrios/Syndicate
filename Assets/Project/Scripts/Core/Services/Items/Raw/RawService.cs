@@ -24,18 +24,18 @@ namespace Syndicate.Core.Services
             return UniTask.CompletedTask;
         }
 
+        public void LoadRawObjectData(ItemDto data)
+        {
+            var raw = _rawObjects[(RawItemId)data.Key];
+            raw.Count = data.Count;
+            raw.Experience = data.Experience;
+        }
+
         public RawObject GetRawByKey(RawItemId key)
         {
             return _rawObjects.TryGetValue(key, out var rawObject)
                 ? rawObject
                 : throw new Exception($"Can't find {nameof(RawObject)} with key {key}");
-        }
-
-        public RawObject GetRawById(string id)
-        {
-            var componentObject = _rawObjects.Values.FirstOrDefault(x => x.Id == id);
-            return componentObject
-                   ?? throw new Exception($"Can't find {nameof(RawObject)} with id {id}");
         }
 
         public List<RawObject> GetAllRaw() => _rawObjects.Values.ToList();

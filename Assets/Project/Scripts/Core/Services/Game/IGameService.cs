@@ -5,7 +5,7 @@ namespace Syndicate.Core.Services
 {
     public interface IGameService
     {
-        PlayerProfile GetPlayerProfile();
+        PlayerState GetPlayerState();
 
         void CreatePlayerProfile();
 

@@ -8,19 +8,9 @@ namespace Syndicate.Utils
     [UsedImplicitly]
     public class ItemsUtil
     {
-        public static string[] ParseItemIdToPartIds(string id)
+        public static ItemType GetItemTypeByKey(string key)
         {
-            return id.Split("_");
-        }
-
-        public static string ParseItemIdToGroupId(string id)
-        {
-            return id.Split("_").First();
-        }
-
-        public static ItemType GetItemTypeById(string id)
-        {
-            var itemTypeId = id.Split("|");
+            var itemTypeId = key.Split("|");
             return itemTypeId.First() switch
             {
                 Constants.RawId => ItemType.Raw,
@@ -30,25 +20,10 @@ namespace Syndicate.Utils
             };
         }
 
-        public static int ParseItemIdToStar(string id)
+        public static int ParseItemKeyToStar(string key)
         {
-            var stringStar = id.Split("|");
+            var stringStar = key.Split("|");
             return Convert.ToInt32(stringStar[2]);
-        }
-
-        public static string ParseItemToId(ItemBaseObject itemData)
-        {
-            var id = itemData.Id;
-            var recipe = itemData.Recipe;
-            if (recipe == null || recipe.Parts.Count == 0)
-                return id;
-
-            foreach (var part in recipe.Parts)
-            {
-                id = $"{id}_{part.Id}";
-            }
-
-            return id;
         }
     }
 }

@@ -19,13 +19,18 @@ namespace Syndicate.Core.Configurations
         [SerializeField] private ComponentSetScriptable componentSet;
         [SerializeField] private ProductSetScriptable productSet;
 
+        [Header("Locations")]
+        [SerializeField] private LocationSetScriptable locationsSet;
+
         [Header("Production")]
         [SerializeField] private ProductionSetScriptable productionSet;
 
         public ExperienceSetScriptable ExperienceSet => experienceSet;
+        public UnitTypeSetScriptable UnitTypeSet => unitTypeSet;
         public UnitSetScriptable UnitSet => unitSet;
         public RawSetScriptable RawSet => rawSet;
         public ComponentSetScriptable ComponentSet => componentSet;
+        public LocationSetScriptable LocationsSet => locationsSet;
         public ProductSetScriptable ProductSet => productSet;
         public ProductionSetScriptable ProductionSet => productionSet;
 

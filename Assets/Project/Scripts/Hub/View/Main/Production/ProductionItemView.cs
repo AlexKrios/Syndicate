@@ -15,13 +15,13 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private Image icon;
 
         public Action<ProductionItemView> OnClickEvent { get; set; }
-        public ICraftableItem GroupData { get; private set; }
+        public ICraftableItem Data { get; private set; }
 
-        public void SetData(ICraftableItem groupData)
+        public void SetData(ICraftableItem data)
         {
-            GroupData = groupData;
+            Data = data;
 
-            icon.sprite = _assetsService.GetSprite(groupData.SpriteAssetId);
+            icon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
         }
 
         protected override void Click()

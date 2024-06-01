@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Syndicate.Core.Entities;
 using Syndicate.Core.StateMachine;
+using Syndicate.Core.View;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +11,7 @@ using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
-    public class ProductionQueueCellView : MonoBehaviour, IPointerClickHandler
+    public class ProductionQueueCellView : ComponentViewBase, IPointerClickHandler
     {
         [Inject] private readonly ProductionCellReadyState.Factory _readyStateFactory;
         [Inject] private readonly ProductionCellBusyState.Factory _busyStateFactory;

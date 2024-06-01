@@ -7,14 +7,9 @@ namespace Syndicate.Core.Utils
     {
         [SerializeField] private EventSystem eventSystem;
 
-        public void Lock()
+        public void Lock(bool value)
         {
-            eventSystem.enabled = false;
-        }
-
-        public void Unlock()
-        {
-            eventSystem.enabled = true;
+            eventSystem.enabled = !value;
         }
     }
 }

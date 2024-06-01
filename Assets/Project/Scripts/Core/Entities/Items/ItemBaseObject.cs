@@ -1,5 +1,5 @@
 ﻿using System;
-using Syndicate.Utils;
+using System.Collections.Generic;
 using UnityEngine.Localization;
 
 namespace Syndicate.Core.Entities
@@ -7,9 +7,11 @@ namespace Syndicate.Core.Entities
     [Serializable]
     public abstract class ItemBaseObject
     {
-        public string Id { get; set; }
         public string Key { get; set; }
         public ItemType ItemType { get; set; }
+
+        public int Count { get; set; }
+        public int Experience { get; set; }
 
         public LocalizedString NameLocale { get; set; }
         public LocalizedString DescriptionLocale { get; set; }
@@ -18,21 +20,23 @@ namespace Syndicate.Core.Entities
 
         public RecipeObject Recipe { get; set; }
 
-        public GroupData ToGroupData(string id)
+        public ItemDto ToDto()
         {
-            return new GroupData
+            return new ItemDto
             {
-                Id = ItemsUtil.ParseItemIdToGroupId(id),
-                Experience = 0
+                Key = Key,
+                Count = Count,
+                Experience = Experience,
             };
         }
 
-        public ItemData ToItemData(string id)
+        public Dictionary<string, object> ToDictionary()
         {
-            return new ItemData
+            return new Dictionary<string, object>
             {
-                Id = id,
-                Count = 0
+                ["Key"] = Key,
+                ["Count"] = Count,
+                ["Experience"] = Experience
             };
         }
     }

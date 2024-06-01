@@ -14,7 +14,6 @@ namespace Syndicate.Hub.View.Main
         private const float NotNullAlpha = 1f;
 
         [Inject] private readonly IAssetsService _assetsService;
-        [Inject] private readonly IItemsService _itemsService;
 
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text count;
@@ -32,11 +31,9 @@ namespace Syndicate.Hub.View.Main
             {
                 icon.sprite = _assetsService.GetSprite(itemBase.SpriteAssetId);
 
-                var starCount = ItemsUtil.ParseItemIdToStar(itemBase.Id);
+                var starCount = ItemsUtil.ParseItemKeyToStar(itemBase.Key);
                 star.sprite = _assetsService.GetStarSprite(starCount);
-
-                var item = _itemsService.GetItemData(itemBase.Id);
-                count.text = $"{needCount}/{item.Count}";
+                count.text = $"{needCount}/{itemBase.Count}";
             }
         }
     }

@@ -4,7 +4,7 @@ using Syndicate.Core.View;
 namespace Syndicate.Hub.View.Main
 {
     [UsedImplicitly]
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IScreenViewModel
     {
         public ProductionView Production { get; set; }
     }

@@ -1,4 +1,3 @@
-using Syndicate.Battle;
 using Syndicate.Core.Signals;
 using Zenject;
 
@@ -11,6 +10,9 @@ namespace Syndicate.DI
             container.DeclareSignal<SignInSignal>();
             container.DeclareSignal<SignUpSignal>();
             container.DeclareSignal<VerificationSignal>();
+
+            container.DeclareSignal<ExperienceChangeSignal>();
+            container.DeclareSignal<LevelChangeSignal>();
 
             container.DeclareSignal<ProductionChangeSignal>();
         }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
+using Syndicate.Core.View;
 using Syndicate.Utils;
 using UnityEngine;
 using Zenject;
@@ -10,21 +12,17 @@ namespace Syndicate.Hub.View.Main
 {
     public class ProductionQueueSectionView : MonoBehaviour
     {
-        //[Inject] private readonly ConfigurationsScriptable _configurationsScriptable;
+        [Inject] private readonly IGameService _gameService;
         [Inject] private readonly IProductionService _productionService;
+        [Inject] private readonly IComponentViewFactory _componentViewFactory;
 
         [SerializeField] private List<ProductionQueueCellView> items;
+        [SerializeField] private Transform plusTransform;
+
+        private PlayerState PlayerState => _gameService.GetPlayerState();
 
         private async void OnEnable()
         {
-            //var productionData = _configurationsScriptable.ProductionSet;
-            /*for (var i = 0; i < productionData.Count; i++)
-            {
-                if (items.ElementAtOrDefault(i) == null) continue;
-
-                items[i].SetQueueUnlockData(productionData[i]);
-            }*/
-
             await UniTask.Delay(100);
             RefreshQueue();
         }
@@ -32,8 +30,13 @@ namespace Syndicate.Hub.View.Main
         private void RefreshQueue()
         {
             var queueList = _productionService.GetAllProduction().ToList();
-            for (var i = 0; i < items.Count; i++)
+            for (var i = 0; i < PlayerState.Production.Size; i++)
             {
+                if (items.ElementAtOrDefault(i) == null)
+                {
+                    items.Add(_componentViewFactory.Create<ProductionQueueCellView>(transform));
+                }
+
                 if (queueList.ElementAtOrDefault(i) != null)
                 {
                     items[i].SetData(queueList[i]);
@@ -48,6 +51,8 @@ namespace Syndicate.Hub.View.Main
                 if (_productionService.Size >= i + 1)
                     items[i].SetStateReady();
             }
+
+            plusTransform.SetAsLastSibling();
         }
     }
 }

@@ -11,5 +11,13 @@ namespace Syndicate.Core.Entities
 
         public SpecificationId Type { get => type; set => type = value; }
         public int Value { get => value; set => this.value = value; }
+
+        public SpecificationObject() { }
+
+        public SpecificationObject(SpecificationObject spec)
+        {
+            type = spec.Type;
+            value = spec.Value;
+        }
     }
 }

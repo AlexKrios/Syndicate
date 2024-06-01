@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - name: "Trooper Weapon Component 1 \u2605"
-    key: trooper_weapon_component1_star1
-    id: com|trwpct1|1
+    key: com|trooper_weapon_component1|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -39,13 +38,13 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
       - type:
           value: Attack
-        value: 15
+        value: 0
       - type:
           value: Health
         value: 0
@@ -63,8 +62,7 @@ MonoBehaviour:
     unitTypeId:
       value: Trooper
   - name: "Trooper Weapon Component 2 \u2605"
-    key: trooper_weapon_component2_star1
-    id: com|trwpct2|1
+    key: com|trooper_weapon_component2|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -88,13 +86,13 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 4
       specifications:
       - type:
           value: Attack
-        value: 9
+        value: 0
       - type:
           value: Health
         value: 0
@@ -112,8 +110,7 @@ MonoBehaviour:
     unitTypeId:
       value: Trooper
   - name: "Trooper Weapon Component 3 \u2605"
-    key: trooper_weapon_component3_star1
-    id: com|trwpct3|1
+    key: com|trooper_weapon_component3|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -137,22 +134,22 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 3
       specifications:
       - type:
           value: Attack
-        value: 8
+        value: 0
       - type:
           value: Health
-        value: 3
+        value: 0
       - type:
           value: Defense
-        value: 5
+        value: 0
       - type:
           value: Initiative
-        value: 5
+        value: 0
       craftTime: 0
       experience: 0
       cost: 0
@@ -161,8 +158,7 @@ MonoBehaviour:
     unitTypeId:
       value: Trooper
   - name: "Trooper Weapon Component 1 \u2605\u2605"
-    key: trooper_weapon_component1_star2
-    id: com|trwpct1|2
+    key: com|trooper_weapon_component1|2
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -186,7 +182,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -210,8 +206,7 @@ MonoBehaviour:
     unitTypeId:
       value: Trooper
   - name: "Trooper Weapon Component 2 \u2605\u2605"
-    key: trooper_weapon_component2_star2
-    id: com|trwpct2|2
+    key: com|trooper_weapon_component2|2
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -235,7 +230,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -259,8 +254,7 @@ MonoBehaviour:
     unitTypeId:
       value: Trooper
   - name: "Trooper Weapon Component 3 \u2605\u2605"
-    key: trooper_weapon_component3_star2
-    id: com|trwpct3|2
+    key: com|trooper_weapon_component3|2
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -284,7 +278,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -308,8 +302,7 @@ MonoBehaviour:
     unitTypeId:
       value: Trooper
   - name: "Defender Weapon Component 1 \u2605"
-    key: defender_weapon_component1_star1
-    id: com|dfwpct1|1
+    key: com|defender_weapon_component1|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -333,7 +326,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 3
       specifications:
@@ -357,8 +350,7 @@ MonoBehaviour:
     unitTypeId:
       value: Defender
   - name: "Defender Weapon Component 2 \u2605"
-    key: defender_weapon_component2_star1
-    id: com|dfwpct2|1
+    key: com|defender_weapon_component2|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -382,7 +374,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -406,8 +398,7 @@ MonoBehaviour:
     unitTypeId:
       value: Defender
   - name: "Defender Weapon Component 3 \u2605"
-    key: defender_weapon_component3_star1
-    id: com|dfwpct3|1
+    key: com|defender_weapon_component3|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -431,7 +422,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -455,8 +446,7 @@ MonoBehaviour:
     unitTypeId:
       value: Defender
   - name: "Support Weapon Component 1 \u2605"
-    key: support_weapon_component1_star1
-    id: com|suwpct1|1
+    key: com|support_weapon_component1|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -480,7 +470,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -504,8 +494,7 @@ MonoBehaviour:
     unitTypeId:
       value: Support
   - name: "Support Weapon Component 2 \u2605"
-    key: support_weapon_component2_star1
-    id: com|suwpct2|1
+    key: com|support_weapon_component2|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -529,7 +518,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -553,8 +542,7 @@ MonoBehaviour:
     unitTypeId:
       value: Support
   - name: "Support Weapon Component 3 \u2605"
-    key: support_weapon_component3_star1
-    id: com|suwpct3|1
+    key: com|support_weapon_component3|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -578,7 +566,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -602,8 +590,7 @@ MonoBehaviour:
     unitTypeId:
       value: Support
   - name: "Sniper Weapon Component 1 \u2605"
-    key: sniper_weapon_component1_star1
-    id: com|snwpct1|1
+    key: com|sniper_weapon_component1|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -627,7 +614,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -651,8 +638,7 @@ MonoBehaviour:
     unitTypeId:
       value: Sniper
   - name: "Sniper Weapon Component 2 \u2605"
-    key: sniper_weapon_component2_star1
-    id: com|snwpct2|1
+    key: com|sniper_weapon_component2|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -676,7 +662,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:
@@ -700,8 +686,7 @@ MonoBehaviour:
     unitTypeId:
       value: Sniper
   - name: "Sniper Weapon Component 3 \u2605"
-    key: sniper_weapon_component3_star1
-    id: com|snwpct3|1
+    key: com|sniper_weapon_component3|1
     nameLocale:
       m_TableReference:
         m_TableCollectionName: GUID:19f3b48aaeeb3c749ad52a3fd0c972bb
@@ -725,7 +710,7 @@ MonoBehaviour:
     recipe:
       parts:
       - itemType: 0
-        key: raw_weapon
+        key: raw|raw_weapon|1
         id: raw|wpn|1
         count: 5
       specifications:

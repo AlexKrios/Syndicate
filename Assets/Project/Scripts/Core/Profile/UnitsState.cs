@@ -5,6 +5,7 @@ namespace Syndicate.Core.Profile
 {
     public class UnitsState
     {
-        public Dictionary<string, ItemData> Roster { get; } = new();
+        public int RosterSize { get; set; }
+        public Dictionary<string, UnitDto> Roster { get; } = new();
     }
 }

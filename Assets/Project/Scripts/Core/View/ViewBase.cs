@@ -11,6 +11,9 @@ namespace Syndicate.Core.View
             ViewModel = viewModel;
             ViewModel.GameObject = gameObject;
 
+            ViewModel.Show += () => viewModel.GameObject.SetActive(true);
+            ViewModel.Hide += () => viewModel.GameObject.SetActive(false);
+
             OnBind();
         }
 

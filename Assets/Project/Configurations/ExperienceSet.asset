@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: ExperienceSet
   m_EditorClassIdentifier: 
   items:
-  - level: 2
+  - level: 1
     cap: 100
+  - level: 2
+    cap: 300
   - level: 3
-    cap: 500
+    cap: 700
+  - level: 4
+    cap: 1500

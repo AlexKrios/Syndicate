@@ -3,29 +3,28 @@ using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
 using Syndicate.Core.View;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Syndicate.Preload.StateMachine
 {
     [UsedImplicitly]
-    public class ProfileInitializeState : AbstractState, IState
+    public class ProfileInitializeState : PreloadState, IState
     {
         [Inject] private readonly IGameService _gameService;
         [Inject] private readonly IPopupService _popupService;
 
-        private PlayerProfile PlayerProfile => _gameService.GetPlayerProfile();
+        private PlayerState PlayerState => _gameService.GetPlayerState();
 
         public async void Enter()
         {
             await _gameService.LoadPlayerProfile();
-            if (string.IsNullOrEmpty(PlayerProfile.Profile.Name))
+            if (string.IsNullOrEmpty(PlayerState.Profile.Name))
             {
                 _popupService.Show<ChangeNameViewModel>();
             }
             else
             {
-                SceneManager.LoadScene("Hub");
+                await stateMachine.SetLoadingFinish();
             }
         }
 

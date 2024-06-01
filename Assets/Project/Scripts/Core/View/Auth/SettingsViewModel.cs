@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Syndicate.Core.View
 {
-    public class AuthViewModel : ViewModelBase
+    public class AuthViewModel : ViewModelBase, IScreenViewModel
     {
         public Action ResetViews { get; set; }
 

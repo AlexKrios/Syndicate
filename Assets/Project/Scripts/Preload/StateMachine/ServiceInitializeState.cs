@@ -20,6 +20,7 @@ namespace Syndicate.Preload.StateMachine
                 await service.Initialize();
             }
 
+            stateMachine.SetLoadingPercent(40);
             stateMachine.Enter<AuthInitializeState>();
         }
 

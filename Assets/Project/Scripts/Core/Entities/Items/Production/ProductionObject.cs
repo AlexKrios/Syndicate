@@ -8,7 +8,7 @@ namespace Syndicate.Core.Entities
     public class ProductionObject
     {
         public Guid Guid { get; set; }
-        public string Id { get; set; }
+        public string Key { get; set; }
 
         public long TimeEnd { get; set; }
         public int Index { get; set; }
@@ -20,7 +20,7 @@ namespace Syndicate.Core.Entities
             return new Dictionary<string, object>
             {
                 ["Guid"] = Guid.ToString(),
-                ["Id"] = Id,
+                ["Key"] = Key,
                 ["TimeEnd"] = TimeEnd,
                 ["Index"] = Index
             };

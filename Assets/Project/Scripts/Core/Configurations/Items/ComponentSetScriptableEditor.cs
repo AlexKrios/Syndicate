@@ -64,7 +64,6 @@ namespace Syndicate.Core.Configurations
 
             data.Name = EditorGUILayout.TextField("Name", data.Name);
             data.Key = (ComponentId)EditorGUILayout.TextField("Key", data.Key);
-            data.Id = EditorGUILayout.TextField("Id", data.Id);
 
             EditorGUILayout.Space();
 
@@ -148,11 +147,6 @@ namespace Syndicate.Core.Configurations
                 index = EditorGUILayout.Popup(index, idsValues);
                 part.Key = idsValues[index];
 
-                var keyOption = new[] { GUILayout.MaxWidth(100f), GUILayout.MinWidth(10f) };
-                EditorGUI.BeginDisabledGroup(true);
-                part.Id = EditorGUILayout.TextField(GetIdByKey(part.ItemType, part.Key), keyOption);
-                EditorGUI.EndDisabledGroup();
-
                 var options = new[] { GUILayout.MaxWidth(50f), GUILayout.MinWidth(10f) };
                 part.Count = EditorGUILayout.IntField(part.Count, options);
                 EditorGUILayout.EndHorizontal();
@@ -205,25 +199,8 @@ namespace Syndicate.Core.Configurations
             return itemType switch
             {
                 ItemType.Raw => EntitiesUtil.GetRawItemKeys(),
-                ItemType.RawGroup => EntitiesUtil.GetRawItemKeys(),
                 ItemType.Component => EntitiesUtil.GetComponentItemKeys(),
-                ItemType.ComponentGroup => EntitiesUtil.GetComponentItemKeys(),
                 ItemType.Product => EntitiesUtil.GetProductItemKeys(),
-                ItemType.ProductGroup => EntitiesUtil.GetProductItemKeys(),
-                _ => null
-            };
-        }
-
-        private static string GetIdByKey(ItemType itemType, string key)
-        {
-            return itemType switch
-            {
-                ItemType.Raw => EntitiesUtil.GetRawItemIdsByKey(key),
-                ItemType.RawGroup => EntitiesUtil.GetRawItemIdsByKey(key),
-                ItemType.Component => EntitiesUtil.GetComponentItemIdByKey(key),
-                ItemType.ComponentGroup => EntitiesUtil.GetComponentItemIdByKey(key),
-                ItemType.Product => EntitiesUtil.GetProductItemIdByKey(key),
-                ItemType.ProductGroup => EntitiesUtil.GetProductItemIdByKey(key),
                 _ => null
             };
         }

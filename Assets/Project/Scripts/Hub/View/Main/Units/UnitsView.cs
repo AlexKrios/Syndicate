@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Syndicate.Core.Configurations;
+using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using Syndicate.Core.View;
 using UnityEngine;
@@ -10,16 +11,20 @@ using Zenject;
 
 namespace Syndicate.Hub.View.Main
 {
-    public class UnitsView : ViewBase<UnitsViewModel>
+    public class UnitsView : ScreenViewBase<UnitsViewModel>
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
         [Inject] private readonly IScreenService _screenService;
+        [Inject] private readonly IPopupService _popupService;
         [Inject] private readonly IAssetsService _assetsService;
         [Inject] private readonly IUnitsService _unitsService;
         [Inject] private readonly IComponentViewFactory _componentViewFactory;
 
         [SerializeField] private Button close;
         [SerializeField] private List<UnitTabView> tabs;
+
+        [Space]
+        [SerializeField] private List<UnitOutfitView> outfit;
 
         [Header("Units")]
         [SerializeField] private Transform unitsParent;
@@ -29,7 +34,7 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private Image userIcon;
         [SerializeField] private Image userIconBg;
         [SerializeField] private LocalizeStringEvent userName;
-        [SerializeField] private List<UnitSpecView> specifications;
+        [SerializeField] private List<SpecificationView> specifications;
 
         private UnitTabView _currentTab;
         private UnitItemView _currentUnit;
@@ -59,6 +64,11 @@ namespace Syndicate.Hub.View.Main
             }
         }
 
+        protected override void OnBind()
+        {
+            ViewModel.ForceUpdate += ForceUpdate;
+        }
+
         private void Awake()
         {
             close.onClick.AddListener(CloseClick);
@@ -70,6 +80,13 @@ namespace Syndicate.Hub.View.Main
         {
             CurrentTab = tabs.First();
             CreateUnits();
+            SetOutfit();
+            SetSidebarData();
+        }
+
+        private void ForceUpdate()
+        {
+            SetOutfit();
             SetSidebarData();
         }
 
@@ -110,7 +127,28 @@ namespace Syndicate.Hub.View.Main
 
             CurrentUnit = unit;
 
+            SetOutfit();
             SetSidebarData();
+        }
+
+        private void SetOutfit()
+        {
+            foreach (var cell in outfit)
+            {
+                var needData = CurrentUnit.Data.Outfit
+                    .FirstOrDefault(x => x.Key == cell.Group);
+
+                cell.SetData(needData.Value);
+                cell.OnClickEvent += OnOutfitClick;
+            }
+        }
+
+        private void OnOutfitClick(ProductGroupId groupId, ProductObject product)
+        {
+            var model = _popupService.Show<UnitSelectionViewModel>();
+            model.CurrentUnit = CurrentUnit.Data;
+            model.CurrentProductGroup = groupId;
+            model.CurrentProduct = product;
         }
 
         private void SetSidebarData()
@@ -118,19 +156,22 @@ namespace Syndicate.Hub.View.Main
             var data = CurrentUnit.Data;
 
             userIcon.sprite = _assetsService.GetSprite(data.IconId);
-            userIconBg.color = _configurations.GetUnitTypeData(data.UnitTypeId).BgColor;
+            userIconBg.color = _configurations.UnitTypeSet.First(x => x.UnitTypeId == data.UnitTypeId).BgColor;
             userName.StringReference = data.NameLocale;
 
             foreach (var specification in specifications)
             {
-                var needSpecification = data.Specifications.FirstOrDefault(x => x.Type == specification.Id);
-                if (data.Specifications == null)
+                var needSpecification = data.Specifications.First(x => x.Type == specification.Id);
+                var specCopy = new SpecificationObject(needSpecification);
+                foreach (var cell in outfit)
                 {
-                    specification.ResetData();
-                    continue;
+                    if (cell.Data == null)
+                        continue;
+
+                    specCopy.Value += cell.Data.Recipe.Specifications.First(y => y.Type == specification.Id).Value;
                 }
 
-                specification.SetData(needSpecification);
+                specification.SetData(specCopy);
             }
         }
     }

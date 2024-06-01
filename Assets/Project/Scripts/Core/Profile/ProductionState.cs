@@ -10,7 +10,6 @@ namespace Syndicate.Core.Profile
         public int Size { get; set; }
 
         public Dictionary<Guid, ProductionObject> Queue { get; } = new();
-        public Dictionary<string, string> Presets { get; } = new();
 
         public ProductionState()
         {

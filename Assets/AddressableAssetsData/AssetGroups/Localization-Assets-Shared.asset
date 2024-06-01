@@ -21,14 +21,17 @@ MonoBehaviour:
     m_Address: Assets/Project/Localizations/Tables/LocalizationTables Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19f3b48aaeeb3c749ad52a3fd0c972bb
     m_Address: Assets/Project/Localizations/Tables/Weapon/Weapon Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b7528933b53b1b54f918783e1c1d173a
     m_Address: Assets/Project/Localizations/Tables/Armor/Armor Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 80b49c49fc7295f46866e6a06530921a, type: 2}
   m_SchemaSet:

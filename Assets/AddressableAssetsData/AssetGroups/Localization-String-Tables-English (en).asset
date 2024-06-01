@@ -23,18 +23,21 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: acaee57ae14412248b710a095b34cf4f
     m_Address: Weapon_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 12f444915de12bb4385fc0641e5cd878
     m_Address: Armor_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 80b49c49fc7295f46866e6a06530921a, type: 2}
   m_SchemaSet:

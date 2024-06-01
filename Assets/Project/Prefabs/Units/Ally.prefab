@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ed8101dea636b4bb5f11380acdae22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 7363952558491999623}
   floorAttack: {fileID: 656835409983503194}
   floorDefend: {fileID: 1183315476844356436}
   side: 0
-  unitClass: 0
 --- !u!65 &5359850691412539844
 BoxCollider:
   m_ObjectHideFlags: 0

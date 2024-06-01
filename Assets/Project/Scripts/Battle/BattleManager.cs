@@ -25,7 +25,7 @@ namespace Syndicate.Battle
 
         public bool CanClick;
 
-        private readonly List<string> unitListID = new()
+        private readonly List<string> _unitListID = new()
         {
             "unit_trooper",
             "unit_defender",
@@ -36,15 +36,15 @@ namespace Syndicate.Battle
         
         public void InstantiateUnits()
         {
-            for (int i = 0; i < unitListID.Count; i++)
+            for (int i = 0; i < _unitListID.Count; i++)
             {
-                if (unitListID.ElementAtOrDefault(i) == null)
+                if (_unitListID.ElementAtOrDefault(i) == null)
                 {
                     continue;
                 }
                 
                 var point = BattleStarter.Instance.spawnPointAllies[i];
-                var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
+                var unitData = _unitsService.GetUnit(new UnitId(_unitListID[i]));
                 var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabAlly, point);
                 var unitBattleData = new BattleUnitObject(unitData);
                 unitInstantiate.Data = unitBattleData;
@@ -59,15 +59,15 @@ namespace Syndicate.Battle
                 ListUnits.Add(unitInstantiate);
             }
             
-            for (int i = 0; i < unitListID.Count; i++)
+            for (int i = 0; i < _unitListID.Count; i++)
             {
-                if (unitListID.ElementAtOrDefault(i) == null)
+                if (_unitListID.ElementAtOrDefault(i) == null)
                 {
                     continue;
                 }
                 
                 var point = BattleStarter.Instance.spawnPointEnemies[i];
-                var unitData = _unitsService.GetUnit(new UnitId(unitListID[i]));
+                var unitData = _unitsService.GetUnit(new UnitId(_unitListID[i]));
                 var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabEnemy, point);
                 var unitBattleData = new BattleUnitObject(unitData);
                 unitInstantiate.Data = unitBattleData;

@@ -68,14 +68,12 @@ namespace Syndicate.Battle
                 
                 var point = BattleStarter.Instance.spawnPointEnemies[i];
                 var unitData = _unitsService.GetUnit(new UnitId(_unitListID[i]));
-                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabEnemy, point);
+                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabAlly, point);
                 var unitBattleData = new BattleUnitObject(unitData);
                 unitInstantiate.Data = unitBattleData;
-
+                
                 unitInstantiate.IsStep = false;
                 unitInstantiate.IsAlive = true;
-
-                unitInstantiate.side = SideType.Enemies;
                 
                 unitInstantiate.OnStartTurn += UnitStartTurn;
                 unitInstantiate.OnEndTurn += UnitEndTurn;

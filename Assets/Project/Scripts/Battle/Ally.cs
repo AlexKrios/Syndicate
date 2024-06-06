@@ -1,9 +1,12 @@
+using System;
 using Syndicate.Core.Entities;
 
 namespace Syndicate.Battle
 {
     public class Ally : AbstractUnit
     {
+        
+
         protected override void Attack(AbstractUnit target)
         {
             base.Attack(target);

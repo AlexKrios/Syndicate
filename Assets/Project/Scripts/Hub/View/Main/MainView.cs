@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
 using Syndicate.Core.Signals;
@@ -26,6 +27,10 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private Slider levelSlider;
 
         [Space]
+        [SerializeField] private ProductionQueueSectionView productionQueue;
+        [SerializeField] private ExpeditionQueueSectionView expeditionQueue;
+
+        [Space]
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button profileButton;
         [SerializeField] private Button unitsButton;
@@ -47,7 +52,7 @@ namespace Syndicate.Hub.View.Main
             productionQueueUpgrade.onClick.AddListener(OnProductionQueueUpgradeClick);
         }
 
-        private void OnEnable()
+        private async void OnEnable()
         {
             _signalBus.Subscribe<ExperienceChangeSignal>(OnExperienceChange);
             _signalBus.Subscribe<LevelChangeSignal>(OnLevelChange);
@@ -57,7 +62,12 @@ namespace Syndicate.Hub.View.Main
             profileDiamond.text = PlayerState.Inventory.Diamond.ToString();
 
             levelCount.text = _experienceService.GetCurrentLevel().ToString();
-            levelSlider.value = _experienceService.GetCurrentLevelPercent(PlayerState.Profile.Experience);
+            levelSlider.value = _experienceService.GetCurrentLevelPercent(_experienceService.Experience);
+
+            await UniTask.Yield();
+
+            productionQueue.RefreshQueue();
+            expeditionQueue.RefreshQueue();
         }
 
         private void OnDisable()

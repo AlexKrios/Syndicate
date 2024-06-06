@@ -10,21 +10,27 @@ namespace Syndicate.Utils
     [UsedImplicitly]
     public class SpecificationsUtil
     {
+        [Inject] private readonly IProductsService _productsService;
         [Inject] private readonly IComponentsService _componentsService;
 
         private List<SpecificationObject> _specifications = new();
 
-        public void GetSpecificationValues(RecipeObject recipe, bool isSingle = true)
+        public List<SpecificationObject> GetUnitSpecificationValues(UnitObject data)
         {
-            if (isSingle)
-                ResetSpecifications();
-
-            var specs = recipe.Specifications;
-            foreach (var spec in specs)
+            var specList = new List<SpecificationObject>();
+            foreach (var specification in data.Specifications)
             {
-                var needSpec = _specifications.First(x => x.Type == spec.Type);
-                needSpec.Value += spec.Value;
+                var specCopy = new SpecificationObject(specification);
+                foreach (var (_, value) in data.Outfit)
+                {
+                    var product = _productsService.GetProductByKey(new ProductId(value));
+                    specCopy.Value += product.Recipe.Specifications.First(y => y.Type == specification.Type).Value;
+                }
+
+                specList.Add(specCopy);
             }
+
+            return specList;
         }
 
         public List<SpecificationObject> GetProductSpecificationValues(ICraftableItem productObject)
@@ -42,6 +48,19 @@ namespace Syndicate.Utils
             }
 
             return _specifications;
+        }
+
+        private void GetSpecificationValues(RecipeObject recipe, bool isSingle = true)
+        {
+            if (isSingle)
+                ResetSpecifications();
+
+            var specs = recipe.Specifications;
+            foreach (var spec in specs)
+            {
+                var needSpec = _specifications.First(x => x.Type == spec.Type);
+                needSpec.Value += spec.Value;
+            }
         }
 
         private void ResetSpecifications()

@@ -25,6 +25,8 @@ namespace Syndicate.Core.Services
         private const string ProductionSizeRoot = "Production/Size";
         private const string ProductionLevelRoot = "Production/Level";
         private const string ProductionQueueRoot = "Production/Queue";
+        private const string ExpeditionSizeRoot = "Expedition/Size";
+        private const string ExpeditionQueueRoot = "Expedition/Queue";
 
         private static FirebaseDatabase FirebaseDatabase => FirebaseDatabase.DefaultInstance;
         private static string UserId => FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
@@ -125,6 +127,20 @@ namespace Syndicate.Core.Services
 
         #region Production
 
+        public async UniTask SetProductionLevel(int value)
+        {
+            await FirebaseDatabase.RootReference
+                .Child($"{UsersRoot}/{UserId}/{ProductionLevelRoot}")
+                .SetValueAsync(value);
+        }
+
+        public async UniTask SetProductionSize(int value)
+        {
+            await FirebaseDatabase.RootReference
+                .Child($"{UsersRoot}/{UserId}/{ProductionSizeRoot}")
+                .SetValueAsync(value);
+        }
+
         public async UniTask AddProduction(ProductionObject data, List<ItemBaseObject> itemsToRemove)
         {
             var sendList = new Dictionary<string, object>();
@@ -155,18 +171,29 @@ namespace Syndicate.Core.Services
             await FirebaseDatabase.RootReference.Child($"{UsersRoot}/{UserId}").UpdateChildrenAsync(sendList);
         }
 
-        public async UniTask SetProductionLevel(int value)
+        #endregion
+
+        #region Expeditions
+
+        public async UniTask SetExpeditionSize(int value)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ProductionLevelRoot}")
+                .Child($"{UsersRoot}/{UserId}/{ExpeditionSizeRoot}")
                 .SetValueAsync(value);
         }
 
-        public async UniTask SetProductionSize(int value)
+        public async UniTask AddExpedition(ExpeditionObject data)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ProductionSizeRoot}")
-                .SetValueAsync(value);
+                .Child($"{UsersRoot}/{UserId}/{ExpeditionQueueRoot}/{data.Guid.ToString()}")
+                .SetRawJsonValueAsync(JsonConvert.SerializeObject(data));
+        }
+
+        public async UniTask RemoveExpedition(Guid id)
+        {
+            await FirebaseDatabase.RootReference
+                .Child($"{UsersRoot}/{UserId}/{ExpeditionQueueRoot}/{id.ToString()}")
+                .SetRawJsonValueAsync(JsonConvert.SerializeObject(null));
         }
 
         #endregion

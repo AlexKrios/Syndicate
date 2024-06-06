@@ -13,46 +13,51 @@ namespace Syndicate.Core.Services
     {
         [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly ConfigurationsScriptable _configurationsScriptable;
-        [Inject] private readonly IGameService _gameService;
         [Inject] private readonly IApiService _apiService;
 
-        private ProfileState Profile => _gameService.GetPlayerState().Profile;
+        public int Experience { get; private set; }
+        private int Level { get; set; }
 
         public UniTask Initialize()
         {
             return UniTask.CompletedTask;
         }
 
+        public void LoadData(ProfileState state)
+        {
+            Experience = state.Experience;
+        }
+
         public int GetCurrentLevel()
         {
-            Profile.Level = GetLevelByExperience(Profile.Experience);
+            Level = GetLevelByExperience(Experience);
 
-            return Profile.Level;
+            return Level;
         }
 
         public float GetCurrentLevelPercent(int experience)
         {
-            var previousCap = Profile.Level == 1 ? 0 : GetLevelCap(Profile.Level - 1);
+            var previousCap = Level == 1 ? 0 : GetLevelCap(Level - 1);
             var currentExp = experience - previousCap;
-            var needExp = GetLevelCap(Profile.Level) - previousCap;
+            var needExp = GetLevelCap(Level) - previousCap;
 
             return (float)currentExp / needExp * 100;
         }
 
         public async void SetExperience(int experience)
         {
-            var newExperience = Profile.Experience += experience;
+            var newExperience = Experience += experience;
             await _apiService.Request(_apiService.SetExperience(newExperience), Finish);
 
             void Finish()
             {
-                Profile.Experience = newExperience;
-                _signalBus.Fire(new ExperienceChangeSignal(Profile.Experience));
+                Experience = newExperience;
+                _signalBus.Fire(new ExperienceChangeSignal(Experience));
 
-                if (Profile.Experience >= GetLevelCap(Profile.Level))
+                if (Experience >= GetLevelCap(Level))
                 {
-                    Profile.Level++;
-                    _signalBus.Fire(new LevelChangeSignal(Profile.Level));
+                    Level++;
+                    _signalBus.Fire(new LevelChangeSignal(Level));
                 }
             }
         }

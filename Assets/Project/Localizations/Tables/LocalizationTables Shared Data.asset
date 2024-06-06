@@ -51,6 +51,22 @@ MonoBehaviour:
     m_Key: unit_all
     m_Metadata:
       m_Items: []
+  - m_Id: 33777219636801536
+    m_Key: unit_trooper_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33777219653578752
+    m_Key: unit_defender_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33777219653578753
+    m_Key: unit_support_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33777219653578754
+    m_Key: unit_sniper_name
+    m_Metadata:
+      m_Items: []
   - m_Id: 653424030101504
     m_Key: group_type_none
     m_Metadata:
@@ -99,6 +115,10 @@ MonoBehaviour:
     m_Key: production
     m_Metadata:
       m_Items: []
+  - m_Id: 32428953800257536
+    m_Key: expeditions
+    m_Metadata:
+      m_Items: []
   - m_Id: 653424042684425
     m_Key: storage
     m_Metadata:
@@ -125,6 +145,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 30977881558724608
     m_Key: equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33131236645122048
+    m_Key: "\u0441hoose"
     m_Metadata:
       m_Items: []
   - m_Id: 1538433574219776

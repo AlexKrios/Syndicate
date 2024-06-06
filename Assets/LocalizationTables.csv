@@ -10,6 +10,11 @@
 "unit_sniper","Sniper","Снайпер"
 "unit_all","All","Все"
 
+"unit_trooper_name","Vasya","Вася"
+"unit_defender_name","Zora","Жора"
+"unit_support_name","Petya","Петя"
+"unit_sniper_name","Kolia","Коля"
+
 "group_type_none","None","Пусто"
 "group_type_weapon","Weapon","Оружие"
 "group_type_armor","Armor","Броня"
@@ -24,6 +29,7 @@
 "profile","Profile","Профиль"
 "units","Units","Солдаты"
 "production","Production","Производство"
+"expeditions","Expeditions","Экспедиции"
 "storage","Storage","Склад"
 
 "close","Close","Закрыть"
@@ -32,6 +38,7 @@
 "complete","Complete","Готово"
 "upgrade","Upgrade","Улучшение"
 "equip","Equip","Экипировать"
+"сhoose","Choose","Выбрать"
 
 "need_level","Level {value}","Уровень {value}"
 

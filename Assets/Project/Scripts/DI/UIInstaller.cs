@@ -1,6 +1,6 @@
 using Syndicate.Core.Configurations;
 using Syndicate.Core.View;
-using Syndicate.Hub.View.Main;
+using Syndicate.Hub.View;
 using UnityEngine;
 using Zenject;
 
@@ -35,6 +35,10 @@ namespace Syndicate.DI
             Container.BindFactory<ProductionCellReadyState, ProductionCellReadyState.Factory>();
             Container.BindFactory<ProductionQueueCellView, ProductionCellBusyState, ProductionCellBusyState.Factory>();
             Container.BindFactory<ProductionQueueCellView, ProductionCellFinishState, ProductionCellFinishState.Factory>();
+
+            Container.BindFactory<ExpeditionCellReadyState, ExpeditionCellReadyState.Factory>();
+            Container.BindFactory<ExpeditionQueueCellView, ExpeditionCellBusyState, ExpeditionCellBusyState.Factory>();
+            Container.BindFactory<ExpeditionQueueCellView, ExpeditionCellFinishState, ExpeditionCellFinishState.Factory>();
         }
     }
 }

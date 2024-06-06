@@ -182,6 +182,30 @@ MonoBehaviour:
     m_Localized: Equip
     m_Metadata:
       m_Items: []
+  - m_Id: 32428953800257536
+    m_Localized: Expeditions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33131236645122048
+    m_Localized: Choose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33777219636801536
+    m_Localized: Vasya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33777219653578752
+    m_Localized: Zora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33777219653578753
+    m_Localized: Petya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33777219653578754
+    m_Localized: Kolia
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

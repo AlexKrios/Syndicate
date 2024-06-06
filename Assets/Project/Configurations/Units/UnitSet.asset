@@ -21,9 +21,9 @@ MonoBehaviour:
       value: unit_trooper
     nameLocale:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 33777219636801536
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
@@ -60,9 +60,9 @@ MonoBehaviour:
       value: unit_defender
     nameLocale:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 33777219653578752
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
@@ -99,9 +99,9 @@ MonoBehaviour:
       value: unit_support
     nameLocale:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 33777219653578753
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0
@@ -138,9 +138,9 @@ MonoBehaviour:
       value: unit_sniper
     nameLocale:
       m_TableReference:
-        m_TableCollectionName: 
+        m_TableCollectionName: GUID:176296da2ef514445b5a5a71aeda5424
       m_TableEntryReference:
-        m_KeyId: 0
+        m_KeyId: 33777219653578754
         m_Key: 
       m_FallbackState: 0
       m_WaitForCompletion: 0

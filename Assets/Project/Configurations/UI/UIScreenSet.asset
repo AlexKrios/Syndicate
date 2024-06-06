@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screens:
   - {fileID: 6825654209882250467, guid: 3e90b89df53682243ae61936d5a17182, type: 3}
-  - {fileID: 3919316934032354759, guid: cace457f135af054caf70b74da13e1ea, type: 3}
   - {fileID: 4085979556208085374, guid: 38e7c3e79e89b4e4d99e3672e22d0758, type: 3}
+  - {fileID: 3919316934032354759, guid: cace457f135af054caf70b74da13e1ea, type: 3}
+  - {fileID: 5899294775122809231, guid: a6d28e99e1da30a47a55d0a56e0dadc0, type: 3}
   - {fileID: 601882893750463596, guid: 48b0205a150342f47b68305746ae66ce, type: 3}

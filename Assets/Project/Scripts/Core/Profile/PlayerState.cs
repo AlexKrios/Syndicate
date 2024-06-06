@@ -6,5 +6,6 @@
         public UnitsState Units { get; } = new();
         public InventoryState Inventory { get; } = new();
         public ProductionState Production { get; } = new();
+        public ExpeditionState Expedition { get; } = new();
     }
 }

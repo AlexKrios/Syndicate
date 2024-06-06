@@ -39,15 +39,12 @@ MonoBehaviour:
       parts:
       - itemType: 1
         key: com|trooper_weapon_component1|1
-        id: com|trwpct1|1
         count: 1
       - itemType: 1
         key: com|trooper_weapon_component2|1
-        id: com|trwpct1|1
         count: 1
       - itemType: 1
         key: com|trooper_weapon_component3|1
-        id: com|trwpct1|1
         count: 1
       specifications:
       - type:
@@ -95,15 +92,12 @@ MonoBehaviour:
       parts:
       - itemType: 1
         key: com|trooper_weapon_component1|2
-        id: com|trwpct1|2
         count: 1
       - itemType: 1
         key: com|trooper_weapon_component2|2
-        id: com|trwpct2|2
         count: 1
       - itemType: 1
         key: com|trooper_weapon_component3|2
-        id: com|trwpct3|2
         count: 1
       specifications:
       - type:
@@ -151,15 +145,12 @@ MonoBehaviour:
       parts:
       - itemType: 1
         key: com|defender_weapon_component1|1
-        id: com|dfwpct1|1
         count: 1
       - itemType: 1
         key: com|defender_weapon_component2|1
-        id: com|dfwpct2|1
         count: 1
       - itemType: 1
         key: com|defender_weapon_component3|1
-        id: com|dfwpct3|1
         count: 1
       specifications:
       - type:
@@ -207,15 +198,12 @@ MonoBehaviour:
       parts:
       - itemType: 1
         key: com|support_weapon_component1|1
-        id: com|suwpct1|1
         count: 1
       - itemType: 1
         key: com|support_weapon_component2|1
-        id: com|suwpct2|1
         count: 1
       - itemType: 1
         key: com|support_weapon_component3|1
-        id: com|suwpct3|1
         count: 1
       specifications:
       - type:
@@ -263,15 +251,12 @@ MonoBehaviour:
       parts:
       - itemType: 1
         key: com|sniper_weapon_component1|1
-        id: com|snwpct1|1
         count: 1
       - itemType: 1
         key: com|sniper_weapon_component2|1
-        id: com|snwpct2|1
         count: 1
       - itemType: 1
         key: com|sniper_weapon_component3|1
-        id: com|snwpct3|1
         count: 1
       specifications:
       - type:

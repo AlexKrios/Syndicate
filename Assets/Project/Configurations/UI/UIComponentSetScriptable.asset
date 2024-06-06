@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: UIComponentSetScriptable
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 2100711765837393044, guid: b57607b991acca04d917d18157ede455, type: 3}
-  - {fileID: 2828207384968183414, guid: 1cb0fd320c515334c960a9012a91c9f9, type: 3}
   - {fileID: 9212493946372890854, guid: ee910471c0f35f644abe1cfbb3f54117, type: 3}
-  - {fileID: 400852387208491601, guid: e5555725a2c2b9441b8a4109f81fe081, type: 3}
   - {fileID: 6144117147542999095, guid: fd2409f535cffd14bb244d03dc593d89, type: 3}
+  - {fileID: 2100711765837393044, guid: b57607b991acca04d917d18157ede455, type: 3}
+  - {fileID: 400852387208491601, guid: e5555725a2c2b9441b8a4109f81fe081, type: 3}
+  - {fileID: 5040705885963637390, guid: 8fde82c0eae4a1a4aa8c8485925340f9, type: 3}
+  - {fileID: 7645595163540038213, guid: 953b609b9939261419c7b924448293fd, type: 3}
+  - {fileID: 2828207384968183414, guid: 1cb0fd320c515334c960a9012a91c9f9, type: 3}
+  - {fileID: 2828207384968183414, guid: 1cb0fd320c515334c960a9012a91c9f9, type: 3}

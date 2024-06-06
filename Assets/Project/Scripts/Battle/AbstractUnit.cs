@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Syndicate.Battle
     {
         [Inject] protected BattleManager BattleManager;
 
+        [SerializeField] private Rigidbody rigidbody;
+        
         public Animator animator;
 
         public Action OnEndTurn;
@@ -22,6 +25,7 @@ namespace Syndicate.Battle
         public bool IsStep { get; set; }
 
         public SideType side;
+        
         private static readonly int TurnTrigger = Animator.StringToHash("Turn");
 
         public BattleUnitObject Data { get; set; }
@@ -53,39 +57,25 @@ namespace Syndicate.Battle
                 ally.floorDefend.SetActive(false);
             }
 
-            var targetTransform = BattleManager.TargetUnit.transform.position;
-            
-            var activeUnitT = transform;
-            var startRotation = activeUnitT.rotation;
-            var position = activeUnitT.position;
-            
-            var direction = Quaternion.LookRotation(targetTransform - position);
-
-            transform.DORotateQuaternion(direction, 0.6f);
-
-            //activeUnitT.rotation = Quaternion.LookRotation(BattleManager.TargetUnit.transform.position);
-
-            animator.SetFloat(TurnTrigger, targetTransform.x);
-            
-            await UniTask.Delay(1000);
-            
             if (BattleManager.CurrentUnit.side == SideType.Enemies)
             {
-                Attack(BattleManager.ListAllies[0]);
+                BattleManager.TargetUnit = BattleManager.ListAllies[0];
+                Attack(BattleManager.TargetUnit);
             }
             else if (BattleManager.CurrentUnit.side == SideType.Allies)
             {
                 Attack(BattleManager.TargetUnit);
             }
-
-            transform.DORotateQuaternion(startRotation, 0.6f);
             
-            //TODO Поменять после внедрения класса для изменения трансформа
-            // ReSharper disable once Unity.InefficientPropertyAccess
-            //activeUnitT.rotation = startQuaternion;
+            if (BattleManager.TargetUnit == null)
+            {
+                return;
+            }
 
-            animator.SetFloat(TurnTrigger, startRotation.x);
+            StartRotate();
             
+            await UniTask.Delay(1000);
+
             EndTurn();
         }
 
@@ -115,6 +105,29 @@ namespace Syndicate.Battle
                 
                 Destroy(target.gameObject);
             }
-        }   
+        }
+
+        private async void StartRotate()
+        {
+            var targetTransform = BattleManager.TargetUnit.transform.position;
+            
+            var activeUnitT = transform;
+            var startRotation = activeUnitT.rotation;   
+            var position = activeUnitT.position;
+            
+            var direction = Quaternion.LookRotation(targetTransform - position);
+
+            animator.SetFloat(TurnTrigger, 1);
+            
+            await transform.DORotateQuaternion(direction, 0.6f).OnComplete(() => { animator.SetTrigger("Fire");}).ToUniTask();
+            
+            animator.SetFloat(TurnTrigger, 0);
+            
+            await UniTask.Delay(1000);
+
+            animator.SetFloat(TurnTrigger, -1);
+
+            transform.DORotateQuaternion(startRotation, 0.6f).OnComplete(() => animator.SetFloat(TurnTrigger, 0));
+        }
     }
 }

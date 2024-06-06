@@ -74,8 +74,6 @@ namespace Syndicate.Battle
 
                 unitInstantiate.IsStep = false;
                 unitInstantiate.IsAlive = true;
-
-                unitInstantiate.side = SideType.Enemies;
                 
                 unitInstantiate.OnStartTurn += UnitStartTurn;
                 unitInstantiate.OnEndTurn += UnitEndTurn;

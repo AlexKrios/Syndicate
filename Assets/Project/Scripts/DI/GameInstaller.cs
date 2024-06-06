@@ -43,6 +43,7 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<ItemsProvider>().AsSingle();
 
             Container.BindInterfacesTo<ProductionService>().AsSingle();
+            Container.BindInterfacesTo<ExpeditionService>().AsSingle();
 
             Container.BindFactory<ServiceInitializeState, ServiceInitializeState.Factory>();
             Container.BindFactory<GameInitializeState, GameInitializeState.Factory>();

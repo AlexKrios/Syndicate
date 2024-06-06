@@ -23,7 +23,7 @@ namespace Syndicate.Utils
         public static int ParseItemKeyToStar(string key)
         {
             var stringStar = key.Split("|");
-            return Convert.ToInt32(stringStar[2]);
+            return Convert.ToInt32(stringStar.Last());
         }
     }
 }

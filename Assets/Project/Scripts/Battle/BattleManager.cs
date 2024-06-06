@@ -25,26 +25,26 @@ namespace Syndicate.Battle
 
         public bool CanClick;
 
-        private readonly List<string> _unitListID = new()
+        private List<UnitPosObject> _allyIdList = new();
+        private List<UnitPosObject> _enemyIdList = new();
+
+        public void SetData(List<UnitPosObject> ally, List<UnitPosObject> enemy)
         {
-            "unit_trooper",
-            "unit_defender",
-            "unit_support",
-            "unit_sniper",
-            "unit_sniper"
-        };
+            _allyIdList = ally;
+            _enemyIdList = enemy;
+        }
         
         public void InstantiateUnits()
         {
-            for (int i = 0; i < _unitListID.Count; i++)
+            for (int i = 0; i < _allyIdList.Count; i++)
             {
-                if (_unitListID.ElementAtOrDefault(i) == null)
+                if (_allyIdList.ElementAtOrDefault(i) == null)
                 {
                     continue;
                 }
                 
                 var point = BattleStarter.Instance.spawnPointAllies[i];
-                var unitData = _unitsService.GetUnit(new UnitId(_unitListID[i]));
+                var unitData = _unitsService.GetUnit(_allyIdList[i].unitId);
                 var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabAlly, point);
                 var unitBattleData = new BattleUnitObject(unitData);
                 unitInstantiate.Data = unitBattleData;
@@ -59,19 +59,19 @@ namespace Syndicate.Battle
                 ListUnits.Add(unitInstantiate);
             }
             
-            for (int i = 0; i < _unitListID.Count; i++)
+            for (int i = 0; i < _enemyIdList.Count; i++)
             {
-                if (_unitListID.ElementAtOrDefault(i) == null)
+                if (_enemyIdList.ElementAtOrDefault(i) == null)
                 {
                     continue;
                 }
                 
                 var point = BattleStarter.Instance.spawnPointEnemies[i];
-                var unitData = _unitsService.GetUnit(new UnitId(_unitListID[i]));
-                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabAlly, point);
+                var unitData = _unitsService.GetUnit(_enemyIdList[i].unitId);
+                var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabEnemy, point);
                 var unitBattleData = new BattleUnitObject(unitData);
                 unitInstantiate.Data = unitBattleData;
-                
+
                 unitInstantiate.IsStep = false;
                 unitInstantiate.IsAlive = true;
                 

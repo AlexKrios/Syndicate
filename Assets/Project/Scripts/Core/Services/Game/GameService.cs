@@ -14,7 +14,10 @@ namespace Syndicate.Core.Services
         [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly IRawService _rawService;
         [Inject] private readonly IApiService _apiService;
+        [Inject] private readonly IExperienceService _experienceService;
         [Inject] private readonly IUnitsService _unitsService;
+        [Inject] private readonly IProductionService _productionService;
+        [Inject] private readonly IExpeditionService _expeditionService;
 
         private PlayerState _playerState;
 
@@ -47,11 +50,16 @@ namespace Syndicate.Core.Services
                 await _apiService.SetStartPlayerProfile(_playerState);
             }
 
+            _experienceService.LoadData(_playerState.Profile);
+
             foreach (var (_, value) in _playerState.Inventory.ItemsData)
             {
                 _itemsProvider.LoadItemsData(value);
             }
             _unitsService.LoadUnits(_playerState.Units);
+
+            _productionService.LoadData(_playerState.Production);
+            _expeditionService.LoadData(_playerState.Expedition);
         }
     }
 }

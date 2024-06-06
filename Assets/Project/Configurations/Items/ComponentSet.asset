@@ -39,7 +39,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -87,7 +86,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 4
       specifications:
       - type:
@@ -135,7 +133,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 3
       specifications:
       - type:
@@ -183,7 +180,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -231,7 +227,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -279,7 +274,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -327,7 +321,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 3
       specifications:
       - type:
@@ -375,7 +368,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -423,7 +415,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -471,7 +462,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -519,7 +509,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -567,7 +556,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -615,7 +603,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -663,7 +650,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:
@@ -711,7 +697,6 @@ MonoBehaviour:
       parts:
       - itemType: 0
         key: raw|raw_weapon|1
-        id: raw|wpn|1
         count: 5
       specifications:
       - type:

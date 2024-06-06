@@ -12,13 +12,17 @@ namespace Syndicate.Core.Configurations
     [Serializable]
     public class LocationScriptable
     {
-        [SerializeField] private string key ;
+        [SerializeField] private string key;
+        [SerializeField] private int wayTime;
+        [SerializeField] private List<UnitPosObject> enemies;
         [SerializeField] private List<PartObject> rewards;
         [SerializeField] private LocalizedString nameLocale;
         [SerializeField] private LocalizedString descriptionLocale;
         [SerializeField] private SpriteAssetId iconAssetId;
 
         public LocationId Key => (LocationId)key;
+        public int WayTime => wayTime;
+        public List<UnitPosObject> Enemies => enemies;
         public List<PartObject> Rewards => rewards;
         public LocalizedString NameLocale => nameLocale;
         public LocalizedString DescriptionLocale => descriptionLocale;

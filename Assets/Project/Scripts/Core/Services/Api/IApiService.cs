@@ -34,5 +34,9 @@ namespace Syndicate.Core.Services
         UniTask SetProductionLevel(int value);
 
         UniTask SetProductionSize(int value);
+
+        UniTask AddExpedition(ExpeditionObject data);
+
+        UniTask RemoveExpedition(Guid id);
     }
 }

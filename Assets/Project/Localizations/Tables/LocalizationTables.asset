@@ -30,7 +30,7 @@ MonoBehaviour:
         - rid: 2309354968539463747
         - rid: 2309354968539463748
         - rid: 2309354968539463749
-        m_ConnectedFile: 
+        m_ConnectedFile: Assets/LocalizationTables.csv
     - rid: 2309354968539463747
       type: {class: KeyIdColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
       data:

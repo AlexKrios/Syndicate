@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -9,14 +8,12 @@ namespace Syndicate.Battle
 {
     public abstract class AbstractUnit : MonoBehaviour
     {
-        [Inject] protected BattleManager BattleManager;
-
-        [SerializeField] private Rigidbody rigidbody;
+        [Inject] protected BattleManager battleManager;
         
         public Animator animator;
 
-        public Action OnEndTurn;
-        public Action OnStartTurn;
+        public Action OnEndTurn { get; set; }
+        public Action OnStartTurn { get; set; }
 
         public GameObject floorAttack;
         public GameObject floorDefend;
@@ -27,12 +24,13 @@ namespace Syndicate.Battle
         public SideType side;
         
         private static readonly int TurnTrigger = Animator.StringToHash("Turn");
+        private static readonly int Fire = Animator.StringToHash("Fire");
 
         public BattleUnitObject Data { get; set; }
         
         public void StartTurn()
         {
-            BattleManager.CanClick = true;
+            battleManager.CanClick = true;
         
             OnStartTurn?.Invoke();
 
@@ -44,30 +42,30 @@ namespace Syndicate.Battle
 
         public async void Turn()
         {
-            BattleManager.CanClick = false;
+            battleManager.CanClick = false;
             
             floorAttack.SetActive(false);
 
-            foreach (var enemy in BattleManager.ListEnemies)
+            foreach (var enemy in battleManager.ListEnemies)
             {
                 enemy.floorDefend.SetActive(false);
             }
-            foreach (var ally in BattleManager.ListAllies)
+            foreach (var ally in battleManager.ListAllies)
             {
                 ally.floorDefend.SetActive(false);
             }
 
-            if (BattleManager.CurrentUnit.side == SideType.Enemies)
+            if (battleManager.CurrentUnit.side == SideType.Enemies)
             {
-                BattleManager.TargetUnit = BattleManager.ListAllies[0];
-                Attack(BattleManager.TargetUnit);
+                battleManager.TargetUnit = battleManager.ListAllies[0];
+                Attack(battleManager.TargetUnit);
             }
-            else if (BattleManager.CurrentUnit.side == SideType.Allies)
+            else if (battleManager.CurrentUnit.side == SideType.Allies)
             {
-                Attack(BattleManager.TargetUnit);
+                Attack(battleManager.TargetUnit);
             }
             
-            if (BattleManager.TargetUnit == null)
+            if (battleManager.TargetUnit == null)
             {
                 return;
             }
@@ -81,7 +79,7 @@ namespace Syndicate.Battle
 
         private void EndTurn()
         {
-            BattleManager.CheckBattleEnd();
+            battleManager.CheckBattleEnd();
             
             OnEndTurn?.Invoke();
         }
@@ -92,16 +90,16 @@ namespace Syndicate.Battle
             
             if (target.Data.CurrentHealth <= 0)
             {
-                if (BattleManager.CurrentUnit.side == SideType.Allies)
+                if (battleManager.CurrentUnit.side == SideType.Allies)
                 {
-                    BattleManager.ListEnemies.Remove(target);
+                    battleManager.ListEnemies.Remove(target);
                 }
-                else if (BattleManager.CurrentUnit.side == SideType.Enemies)
+                else if (battleManager.CurrentUnit.side == SideType.Enemies)
                 {
-                    BattleManager.ListAllies.Remove(target);
+                    battleManager.ListAllies.Remove(target);
                 }
                 
-                BattleManager.ListUnits.Remove(target);
+                battleManager.ListUnits.Remove(target);
                 
                 Destroy(target.gameObject);
             }
@@ -109,7 +107,7 @@ namespace Syndicate.Battle
 
         private async void StartRotate()
         {
-            var targetTransform = BattleManager.TargetUnit.transform.position;
+            var targetTransform = battleManager.TargetUnit.transform.position;
             
             var activeUnitT = transform;
             var startRotation = activeUnitT.rotation;   
@@ -119,7 +117,7 @@ namespace Syndicate.Battle
 
             animator.SetFloat(TurnTrigger, 1);
             
-            await transform.DORotateQuaternion(direction, 0.6f).OnComplete(() => { animator.SetTrigger("Fire");}).ToUniTask();
+            await transform.DORotateQuaternion(direction, 0.6f).OnComplete(() => { animator.SetTrigger(Fire);}).ToUniTask();
             
             animator.SetFloat(TurnTrigger, 0);
             

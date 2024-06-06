@@ -1,4 +1,3 @@
-using System;
 using Syndicate.Core.Entities;
 
 namespace Syndicate.Battle
@@ -22,7 +21,7 @@ namespace Syndicate.Battle
                     target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
                 }
 
-                foreach (var ally in BattleManager.ListAllies)
+                foreach (var ally in battleManager.ListAllies)
                 {
                     ally.floorDefend.SetActive(false);
                 }
@@ -32,7 +31,7 @@ namespace Syndicate.Battle
                 target.Data.CurrentHealth -= Data.OriginalData.Attack - target.Data.OriginalData.Defense;
             }
             
-            foreach (var enemy in BattleManager.ListEnemies)
+            foreach (var enemy in battleManager.ListEnemies)
             {
                 enemy.floorDefend.SetActive(false);
             }

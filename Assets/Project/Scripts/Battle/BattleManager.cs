@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Project.Scripts.Battle;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using UnityEngine;
@@ -14,16 +13,15 @@ namespace Syndicate.Battle
     {
         [Inject] private IUnitsService _unitsService;
         [Inject] private readonly DiContainer _container;
-
-        public readonly List<AbstractUnit> ListUnits = new();
-
-        public readonly List<AbstractUnit> ListAllies = new();
-        public readonly List<AbstractUnit> ListEnemies = new();
+        
+        public List<AbstractUnit> ListUnits { get; } = new();
+        public List<AbstractUnit> ListAllies { get; } = new();
+        public List<AbstractUnit> ListEnemies { get; } = new();
         
         public AbstractUnit CurrentUnit { get; private set; }
         public AbstractUnit TargetUnit { get; set; }
 
-        public bool CanClick;
+        public bool CanClick { get; set; }
 
         private List<UnitPosObject> _allyIdList = new();
         private List<UnitPosObject> _enemyIdList = new();
@@ -34,7 +32,7 @@ namespace Syndicate.Battle
             _enemyIdList = enemy;
         }
         
-        public void InstantiateUnits()
+        public void InstantiateUnits(List<Transform> listSpawnPointAllies, List<Transform> listSpawnPointEnemies)
         {
             for (int i = 0; i < _allyIdList.Count; i++)
             {
@@ -43,7 +41,7 @@ namespace Syndicate.Battle
                     continue;
                 }
                 
-                var point = BattleStarter.Instance.spawnPointAllies[i];
+                var point = listSpawnPointAllies[i];
                 var unitData = _unitsService.GetUnit(_allyIdList[i].unitId);
                 var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabAlly, point);
                 var unitBattleData = new BattleUnitObject(unitData);
@@ -66,7 +64,7 @@ namespace Syndicate.Battle
                     continue;
                 }
                 
-                var point = BattleStarter.Instance.spawnPointEnemies[i];
+                var point = listSpawnPointEnemies[i];
                 var unitData = _unitsService.GetUnit(_enemyIdList[i].unitId);
                 var unitInstantiate = _container.InstantiatePrefabForComponent<AbstractUnit>(unitData.PrefabEnemy, point);
                 var unitBattleData = new BattleUnitObject(unitData);
@@ -85,7 +83,7 @@ namespace Syndicate.Battle
             SortingUnits();
         }
 
-        public void SortingUnits()
+        private void SortingUnits()
         {
             var sortList = ListUnits
                 .OrderByDescending(x => x.IsAlive)

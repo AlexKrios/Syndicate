@@ -9,11 +9,13 @@ namespace Syndicate.Core.Entities
     {
         public Guid Guid { get; set; }
         public string Key { get; set; }
+        public ItemType Type { get; set; }
 
         public long TimeEnd { get; set; }
         public int Index { get; set; }
 
-        [JsonIgnore] public ICraftableItem ItemRef { get; set; }
+        [JsonIgnore]
+        public ICraftableItem Preset { get; set; }
 
         public Dictionary<string, object> ToDictionary()
         {
@@ -21,6 +23,7 @@ namespace Syndicate.Core.Entities
             {
                 ["Guid"] = Guid.ToString(),
                 ["Key"] = Key,
+                ["Type"] = Type.ToString(),
                 ["TimeEnd"] = TimeEnd,
                 ["Index"] = Index
             };

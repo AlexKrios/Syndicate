@@ -18,36 +18,39 @@ namespace Syndicate.Core.Services
 
         public UniTask Initialize()
         {
-            _productObjects = _configurations.ProductSet.Items
-                .ToDictionary(x => x.Key, x => new ProductObject(x));
+            var itemsData = _configurations.ProductSet.Items;
+            _productObjects = itemsData.ToDictionary(x => x.Key, x => new ProductObject(x));
 
             return UniTask.CompletedTask;
         }
 
-        public void LoadProductObjectData(ItemDto data)
+        public void LoadData(ItemDto data)
         {
-            var raw = _productObjects[(ProductId)data.Key];
-            raw.Count = data.Count;
-            raw.Experience = data.Experience;
+            var product = GetProduct((ProductId)data.Key);
+            product.Count = data.Count;
         }
 
         public List<ProductObject> GetAllProducts() => _productObjects.Values.ToList();
 
-        public ProductObject GetProductByKey(ProductId key)
+        public ProductObject GetProduct(PartObject part) => GetProduct((ProductId)part.Key);
+        public ProductObject GetProduct(ProductId key)
         {
             return _productObjects.TryGetValue(key, out var productObject)
                 ? productObject
                 : throw new Exception($"Can't find {nameof(ProductObject)} with key {key}");
         }
 
-        public List<ProductObject> GetProductsByUnitType(UnitTypeId unitTypeId)
+        public List<ProductObject> GetProductByUnitKey(UnitTypeId unitTypeId)
         {
-            if (unitTypeId == UnitTypeId.All)
-                return _productObjects.Values.ToList();
+            return unitTypeId == UnitTypeId.All
+                ? GetAllProducts()
+                : _productObjects.Values.Where(x => x.UnitTypeId == unitTypeId).ToList();
+        }
 
-            return _productObjects
-                .Where(x => x.Value.UnitTypeId == unitTypeId)
-                .Select(x => x.Value).ToList();
+        public ProductObject GetRandomProduct()
+        {
+            var random = new Random();
+            return _productObjects.Values.ElementAt(random.Next(0, _productObjects.Count));
         }
     }
 }

@@ -1,8 +1,6 @@
 #if UNITY_EDITOR
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Syndicate.Core.Configurations;
+using Syndicate.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,15 +15,7 @@ namespace Syndicate.Core.Entities
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            var assetId = AssetDatabase.FindAssets($"t:{nameof(SpriteSetScriptable)}").First();
-            var path = AssetDatabase.GUIDToAssetPath(assetId);
-            var allValues = new List<SpriteAssetScriptable>();
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Raw);
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Weapon);
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Armor);
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Units);
-            var stringValues = allValues.Select(x => x.Id.ToString()).ToArray();
-
+            var stringValues = EntitiesUtil.GetSpriteAssetValues();
             var valueRect = new Rect(position);
             var valueProperty = property.FindPropertyRelative("value");
             var index = Mathf.Max(0, Array.IndexOf(stringValues, valueProperty.stringValue));

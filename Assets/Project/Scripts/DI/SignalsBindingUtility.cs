@@ -11,10 +11,16 @@ namespace Syndicate.DI
             container.DeclareSignal<SignUpSignal>();
             container.DeclareSignal<VerificationSignal>();
 
-            container.DeclareSignal<ExperienceChangeSignal>();
-            container.DeclareSignal<LevelChangeSignal>();
+            container.DeclareSignal<ExperienceChangeSignal>().OptionalSubscriber();
+            container.DeclareSignal<LevelChangeSignal>().OptionalSubscriber();
 
-            container.DeclareSignal<ProductionChangeSignal>();
+            container.DeclareSignal<CashChangeSignal>().OptionalSubscriber();
+            container.DeclareSignal<DiamondChangeSignal>().OptionalSubscriber();
+
+            container.DeclareSignal<ProductionSizeChangeSignal>();
+            container.DeclareSignal<ExpeditionSizeChangeSignal>();
+
+            container.DeclareSignal<OrdersChangeSignal>();
         }
     }
 }

@@ -31,9 +31,11 @@
 "production","Production","Производство"
 "expeditions","Expeditions","Экспедиции"
 "storage","Storage","Склад"
+"orders","Orders","Заказы"
 
 "close","Close","Закрыть"
 "select","Select","Выбрать"
+"accept","Accept","Принять"
 "create","Create","Создать"
 "complete","Complete","Готово"
 "upgrade","Upgrade","Улучшение"

@@ -12,13 +12,13 @@ namespace Syndicate.Core.Configurations
     [Serializable]
     public class UnitScriptable
     {
-        [SerializeField] protected string name;
+        [SerializeField] private string name;
         [SerializeField] private string key;
         [SerializeField] private UnitTypeId unitTypeId;
         [SerializeField] private SpriteAssetId spriteAssetId;
         [SerializeField] private LocalizedString nameLocale;
         [SerializeField] private LocalizedString descriptionLocale;
-        [SerializeField] private List<SpecificationObject> specifications;
+        [SerializeField] private List<UnitStarScriptable> stars;
         [SerializeField] private GameObject prefabAlly;
         [SerializeField] private GameObject prefabEnemy;
 
@@ -28,7 +28,7 @@ namespace Syndicate.Core.Configurations
         public SpriteAssetId SpriteAssetId { get => spriteAssetId; set => spriteAssetId = value; }
         public LocalizedString NameLocale => nameLocale;
         public LocalizedString DescriptionLocale => descriptionLocale;
-        public List<SpecificationObject> Specifications => specifications;
+        public List<UnitStarScriptable> Stars => stars;
         public GameObject PrefabAlly => prefabAlly;
         public GameObject PrefabEnemy => prefabEnemy;
     }

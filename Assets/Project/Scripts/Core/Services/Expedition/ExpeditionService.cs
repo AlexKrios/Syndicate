@@ -15,6 +15,7 @@ namespace Syndicate.Core.Services
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
         [Inject] private readonly IApiService _apiService;
+        [Inject] private readonly IGameService _gameService;
 
         private Dictionary<LocationId, LocationObject> _locationObjects = new();
 
@@ -75,6 +76,18 @@ namespace Syndicate.Core.Services
             await _apiService.Request(_apiService.RemoveExpedition(id), Finish);
 
             void Finish() => _queue.Remove(id);
+        }
+
+        public async UniTask AddExpeditionSize(int price)
+        {
+            var currentCash = _gameService.Cash -= price;
+            await _apiService.Request(_apiService.SetExpeditionSize(Size + 1, currentCash), Finish);
+
+            void Finish()
+            {
+                Size++;
+                _gameService.Cash = currentCash;
+            }
         }
     }
 }

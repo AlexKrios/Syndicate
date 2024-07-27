@@ -1,14 +1,17 @@
 ﻿using Cysharp.Threading.Tasks;
-using Syndicate.Core.Profile;
 
 namespace Syndicate.Core.Services
 {
     public interface IGameService
     {
-        PlayerState GetPlayerState();
-
-        void CreatePlayerProfile();
-
         UniTask LoadPlayerProfile();
+
+        string Name { get; set; }
+        public int Cash { get; set; }
+        int Diamond { get; set; }
+
+        UniTask SetName(string name);
+        UniTask SetCash(int cash);
+        UniTask SetDiamond(int diamond);
     }
 }

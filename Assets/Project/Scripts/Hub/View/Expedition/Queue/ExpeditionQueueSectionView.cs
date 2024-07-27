@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Syndicate.Core.Services;
+using Syndicate.Core.Signals;
 using Syndicate.Core.View;
 using Syndicate.Utils;
 using UnityEngine;
@@ -10,11 +11,17 @@ namespace Syndicate.Hub.View
 {
     public class ExpeditionQueueSectionView : MonoBehaviour
     {
+        [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly IExpeditionService _expeditionService;
         [Inject] private readonly IComponentViewFactory _componentViewFactory;
 
         [SerializeField] private List<ExpeditionQueueCellView> items;
         [SerializeField] private Transform plusTransform;
+
+        private void Awake()
+        {
+            _signalBus.Subscribe<ExpeditionSizeChangeSignal>(RefreshQueue);
+        }
 
         public void RefreshQueue()
         {

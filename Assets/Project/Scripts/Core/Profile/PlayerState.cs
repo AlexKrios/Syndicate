@@ -7,5 +7,6 @@
         public InventoryState Inventory { get; } = new();
         public ProductionState Production { get; } = new();
         public ExpeditionState Expedition { get; } = new();
+        public TradeState Trade { get; } = new();
     }
 }

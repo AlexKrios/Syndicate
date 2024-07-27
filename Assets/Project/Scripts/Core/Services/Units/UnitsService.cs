@@ -28,10 +28,15 @@ namespace Syndicate.Core.Services
         {
             foreach (var (key, value) in state.Roster)
             {
-                var unitId = new UnitId(key);
-                var unit = _unitObjects[unitId];
+                var unitKey = new UnitId(key);
+                var unit = _unitObjects[unitKey];
+                unit.Star = value.Star;
                 unit.Experience = value.Experience;
                 unit.Outfit = value.Outfit;
+
+                unit.Specifications = _configurations.UnitSet.Items
+                    .First(x => x.Key == unitKey).Stars
+                    .First(x => x.Star == unit.Star).Specifications;
 
                 unit.IsUnlocked = true;
             }

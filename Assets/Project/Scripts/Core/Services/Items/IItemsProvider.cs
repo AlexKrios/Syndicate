@@ -7,8 +7,11 @@ namespace Syndicate.Core.Services
     {
         void LoadItemsData(ItemDto item);
 
-        ItemBaseObject GetItemByKey(string id);
-        ICraftableItem GetCraftableItemByKey(string id);
+        ItemBaseObject GetItem(PartObject part);
+        ItemBaseObject GetItem(ItemType type, string key);
+        ItemBaseObject GetRandomCraftable();
+
+        bool IsHaveNeedItems(List<PartObject> parts);
 
         List<ItemBaseObject> RemoveItems(ICraftableItem data);
     }

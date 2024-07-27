@@ -16,23 +16,29 @@ namespace Syndicate.Core.Configurations
         [Header("Products")]
         [SerializeField] private ProductGroupSetScriptable productGroupSet;
         [SerializeField] private RawSetScriptable rawSet;
-        [SerializeField] private ComponentSetScriptable componentSet;
         [SerializeField] private ProductSetScriptable productSet;
 
         [Header("Locations")]
         [SerializeField] private LocationSetScriptable locationsSet;
 
-        [Header("Production")]
-        [SerializeField] private ProductionSetScriptable productionSet;
+        [Header("Orders")]
+        [SerializeField] private CompanySetScriptable companySet;
+        [SerializeField] private OrderSetScriptable orderSet;
+
+        [Header("Upgrade Queue")]
+        [SerializeField] private ProductionUpgradeSetScriptable productionSet;
+        [SerializeField] private ExpeditionUpgradeSetScriptable expeditionSet;
 
         public ExperienceSetScriptable ExperienceSet => experienceSet;
         public UnitTypeSetScriptable UnitTypeSet => unitTypeSet;
         public UnitSetScriptable UnitSet => unitSet;
         public RawSetScriptable RawSet => rawSet;
-        public ComponentSetScriptable ComponentSet => componentSet;
-        public LocationSetScriptable LocationsSet => locationsSet;
         public ProductSetScriptable ProductSet => productSet;
-        public ProductionSetScriptable ProductionSet => productionSet;
+        public LocationSetScriptable LocationsSet => locationsSet;
+        public CompanySetScriptable CompanySet => companySet;
+        public OrderSetScriptable OrderSet => orderSet;
+        public ProductionUpgradeSetScriptable ProductionSet => productionSet;
+        public ExpeditionUpgradeSetScriptable ExpeditionSet => expeditionSet;
 
         public UnitTypeScriptable GetUnitTypeData(UnitTypeId unitTypeId)
         {

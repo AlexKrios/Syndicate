@@ -11,7 +11,7 @@ namespace Syndicate.Core.Services
         void LoadData(ProfileState state);
 
         int GetCurrentLevel();
-        float GetCurrentLevelPercent(int experience);
+        float GetCurrentLevelPercent();
 
         void SetExperience(int experience);
     }

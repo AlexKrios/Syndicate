@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
 using Syndicate.Core.View;
@@ -13,12 +12,10 @@ namespace Syndicate.Preload.StateMachine
         [Inject] private readonly IGameService _gameService;
         [Inject] private readonly IPopupService _popupService;
 
-        private PlayerState PlayerState => _gameService.GetPlayerState();
-
         public async void Enter()
         {
             await _gameService.LoadPlayerProfile();
-            if (string.IsNullOrEmpty(PlayerState.Profile.Name))
+            if (string.IsNullOrEmpty(_gameService.Name))
             {
                 _popupService.Show<ChangeNameViewModel>();
             }

@@ -11,12 +11,11 @@
         public const float LoadingStepTime = 1f;
 
         public const string RawId = "raw";
-        public const string ComponentId = "com";
         public const string ProductId = "pro";
 
-        public const string Weapon = "wea";
-        public const string Armor = "arm";
-
         public const int MaxStar = 3;
+
+        public const string CashPattern = "<sprite name=\"Cash\"> {0}";
+        public const string TimerTemplate = "HH:mm:ss";
     }
 }

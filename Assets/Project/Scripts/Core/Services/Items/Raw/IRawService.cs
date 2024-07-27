@@ -5,9 +5,11 @@ namespace Syndicate.Core.Services
 {
     public interface IRawService
     {
-        void LoadRawObjectData(ItemDto data);
+        void LoadData(ItemDto data);
 
-        List<RawObject> GetAllRaw();
-        RawObject GetRawByKey(RawItemId key);
+        Dictionary<string, ItemDto> CreateRaw();
+
+        RawObject GetRaw(PartObject part);
+        RawObject GetRaw(RawId key);
     }
 }

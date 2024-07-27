@@ -14,30 +14,38 @@ namespace Syndicate.Core.Services
     {
         [Inject] private readonly ConfigurationsScriptable _configurations;
 
-        private Dictionary<RawItemId, RawObject> _rawObjects;
+        private Dictionary<RawId, RawObject> _rawObjects = new();
 
         public UniTask Initialize()
         {
-            _rawObjects = _configurations.RawSet.Items
-                .ToDictionary(x => x.Key, x => new RawObject(x));
+            var itemsData = _configurations.RawSet.Items;
+            _rawObjects = itemsData.ToDictionary(x => x.Key, x => new RawObject(x));
 
             return UniTask.CompletedTask;
         }
 
-        public void LoadRawObjectData(ItemDto data)
+        public void LoadData(ItemDto data)
         {
-            var raw = _rawObjects[(RawItemId)data.Key];
+            var raw = _rawObjects[(RawId)data.Key];
             raw.Count = data.Count;
-            raw.Experience = data.Experience;
         }
 
-        public RawObject GetRawByKey(RawItemId key)
+        public Dictionary<string, ItemDto> CreateRaw()
         {
-            return _rawObjects.TryGetValue(key, out var rawObject)
-                ? rawObject
-                : throw new Exception($"Can't find {nameof(RawObject)} with key {key}");
+            foreach (var (key, _) in _rawObjects)
+            {
+                _rawObjects[key].Count = 50;
+            }
+
+            return _rawObjects.ToDictionary(x => x.Key.ToString(), x => x.Value.ToDto());
         }
 
-        public List<RawObject> GetAllRaw() => _rawObjects.Values.ToList();
+        public RawObject GetRaw(PartObject part) => GetRaw((RawId)part.Key);
+        public RawObject GetRaw(RawId key)
+        {
+            return _rawObjects.TryGetValue(key, out var productObject)
+                ? productObject
+                : throw new Exception($"Can't find {nameof(ProductObject)} with key {key}");
+        }
     }
 }

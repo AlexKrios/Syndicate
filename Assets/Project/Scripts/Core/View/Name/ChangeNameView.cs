@@ -10,7 +10,7 @@ namespace Syndicate.Core.View
     public class ChangeNameView : ScreenViewBase<ChangeNameViewModel>
     {
         [Inject] private readonly PreloadStateMachine _stateMachine;
-        [Inject] private readonly IApiService _apiService;
+        [Inject] private readonly IGameService _gameService;
 
         [Space]
         [SerializeField] private TMP_InputField nameField;
@@ -30,7 +30,7 @@ namespace Syndicate.Core.View
 
         private async void ConfirmButtonClick()
         {
-            await _apiService.SetPlayerName(_name);
+            await _gameService.SetName(_name);
 
             ViewModel.Hide?.Invoke();
             await _stateMachine.SetLoadingFinish();

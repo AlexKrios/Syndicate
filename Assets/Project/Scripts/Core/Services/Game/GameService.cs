@@ -3,6 +3,8 @@ using JetBrains.Annotations;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Profile;
+using Syndicate.Core.Signals;
+using Unity.VisualScripting;
 using Zenject;
 
 namespace Syndicate.Core.Services
@@ -10,56 +12,102 @@ namespace Syndicate.Core.Services
     [UsedImplicitly]
     public class GameService : IGameService
     {
+        [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly ConfigurationsScriptable _configurations;
-        [Inject] private readonly IItemsProvider _itemsProvider;
-        [Inject] private readonly IRawService _rawService;
         [Inject] private readonly IApiService _apiService;
         [Inject] private readonly IExperienceService _experienceService;
+        [Inject] private readonly IItemsProvider _itemsProvider;
+        [Inject] private readonly IRawService _rawService;
         [Inject] private readonly IUnitsService _unitsService;
         [Inject] private readonly IProductionService _productionService;
         [Inject] private readonly IExpeditionService _expeditionService;
+        [Inject] private readonly IOrdersService _ordersService;
 
-        private PlayerState _playerState;
+        private string _name;
+        public string Name { get; set; }
 
-        public PlayerState GetPlayerState() => _playerState;
-
-        public void CreatePlayerProfile()
+        private int _cash;
+        public int Cash
         {
-            _playerState = new PlayerState();
+            get => _cash;
+            set
+            {
+                _cash = value;
+                _signalBus.Fire<CashChangeSignal>();
+            }
+        }
+
+        private int _diamond;
+        public int Diamond
+        {
+            get => _diamond;
+            set
+            {
+                _diamond = value;
+                _signalBus.Fire<DiamondChangeSignal>();
+            }
         }
 
         public async UniTask LoadPlayerProfile()
         {
             var data = await _apiService.GetPlayerProfile();
-            if (data != null)
+            if (data == null)
             {
-                _playerState = data;
-            }
-            else
-            {
-                foreach (var raw in _rawService.GetAllRaw())
-                {
-                    raw.Count = 50;
-                    _playerState.Inventory.ItemsData.Add(raw.Key, raw.ToDto());
-                }
+                data = new PlayerState();
+
+                var rawDtoList = _rawService.CreateRaw();
+                data.Inventory.Items.AddRange(rawDtoList);
 
                 var unitDto = new UnitObject(_configurations.UnitSet.Items[0]).ToDto();
-                unitDto.Outfit.Add(ProductGroupId.Weapon, "pro|trooper_weapon_product|2");
-                _playerState.Units.Roster.Add(unitDto.Key, unitDto);
+                //unitDto.Outfit.Add(ProductGroupId.Weapon, "trooper_weapon_product");
+                data.Units.Roster.Add(unitDto.Key, unitDto);
 
-                await _apiService.SetStartPlayerProfile(_playerState);
+                var tradeOrderState = data.Trade.Orders;
+                tradeOrderState.Add(CompanyId.Personal, new TradeOrderObject());
+                tradeOrderState[CompanyId.Personal].Size = 1;
+                tradeOrderState.Add(CompanyId.Company1, new TradeOrderObject());
+                tradeOrderState[CompanyId.Company1].Size = 1;
+
+                await _apiService.SetStartPlayerProfile(data);
             }
 
-            _experienceService.LoadData(_playerState.Profile);
+            Name = data.Profile.Name;
+            Cash = data.Inventory.Cash;
+            Diamond = data.Inventory.Diamond;
 
-            foreach (var (_, value) in _playerState.Inventory.ItemsData)
+            _experienceService.LoadData(data.Profile);
+
+            foreach (var (_, value) in data.Inventory.Items)
             {
                 _itemsProvider.LoadItemsData(value);
             }
-            _unitsService.LoadUnits(_playerState.Units);
+            _unitsService.LoadUnits(data.Units);
 
-            _productionService.LoadData(_playerState.Production);
-            _expeditionService.LoadData(_playerState.Expedition);
+            _productionService.LoadData(data.Production);
+            _expeditionService.LoadData(data.Expedition);
+
+            await _ordersService.LoadData(data.Trade);
+        }
+
+        public async UniTask SetName(string name)
+        {
+            await _apiService.Request(_apiService.SetPlayerName(name), Finish);
+
+            void Finish() => Name = name;
+        }
+
+        public async UniTask SetCash(int cash)
+        {
+            await _apiService.Request(_apiService.SetCashCount(cash), Finish);
+
+            void Finish() => Cash = cash;
+        }
+
+        public async UniTask SetDiamond(int diamond)
+        {
+            await _apiService.Request(_apiService.SetDiamondCount(diamond), Finish);
+
+            void Finish() => Diamond = diamond;
         }
     }
 }

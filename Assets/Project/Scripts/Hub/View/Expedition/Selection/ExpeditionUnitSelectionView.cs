@@ -30,8 +30,9 @@ namespace Syndicate.Hub.View
 
         [Header("Sidebar")]
         [SerializeField] private GameObject sidebarWrapper;
+        [SerializeField] private Image background;
         [SerializeField] private Image icon;
-        [SerializeField] private Image iconBg;
+        [SerializeField] private List<Image> stars;
         [SerializeField] private List<SpecificationView> specifications;
         [SerializeField] private LocalizeStringEvent unitName;
         [SerializeField] private LocalizeStringEvent unitGroup;
@@ -113,7 +114,12 @@ namespace Syndicate.Hub.View
 
             var data = CurrentUnit.Data;
             icon.sprite = _assetsService.GetSprite(data.IconId);
-            iconBg.color = _configurations.UnitTypeSet.First(x => x.UnitTypeId == data.UnitTypeId).BgColor;
+            background.color = _configurations.UnitTypeSet.First(x => x.UnitTypeId == data.UnitTypeId).BgColor;
+            for (var i = 0; i < stars.Count; i++)
+            {
+                stars[i].gameObject.SetActive(i + 1 <= data.Star);
+                stars[i].color = background.color;
+            }
             unitName.StringReference = data.NameLocale;
             unitGroup.StringReference = _configurations.GetUnitTypeData(CurrentUnit.Data.UnitTypeId).Locale;
 
@@ -134,7 +140,7 @@ namespace Syndicate.Hub.View
             {
                 if (data.Outfit.TryGetValue(cell.Group, out var key))
                 {
-                    var item = _productsService.GetProductByKey(new ProductId(key));
+                    var item = _productsService.GetProduct((ProductId)key);
                     cell.SetData(item);
                 }
                 else

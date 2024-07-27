@@ -1,7 +1,6 @@
 ﻿using System;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
-using Syndicate.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -25,9 +24,8 @@ namespace Syndicate.Hub.View
 
         [Space]
         [SerializeField] private Image icon;
-        [SerializeField] private Image star;
 
-        public ProductObject Data { get; set; }
+        public ProductObject Data { get; private set; }
 
         public ProductGroupId Group => group;
 
@@ -43,11 +41,8 @@ namespace Syndicate.Hub.View
 
             if (outfit != null)
             {
-                Data = _productsService.GetProductByKey((ProductId) outfit);
+                Data = _productsService.GetProduct((ProductId) outfit);
                 icon.sprite = _assetsService.GetSprite(Data.SpriteAssetId);
-
-                var starCount = ItemsUtil.ParseItemKeyToStar(outfit);
-                star.sprite = _assetsService.GetStarSprite(starCount);
             }
             else
             {

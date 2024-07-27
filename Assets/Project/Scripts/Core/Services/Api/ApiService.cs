@@ -17,16 +17,17 @@ namespace Syndicate.Core.Services
     {
         private const string UsersRoot = "Users";
         private const string InventoryRoot = "Inventory";
+        private const string CashRoot = "Cash";
+        private const string DiamondRoot = "Diamond";
         private const string ProfileRoot = "Profile";
         private const string UnitsRoot = "Units";
         private const string UnitsRosterRoot = "Roster";
         private const string ExperienceRoot = "Experience";
-        private const string ItemsDataRoot = "ItemsData";
-        private const string ProductionSizeRoot = "Production/Size";
-        private const string ProductionLevelRoot = "Production/Level";
-        private const string ProductionQueueRoot = "Production/Queue";
-        private const string ExpeditionSizeRoot = "Expedition/Size";
-        private const string ExpeditionQueueRoot = "Expedition/Queue";
+        private const string ItemsRoot = "Items";
+        private const string ProductionRoot = "Production";
+        private const string ExpeditionRoot = "Expedition";
+        private const string TradeRoot = "Trade";
+        private const string OrdersRoot = "Orders";
 
         private static FirebaseDatabase FirebaseDatabase => FirebaseDatabase.DefaultInstance;
         private static string UserId => FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
@@ -82,6 +83,20 @@ namespace Syndicate.Core.Services
                 .SetValueAsync(name);
         }
 
+        public async UniTask SetCashCount(int cash)
+        {
+            await FirebaseDatabase.RootReference
+                .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{CashRoot}")
+                .SetValueAsync(cash);
+        }
+
+        public async UniTask SetDiamondCount(int diamond)
+        {
+            await FirebaseDatabase.RootReference
+                .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{DiamondRoot}")
+                .SetValueAsync(diamond);
+        }
+
         public async UniTask SetExperience(int experience)
         {
             await FirebaseDatabase.RootReference
@@ -119,7 +134,7 @@ namespace Syndicate.Core.Services
         public async UniTask SetCountItems(Dictionary<string, object> items)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsDataRoot}")
+                .Child($"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsRoot}")
                 .UpdateChildrenAsync(items);
         }
 
@@ -130,15 +145,19 @@ namespace Syndicate.Core.Services
         public async UniTask SetProductionLevel(int value)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ProductionLevelRoot}")
+                .Child($"{UsersRoot}/{UserId}/{ProductionRoot}/Level")
                 .SetValueAsync(value);
         }
 
-        public async UniTask SetProductionSize(int value)
+        public async UniTask SetProductionSize(int size, int cash)
         {
-            await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ProductionSizeRoot}")
-                .SetValueAsync(value);
+            var sendList = new Dictionary<string, object>
+            {
+                { $"{ProductionRoot}/Size", size },
+                { $"{InventoryRoot}/{CashRoot}", cash }
+            };
+
+            await FirebaseDatabase.RootReference.Child($"{UsersRoot}/{UserId}").UpdateChildrenAsync(sendList);
         }
 
         public async UniTask AddProduction(ProductionObject data, List<ItemBaseObject> itemsToRemove)
@@ -146,17 +165,17 @@ namespace Syndicate.Core.Services
             var sendList = new Dictionary<string, object>();
             foreach (var item in itemsToRemove)
             {
-                sendList.Add($"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsDataRoot}/{item.Key}", item.ToDictionary());
+                sendList.Add($"{UsersRoot}/{UserId}/{InventoryRoot}/{ItemsRoot}/{item.Key}", item.ToDictionary());
             }
 
-            sendList.Add($"{UsersRoot}/{UserId}/{ProductionQueueRoot}/{data.Guid.ToString()}", data.ToDictionary());
+            sendList.Add($"{UsersRoot}/{UserId}/{ProductionRoot}/Queue/{data.Guid.ToString()}", data.ToDictionary());
             await FirebaseDatabase.RootReference.UpdateChildrenAsync(sendList);
         }
 
         public async UniTask RemoveProduction(Guid id)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ProductionQueueRoot}/{id.ToString()}")
+                .Child($"{UsersRoot}/{UserId}/{ProductionRoot}/Queue/{id.ToString()}")
                 .SetValueAsync(null);
         }
 
@@ -164,8 +183,8 @@ namespace Syndicate.Core.Services
         {
             var sendList = new Dictionary<string, object>
             {
-                { $"{ProductionQueueRoot}/{id.ToString()}", null },
-                { $"{InventoryRoot}/{ItemsDataRoot}/{item.Key}/Count", item.Count }
+                { $"{ProductionRoot}/Queue/{id.ToString()}", null },
+                { $"{InventoryRoot}/{ItemsRoot}/{item.Key}", item.ToDictionary() }
             };
 
             await FirebaseDatabase.RootReference.Child($"{UsersRoot}/{UserId}").UpdateChildrenAsync(sendList);
@@ -175,25 +194,67 @@ namespace Syndicate.Core.Services
 
         #region Expeditions
 
-        public async UniTask SetExpeditionSize(int value)
+        public async UniTask SetExpeditionSize(int size, int cash)
         {
-            await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ExpeditionSizeRoot}")
-                .SetValueAsync(value);
+            var sendList = new Dictionary<string, object>
+            {
+                { $"{ExpeditionRoot}/Size", size },
+                { $"{InventoryRoot}/{CashRoot}", cash }
+            };
+
+            await FirebaseDatabase.RootReference.Child($"{UsersRoot}/{UserId}").UpdateChildrenAsync(sendList);
         }
 
         public async UniTask AddExpedition(ExpeditionObject data)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ExpeditionQueueRoot}/{data.Guid.ToString()}")
+                .Child($"{UsersRoot}/{UserId}/{ExpeditionRoot}/Queue/{data.Guid.ToString()}")
                 .SetRawJsonValueAsync(JsonConvert.SerializeObject(data));
         }
 
         public async UniTask RemoveExpedition(Guid id)
         {
             await FirebaseDatabase.RootReference
-                .Child($"{UsersRoot}/{UserId}/{ExpeditionQueueRoot}/{id.ToString()}")
+                .Child($"{UsersRoot}/{UserId}/{ExpeditionRoot}/Queue/{id.ToString()}")
                 .SetRawJsonValueAsync(JsonConvert.SerializeObject(null));
+        }
+
+        #endregion
+
+        #region Orders
+
+        public async UniTask SetOrderSize(string company, int size, int cash)
+        {
+            var sendList = new Dictionary<string, object>
+            {
+                { $"{TradeRoot}/{OrdersRoot}/{company}/Size", size },
+                { $"{InventoryRoot}/{CashRoot}", cash }
+            };
+
+            await FirebaseDatabase.RootReference.Child($"{UsersRoot}/{UserId}").UpdateChildrenAsync(sendList);
+        }
+
+        public async UniTask SetOrders(Dictionary<CompanyId, TradeOrderObject> orders)
+        {
+            await FirebaseDatabase.RootReference
+                .Child($"{UsersRoot}/{UserId}/{TradeRoot}/{OrdersRoot}")
+                .SetRawJsonValueAsync(JsonConvert.SerializeObject(orders));
+        }
+
+        public async UniTask CompleteOrder(OrderObject order, int cash)
+        {
+            var sendList = new Dictionary<string, object>
+            {
+                { $"{TradeRoot}/{OrdersRoot}/{order.CompanyId}/List/{order.Guid}", null },
+                { $"{InventoryRoot}/{CashRoot}", cash }
+            };
+
+            foreach (var part in order.Items)
+            {
+                sendList.Add($"{InventoryRoot}/{ItemsRoot}/{part.Key}/Count", part.Count);
+            }
+
+            await FirebaseDatabase.RootReference.Child($"{UsersRoot}/{UserId}").UpdateChildrenAsync(sendList);
         }
 
         #endregion

@@ -16,12 +16,13 @@ namespace Syndicate.Utils
         {
             var assetId = AssetDatabase.FindAssets($"t:{nameof(SpriteSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
-            var allValues = new List<SpriteAssetScriptable>();
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Raw);
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Weapon);
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Armor);
-            allValues.AddRange(AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path).Units);
-            return allValues.Select(x => x.Id.ToString()).ToArray();
+            var config = AssetDatabase.LoadAssetAtPath<SpriteSetScriptable>(path);
+            var allValues = new List<string>();
+            allValues.AddRange(config.Raw.Select(x => x.Id.ToString()));
+            allValues.AddRange(config.Weapon.Select(x => x.Id.ToString()));
+            allValues.AddRange(config.Armor.Select(x => x.Id.ToString()));
+            allValues.AddRange(config.Units.Select(x => x.Id.ToString()));
+            return allValues.ToArray();
         }
 
         public static string[] GetRawItemKeys()
@@ -34,9 +35,10 @@ namespace Syndicate.Utils
 
         public static string[] GetComponentItemKeys()
         {
-            var assetId = AssetDatabase.FindAssets($"t:{nameof(ComponentSetScriptable)}").First();
+            var assetId = AssetDatabase.FindAssets($"t:{nameof(ProductSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
-            var allValues = AssetDatabase.LoadAssetAtPath<ComponentSetScriptable>(path).Items;
+            var allValues = AssetDatabase.LoadAssetAtPath<ProductSetScriptable>(path).Items
+                .Where(x => x.Type == ItemType.Component);
             return allValues.Select(x => x.Key.ToString()).ToArray();
         }
 
@@ -44,7 +46,8 @@ namespace Syndicate.Utils
         {
             var assetId = AssetDatabase.FindAssets($"t:{nameof(ProductSetScriptable)}").First();
             var path = AssetDatabase.GUIDToAssetPath(assetId);
-            var allValues = AssetDatabase.LoadAssetAtPath<ProductSetScriptable>(path).Items;
+            var allValues = AssetDatabase.LoadAssetAtPath<ProductSetScriptable>(path).Items
+                .Where(x => x.Type == ItemType.Product);
             return allValues.Select(x => x.Key.ToString()).ToArray();
         }
 

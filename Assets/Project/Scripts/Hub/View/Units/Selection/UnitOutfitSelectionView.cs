@@ -29,7 +29,6 @@ namespace Syndicate.Hub.View
         [Header("Sidebar")]
         [SerializeField] private GameObject sidebarWrapper;
         [SerializeField] private Image icon;
-        [SerializeField] private Image star;
         [SerializeField] private List<SpecificationView> specifications;
         [SerializeField] private LocalizeStringEvent itemName;
         [SerializeField] private Button equip;
@@ -109,8 +108,6 @@ namespace Syndicate.Hub.View
 
             var data = CurrentProduct.Data;
             icon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
-            var starCount = ItemsUtil.ParseItemKeyToStar(data.Key);
-            star.sprite = _assetsService.GetStarSprite(starCount);
             itemName.StringReference = data.NameLocale;
 
             var specificationsList = _specificationsUtil.GetProductSpecificationValues(data);

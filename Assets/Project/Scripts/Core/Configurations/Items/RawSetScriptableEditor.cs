@@ -15,7 +15,6 @@ namespace Syndicate.Core.Configurations
         private RawSetScriptable _data;
 
         private readonly List<bool> _infoItemFoldout = new();
-        private readonly List<bool> _infoGroupFoldout = new();
 
         private bool _recipeFoldout;
         private bool _specificationsFoldout;
@@ -27,11 +26,6 @@ namespace Syndicate.Core.Configurations
             for (var i = 0; i < _data.Items.Count; i++)
             {
                 _infoItemFoldout.Add(false);
-            }
-
-            for (var i = 0; i < _data.Groups.Count; i++)
-            {
-                _infoGroupFoldout.Add(false);
             }
 
             EditorUtility.SetDirty(_data);
@@ -59,22 +53,6 @@ namespace Syndicate.Core.Configurations
 
             EditorGUILayout.Space();
 
-            foreach (var group in _data.Groups)
-            {
-                var index = _data.Groups.IndexOf(group);
-
-                EditorGUILayout.BeginHorizontal(EditorStyles.objectFieldThumb);
-                EditorGUI.indentLevel++;
-                _infoGroupFoldout[index] = EditorGUILayout.Foldout(_infoGroupFoldout[index], group.Name);
-                EditorGUI.indentLevel--;
-                EditorGUILayout.EndHorizontal();
-
-                if (!_infoGroupFoldout[index])
-                    continue;
-
-                CreateGroup(group);
-            }
-
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -83,7 +61,7 @@ namespace Syndicate.Core.Configurations
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
             data.Name = EditorGUILayout.TextField("Name", data.Name);
-            data.Key = (RawItemId)EditorGUILayout.TextField("Key", data.Key);
+            data.Key = (RawId)EditorGUILayout.TextField("Key", data.Key);
             EditorGUILayout.Space();
 
             var spritesString = EntitiesUtil.GetSpriteAssetValues();
@@ -104,16 +82,6 @@ namespace Syndicate.Core.Configurations
                 .GetArrayElementAtIndex(index)
                 .FindPropertyRelative("descriptionLocale"), new GUIContent("Description Locale"));
             EditorGUI.indentLevel--;
-            EditorGUILayout.EndVertical();
-        }
-
-        private void CreateGroup(RawGroupScriptable data)
-        {
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-
-            data.Name = EditorGUILayout.TextField("Name", data.Name);
-            data.Key = (RawGroupId)EditorGUILayout.TextField("Key", data.Key);
-
             EditorGUILayout.EndVertical();
         }
     }

@@ -2,7 +2,6 @@
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using Syndicate.Core.View;
-using Syndicate.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -20,7 +19,6 @@ namespace Syndicate.Hub.View
 
         [Space]
         [SerializeField] private Image icon;
-        [SerializeField] private Image star;
 
         public ProductObject Data { get; private set; }
 
@@ -36,9 +34,6 @@ namespace Syndicate.Hub.View
             Data = data;
 
             icon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
-
-            var starCount = ItemsUtil.ParseItemKeyToStar(data.Key);
-            star.sprite = _assetsService.GetStarSprite(starCount);
         }
 
         protected override void Click()

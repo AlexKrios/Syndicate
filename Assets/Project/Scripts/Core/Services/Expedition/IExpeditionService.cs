@@ -19,5 +19,7 @@ namespace Syndicate.Core.Services
         List<ExpeditionObject> GetAllExpedition();
         UniTask AddExpedition(ExpeditionObject data);
         UniTask RemoveExpedition(Guid id);
+
+        UniTask AddExpeditionSize(int price);
     }
 }

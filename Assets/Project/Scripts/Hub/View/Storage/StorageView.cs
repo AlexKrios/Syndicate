@@ -19,7 +19,6 @@ namespace Syndicate.Hub.View
         [Inject] private readonly IAssetsService _assetsService;
         [Inject] private readonly IItemsProvider _itemsProvider;
         [Inject] private readonly IProductsService _productsService;
-        [Inject] private readonly IComponentsService _componentsService;
         [Inject] private readonly IComponentViewFactory _componentViewFactory;
         [Inject] private readonly SpecificationsUtil _specificationsUtil;
 
@@ -34,7 +33,6 @@ namespace Syndicate.Hub.View
 
         [Header("Sidebar")]
         [SerializeField] private Image itemIcon;
-        [SerializeField] private Image starIcon;
         [SerializeField] private LocalizeStringEvent itemName;
         [SerializeField] private LocalizeStringEvent itemDescription;
         [SerializeField] private List<SpecificationView> specifications;
@@ -97,7 +95,8 @@ namespace Syndicate.Hub.View
 
         private void OnTabClick(StorageTabView tab)
         {
-            if (CurrentTab == tab) return;
+            if (CurrentTab == tab)
+                return;
 
             CurrentTab = tab;
 
@@ -112,10 +111,8 @@ namespace Syndicate.Hub.View
                 items.ForEach(x => x.gameObject.SetActive(false));
 
             var productObjects = _productsService.GetAllProducts().Where(x => x.Count != 0).ToList();
-            var componentObjects = _componentsService.GetAllComponents().Where(x => x.Count != 0).ToList();
             var itemObjects = new List<ICraftableItem>();
             itemObjects.AddRange(productObjects);
-            itemObjects.AddRange(componentObjects);
 
             for (var i = 0; i < itemObjects.Count; i++)
             {
@@ -136,7 +133,8 @@ namespace Syndicate.Hub.View
 
         private void OnItemClick(StorageItemView item)
         {
-            if (CurrentItem == item) return;
+            if (CurrentItem == item)
+                return;
 
             CurrentItem = item;
 
@@ -149,17 +147,14 @@ namespace Syndicate.Hub.View
             var data = CurrentItem.ItemData;
 
             itemIcon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
-            var starCount = ItemsUtil.ParseItemKeyToStar(data.Key);
-            starIcon.sprite = _assetsService.GetStarSprite(starCount);
             itemName.StringReference = data.NameLocale;
             itemDescription.StringReference = data.DescriptionLocale;
 
-            var recipe = data.Recipe;
             var specificationsList = data is ProductObject
                 ? _specificationsUtil.GetProductSpecificationValues(data)
-                : recipe.Specifications;
+                : data.Specifications;
             SetSpecificationData(specificationsList);
-            SetPartsData(recipe.Parts);
+            SetPartsData(data.Parts);
         }
 
         private void SetSpecificationData(IReadOnlyCollection<SpecificationObject> specificationsList)
@@ -188,7 +183,7 @@ namespace Syndicate.Hub.View
                 }
 
                 var part = partObjects[i];
-                var partItemObject = _itemsProvider.GetItemByKey(part.Key);
+                var partItemObject = _itemsProvider.GetItem(part);
                 parts[i].SetData(partItemObject);
             }
         }

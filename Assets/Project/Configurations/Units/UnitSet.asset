@@ -37,19 +37,49 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-    specifications:
-    - type:
-        value: Attack
-      value: 25
-    - type:
-        value: Health
-      value: 100
-    - type:
-        value: Defense
-      value: 5
-    - type:
-        value: Initiative
-      value: 20
+    stars:
+    - star: 1
+      specifications:
+      - type:
+          value: Attack
+        value: 25
+      - type:
+          value: Health
+        value: 100
+      - type:
+          value: Defense
+        value: 25
+      - type:
+          value: Initiative
+        value: 25
+    - star: 2
+      specifications:
+      - type:
+          value: Attack
+        value: 40
+      - type:
+          value: Health
+        value: 150
+      - type:
+          value: Defense
+        value: 50
+      - type:
+          value: Initiative
+        value: 30
+    - star: 3
+      specifications:
+      - type:
+          value: Attack
+        value: 50
+      - type:
+          value: Health
+        value: 200
+      - type:
+          value: Defense
+        value: 100
+      - type:
+          value: Initiative
+        value: 40
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - name: Defender
@@ -76,19 +106,21 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-    specifications:
-    - type:
-        value: Attack
-      value: 15
-    - type:
-        value: Health
-      value: 120
-    - type:
-        value: Defense
-      value: 15
-    - type:
-        value: Initiative
-      value: 15
+    stars:
+    - star: 1
+      specifications:
+      - type:
+          value: Attack
+        value: 25
+      - type:
+          value: Health
+        value: 100
+      - type:
+          value: Defense
+        value: 25
+      - type:
+          value: Initiative
+        value: 25
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - name: Support
@@ -115,19 +147,21 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-    specifications:
-    - type:
-        value: Attack
-      value: 20
-    - type:
-        value: Health
-      value: 80
-    - type:
-        value: Defense
-      value: 5
-    - type:
-        value: Initiative
-      value: 10
+    stars:
+    - star: 1
+      specifications:
+      - type:
+          value: Attack
+        value: 25
+      - type:
+          value: Health
+        value: 100
+      - type:
+          value: Defense
+        value: 25
+      - type:
+          value: Initiative
+        value: 25
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   - name: Sniper
@@ -154,19 +188,21 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-    specifications:
-    - type:
-        value: Attack
-      value: 45
-    - type:
-        value: Health
-      value: 60
-    - type:
-        value: Defense
-      value: 0
-    - type:
-        value: Initiative
-      value: 12
+    stars:
+    - star: 1
+      specifications:
+      - type:
+          value: Attack
+        value: 25
+      - type:
+          value: Health
+        value: 100
+      - type:
+          value: Defense
+        value: 25
+      - type:
+          value: Initiative
+        value: 25
     prefabAlly: {fileID: 458770420947274601, guid: 8c2523afcf648ff459170c896a8bf163, type: 3}
     prefabEnemy: {fileID: 292978066544522254, guid: e3c2f47336ab169489e0e60ca991be5b, type: 3}
   references:

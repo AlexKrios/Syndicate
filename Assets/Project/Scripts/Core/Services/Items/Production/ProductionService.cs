@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Profile;
 using Zenject;
@@ -12,11 +13,14 @@ namespace Syndicate.Core.Services
     [UsedImplicitly]
     public class ProductionService : IProductionService
     {
+        [Inject] private readonly ConfigurationsScriptable _configurations;
         [Inject] private readonly IApiService _apiService;
+        [Inject] private readonly IGameService _gameService;
         [Inject] private readonly IItemsProvider _itemsProvider;
 
         public int Level { get; set; }
-        public int Size { get; set; }
+        public int Size { get; private set; }
+        public bool IsMaxSize => Size >= _configurations.ProductionSet.Count;
 
         private Dictionary<Guid, ProductionObject> _queue = new();
 
@@ -32,9 +36,9 @@ namespace Syndicate.Core.Services
 
         public bool IsHaveNeedItems(ICraftableItem data)
         {
-            foreach (var part in data.Recipe.Parts)
+            foreach (var part in data.Parts)
             {
-                var item = _itemsProvider.GetItemByKey(part.Key);
+                var item = _itemsProvider.GetItem(part);
                 if (item.Count < part.Count)
                     return false;
             }
@@ -48,7 +52,8 @@ namespace Syndicate.Core.Services
             for (var i = 1; i <= Size; i++)
             {
                 var isIndexBusy = _queue.Values.Any(x => x.Index == i);
-                if (isIndexBusy) continue;
+                if (isIndexBusy)
+                    continue;
 
                 freeIndex = i;
                 break;
@@ -59,12 +64,12 @@ namespace Syndicate.Core.Services
 
         public List<ProductionObject> GetAllProduction() => _queue.Values.ToList();
 
-        public async UniTask AddProduction(ProductionObject productionObject)
+        public async UniTask AddProduction(ProductionObject data)
         {
-            var itemsToRemove = _itemsProvider.RemoveItems(productionObject.ItemRef);
-            await _apiService.Request(_apiService.AddProduction(productionObject, itemsToRemove), Finish);
+            var itemsToRemove = _itemsProvider.RemoveItems(data.Preset);
+            await _apiService.Request(_apiService.AddProduction(data, itemsToRemove), Finish);
 
-            void Finish() => _queue.Add(productionObject.Guid, productionObject);
+            void Finish() => _queue.Add(data.Guid, data);
         }
 
         public async void CompleteProduction(Guid id, ICraftableItem item)
@@ -74,11 +79,16 @@ namespace Syndicate.Core.Services
             void Finish() => _queue.Remove(id);
         }
 
-        public async void AddProductionSize()
+        public async UniTask AddProductionSize(int price)
         {
-            await _apiService.Request(_apiService.SetProductionSize(Size), Finish);
+            var currentCash = _gameService.Cash -= price;
+            await _apiService.Request(_apiService.SetProductionSize(Size + 1, currentCash), Finish);
 
-            void Finish() => Size++;
+            void Finish()
+            {
+                Size++;
+                _gameService.Cash = currentCash;
+            }
         }
 
         public async void AddProductionLevel()

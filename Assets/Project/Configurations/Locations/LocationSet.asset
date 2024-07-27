@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocationSet
   m_EditorClassIdentifier: 
   items:
-  - key: location_raw_weapon|1
+  - key: location_raw_weapon
     wayTime: 0
     enemies:
     - slotId:
@@ -33,8 +33,9 @@ MonoBehaviour:
       unitId:
         value: unit_sniper
     rewards:
-    - itemType: 0
-      key: raw|raw_weapon|1
+    - key: raw_weapon
+      star: 0
+      itemType: 0
       count: 10
     nameLocale:
       m_TableReference:
@@ -56,7 +57,7 @@ MonoBehaviour:
       m_LocalVariables: []
     iconAssetId:
       value: raw_weapon
-  - key: location_raw_armor|1
+  - key: location_raw_armor
     wayTime: 100
     enemies:
     - slotId:
@@ -67,7 +68,11 @@ MonoBehaviour:
         value: BackSlot1
       unitId:
         value: unit_sniper
-    rewards: []
+    rewards:
+    - key: raw_armor
+      star: 0
+      itemType: 0
+      count: 10
     nameLocale:
       m_TableReference:
         m_TableCollectionName: 
@@ -87,7 +92,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     iconAssetId:
-      value: raw_weapon
+      value: raw_armor
   references:
     version: 2
     RefIds: []

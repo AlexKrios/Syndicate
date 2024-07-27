@@ -65,6 +65,7 @@ namespace Syndicate.Core.Configurations
 
             data.Name = EditorGUILayout.TextField("Name", data.Name);
             data.Key = (ProductId)EditorGUILayout.TextField("Key", data.Key);
+            data.Type = (ItemType) EditorGUILayout.EnumPopup("Type", data.Type);
 
             EditorGUILayout.Space();
 
@@ -99,7 +100,7 @@ namespace Syndicate.Core.Configurations
             EditorGUILayout.EndVertical();
         }
 
-        private void CreateRecipe(RecipeObject recipe)
+        private void CreateRecipe(ItemRecipeObject recipe)
         {
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             EditorGUILayout.BeginHorizontal(EditorStyles.objectField);
@@ -141,9 +142,9 @@ namespace Syndicate.Core.Configurations
                 EditorGUILayout.LabelField($"Part {partIndex + 1}:", optionsPart);
 
                 var optionsType = new[] { GUILayout.MaxWidth(100f), GUILayout.MinWidth(10f) };
-                part.ItemType = (ItemType) EditorGUILayout.EnumPopup(part.ItemType, optionsType);
+                part.Type = (ItemType) EditorGUILayout.EnumPopup(part.Type, optionsType);
 
-                var idsValues = GetKeys(part.ItemType);
+                var idsValues = GetKeys(part.Type);
                 var index = Mathf.Max(0, Array.IndexOf(idsValues, part.Key));
                 index = EditorGUILayout.Popup(index, idsValues);
                 part.Key = idsValues[index];
@@ -180,17 +181,18 @@ namespace Syndicate.Core.Configurations
             }
 
             EditorGUILayout.BeginHorizontal();
+            var styleBox = new GUIStyle(GUI.skin.label) { fixedWidth = 18, fixedHeight = 18 };
             foreach (var specification in data)
             {
-                EditorGUILayout.BeginVertical();
-                EditorGUI.BeginDisabledGroup(true);
                 var itemIndex = Mathf.Max(0, Array.IndexOf(specificationValues, specification.Type));
-                itemIndex = EditorGUILayout.Popup(itemIndex, specificationValues);
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Box(Resources.Load<Texture2D>($"Specifications/{(SpecificationId)specificationValues[itemIndex]}"), styleBox);
+                EditorGUI.BeginDisabledGroup(true);
                 specification.Type = (SpecificationId)specificationValues[itemIndex];
                 EditorGUI.EndDisabledGroup();
 
                 specification.Value = EditorGUILayout.IntField(specification.Value);
-                EditorGUILayout.EndVertical();
+                EditorGUILayout.EndHorizontal();
             }
             EditorGUILayout.EndHorizontal();
         }

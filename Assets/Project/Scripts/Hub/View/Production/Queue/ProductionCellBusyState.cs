@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
 using Syndicate.Utils;
@@ -9,7 +10,7 @@ namespace Syndicate.Hub.View
 {
     public class ProductionCellBusyState : IState
     {
-        [Inject] private readonly IItemsProvider _itemsProvider;
+        [Inject] private readonly IProductsService _productsService;
         [Inject] private readonly IAssetsService _assetsService;
 
         private readonly ProductionQueueCellView _cell;
@@ -22,7 +23,7 @@ namespace Syndicate.Hub.View
         public void Enter()
         {
             var data = _cell.Data;
-            var item = _itemsProvider.GetCraftableItemByKey(data.Key);
+            var item = _productsService.GetProduct((ProductId)data.Key);
             var sprite = _assetsService.GetSprite(item.SpriteAssetId);
             _cell.SetCellIcon(sprite);
 

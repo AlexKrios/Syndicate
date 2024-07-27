@@ -31,9 +31,10 @@ namespace Syndicate.Hub.View
         [SerializeField] private List<UnitItemView> units;
 
         [Header("Sidebar")]
-        [SerializeField] private Image userIcon;
-        [SerializeField] private Image userIconBg;
-        [SerializeField] private LocalizeStringEvent userName;
+        [SerializeField] private Image background;
+        [SerializeField] private Image icon;
+        [SerializeField] private List<Image> stars;
+        [SerializeField] private LocalizeStringEvent unitName;
         [SerializeField] private List<SpecificationView> specifications;
 
         private UnitTabView _currentTab;
@@ -155,9 +156,14 @@ namespace Syndicate.Hub.View
         {
             var data = CurrentUnit.Data;
 
-            userIcon.sprite = _assetsService.GetSprite(data.IconId);
-            userIconBg.color = _configurations.UnitTypeSet.First(x => x.UnitTypeId == data.UnitTypeId).BgColor;
-            userName.StringReference = data.NameLocale;
+            background.color = _configurations.UnitTypeSet.First(x => x.UnitTypeId == data.UnitTypeId).BgColor;
+            icon.sprite = _assetsService.GetSprite(data.IconId);
+            unitName.StringReference = data.NameLocale;
+            for (var i = 0; i < stars.Count; i++)
+            {
+                stars[i].gameObject.SetActive(i + 1 <= data.Star);
+                stars[i].color = background.color;
+            }
 
             foreach (var specification in specifications)
             {
@@ -168,7 +174,7 @@ namespace Syndicate.Hub.View
                     if (cell.Data == null)
                         continue;
 
-                    specCopy.Value += cell.Data.Recipe.Specifications.First(y => y.Type == specification.Id).Value;
+                    specCopy.Value += cell.Data.Specifications.First(y => y.Type == specification.Id).Value;
                 }
 
                 specification.SetData(specCopy);

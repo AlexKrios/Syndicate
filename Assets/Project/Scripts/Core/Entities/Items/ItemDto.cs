@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Syndicate.Core.Entities
 {
@@ -6,6 +8,9 @@ namespace Syndicate.Core.Entities
     public class ItemDto
     {
         public string Key { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ItemType Type { get; set; }
+
         public int Count { get; set; }
         public int Experience { get; set; }
     }

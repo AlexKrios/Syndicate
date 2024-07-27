@@ -8,25 +8,21 @@ namespace Syndicate.Core.Entities
     public abstract class ItemBaseObject
     {
         public string Key { get; set; }
-        public ItemType ItemType { get; set; }
-
-        public int Count { get; set; }
-        public int Experience { get; set; }
+        public ItemType Type { get; set; }
 
         public LocalizedString NameLocale { get; set; }
         public LocalizedString DescriptionLocale { get; set; }
-
         public SpriteAssetId SpriteAssetId { get; set; }
 
-        public RecipeObject Recipe { get; set; }
+        public int Count { get; set; }
 
-        public ItemDto ToDto()
+        public virtual ItemDto ToDto()
         {
             return new ItemDto
             {
                 Key = Key,
-                Count = Count,
-                Experience = Experience,
+                Type = Type,
+                Count = Count
             };
         }
 
@@ -35,8 +31,8 @@ namespace Syndicate.Core.Entities
             return new Dictionary<string, object>
             {
                 ["Key"] = Key,
-                ["Count"] = Count,
-                ["Experience"] = Experience
+                ["Type"] = Type.ToString(),
+                ["Count"] = Count
             };
         }
     }

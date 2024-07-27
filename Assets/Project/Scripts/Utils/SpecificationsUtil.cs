@@ -11,7 +11,6 @@ namespace Syndicate.Utils
     public class SpecificationsUtil
     {
         [Inject] private readonly IProductsService _productsService;
-        [Inject] private readonly IComponentsService _componentsService;
 
         private List<SpecificationObject> _specifications = new();
 
@@ -23,8 +22,8 @@ namespace Syndicate.Utils
                 var specCopy = new SpecificationObject(specification);
                 foreach (var (_, value) in data.Outfit)
                 {
-                    var product = _productsService.GetProductByKey(new ProductId(value));
-                    specCopy.Value += product.Recipe.Specifications.First(y => y.Type == specification.Type).Value;
+                    var product = _productsService.GetProduct(new ProductId(value));
+                    specCopy.Value += product.Specifications.First(y => y.Type == specification.Type).Value;
                 }
 
                 specList.Add(specCopy);
@@ -37,26 +36,17 @@ namespace Syndicate.Utils
         {
             ResetSpecifications();
 
-            GetSpecificationValues(productObject.Recipe, false);
-            foreach (var part in productObject.Recipe.Parts)
-            {
-                if (part.ItemType != ItemType.Component)
-                    continue;
-
-                var component = _componentsService.GetComponentByKey((ComponentId)part.Key);
-                GetSpecificationValues(component.Recipe, false);
-            }
+            GetSpecificationValues(productObject.Specifications, false);
 
             return _specifications;
         }
 
-        private void GetSpecificationValues(RecipeObject recipe, bool isSingle = true)
+        private void GetSpecificationValues(List<SpecificationObject> specifications, bool isSingle = true)
         {
             if (isSingle)
                 ResetSpecifications();
 
-            var specs = recipe.Specifications;
-            foreach (var spec in specs)
+            foreach (var spec in specifications)
             {
                 var needSpec = _specifications.First(x => x.Type == spec.Type);
                 needSpec.Value += spec.Value;

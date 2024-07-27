@@ -1,6 +1,6 @@
 ﻿using Syndicate.Core.Configurations;
-using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
+using Syndicate.Core.Signals;
 using Syndicate.Core.View;
 using Syndicate.Hub.View.Main;
 using TMPro;
@@ -12,8 +12,7 @@ namespace Syndicate.Hub.View
 {
     public class ProductionQueueUpgradeView : PopupViewBase<ProductionQueueUpgradeViewModel>
     {
-        private const string CashPattern = "<sprite name=\"Cash\"> {0}";
-
+        [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly ConfigurationsScriptable _configurationsScriptable;
         [Inject] private readonly IGameService _gameService;
         [Inject] private readonly IProductionService _productionService;
@@ -22,7 +21,7 @@ namespace Syndicate.Hub.View
         [SerializeField] private RequestButton upgrade;
         [SerializeField] private TMP_Text costText;
 
-        private PlayerState PlayerState => _gameService.GetPlayerState();
+        private ProductionUpgradeScriptable UpgradeData => _configurationsScriptable.ProductionSet[_productionService.Size];
 
         private void Awake()
         {
@@ -32,16 +31,18 @@ namespace Syndicate.Hub.View
 
         protected override void OnEnable()
         {
-            var productionData = _configurationsScriptable.ProductionSet[_productionService.Size];
-            costText.text = string.Format(CashPattern, productionData.Cost);
-            upgrade.Button.interactable = PlayerState.Inventory.Cash >= productionData.Cost;
+            costText.text = string.Format(Constants.CashPattern, UpgradeData.Cost);
+            upgrade.Button.interactable = _gameService.Cash >= UpgradeData.Cost;
 
             base.OnEnable();
         }
 
-        private void UpgradeClick()
+        private async void UpgradeClick()
         {
-            _productionService.AddProductionSize();
+            await _productionService.AddProductionSize(UpgradeData.Cost);
+
+            _signalBus.Fire<ProductionSizeChangeSignal>();
+            ViewModel.Hide?.Invoke();
         }
     }
 }

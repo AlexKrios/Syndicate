@@ -4,7 +4,6 @@ using System.Linq;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
-using Syndicate.Core.Signals;
 using Syndicate.Core.View;
 using Syndicate.Hub.View.Main;
 using Syndicate.Utils;
@@ -18,7 +17,6 @@ namespace Syndicate.Hub.View
 {
     public class ProductionView : ScreenViewBase<ProductionViewModel>
     {
-        [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly ConfigurationsScriptable _configurations;
         [Inject] private readonly IScreenService _screenService;
         [Inject] private readonly IAssetsService _assetsService;
@@ -39,19 +37,15 @@ namespace Syndicate.Hub.View
         [Header("Sidebar")]
         [SerializeField] private Image itemIcon;
         [SerializeField] private TMP_Text timerValue;
-        [SerializeField] private Image starIcon;
         [SerializeField] private LocalizeStringEvent itemName;
         //[SerializeField] private LocalizeStringEvent itemDescription;
         [SerializeField] private GameObject specWrapper;
         [SerializeField] private List<SpecificationView> specifications;
         [SerializeField] private List<ProductionPartView> parts;
         [SerializeField] private RequestButton create;
-        [SerializeField] private Button starButton;
-        [SerializeField] private TMP_Text starCount;
 
         private ProductionTabView _currentTab;
         private ProductionItemView _currentItem;
-        private int _currentStar;
 
         private ProductionTabView CurrentTab
         {
@@ -77,22 +71,11 @@ namespace Syndicate.Hub.View
                 _currentItem.SetActive();
             }
         }
-        private int CurrentStar
-        {
-            set
-            {
-                _currentStar = value <= Constants.MaxStar ? value : 1;
-                starCount.text = _currentStar.ToString();
-            }
-        }
 
         private void Awake()
         {
-            _signalBus.Subscribe<ProductionChangeSignal>(SetCreateButtonState);
-
             close.onClick.AddListener(CloseClick);
             create.Button.onClick.AddListener(CreateClick);
-            starButton.onClick.AddListener(StarClick);
 
             tabs.ForEach(x => x.OnClickEvent += OnTabClick);
         }
@@ -100,7 +83,6 @@ namespace Syndicate.Hub.View
         private void OnEnable()
         {
             CurrentTab = tabs.First();
-            CurrentStar = 1;
             CreateProducts();
             SetTitleData();
             SetSidebarData();
@@ -119,15 +101,14 @@ namespace Syndicate.Hub.View
 
         private void OnTabClick(ProductionTabView tab)
         {
-            if (CurrentTab == tab) return;
+            if (CurrentTab == tab)
+                return;
 
             CurrentTab = tab;
 
             CreateProducts();
             SetTitleData();
             SetSidebarData();
-
-            _signalBus.Fire(new ProductionChangeSignal());
         }
 
         private void CreateProducts()
@@ -135,19 +116,20 @@ namespace Syndicate.Hub.View
             if (products.Count != 0)
                 products.ForEach(x => x.gameObject.SetActive(false));
 
-            var productObjects = _productsService.GetProductsByUnitType(CurrentTab.Type)
-                .Where(x => ItemsUtil.ParseItemKeyToStar(x.Key) == _currentStar).ToList();
+            var productObjects = _productsService.GetProductByUnitKey(CurrentTab.Type)
+                .Where(x => x.Type == ItemType.Product)
+                .ToList();
 
             for (var i = 0; i < productObjects.Count; i++)
             {
                 if (products.ElementAtOrDefault(i) == null)
                     products.Add(_componentViewFactory.Create<ProductionProductView>(productsParent));
 
-                var item = productObjects[i];
-                var productItems = new List<ICraftableItem> { item };
-                foreach (var part in item.Recipe.Parts)
+                var product = productObjects[i];
+                var productItems = new List<ICraftableItem> { product };
+                foreach (var part in product.Parts)
                 {
-                    var component = _itemsProvider.GetCraftableItemByKey(part.Key);
+                    var component = _productsService.GetProduct(part);
                     productItems.Add(component);
                 }
 
@@ -160,57 +142,48 @@ namespace Syndicate.Hub.View
 
         private void OnItemClick(ProductionItemView item)
         {
-            if (CurrentItem == item) return;
+            if (CurrentItem == item)
+                return;
 
             CurrentItem = item;
 
             SetTitleData();
             SetSidebarData();
-
-            _signalBus.Fire(new ProductionChangeSignal());
         }
 
         private void SetSidebarData()
         {
             var data = CurrentItem.Data;
-            var recipe = data.Recipe;
-
             itemIcon.sprite = _assetsService.GetSprite(data.SpriteAssetId);
-            starIcon.sprite = _assetsService.GetStarSprite(ItemsUtil.ParseItemKeyToStar(data.Key));
             itemName.StringReference = data.NameLocale;
             //itemDescription.StringReference = data.DescriptionLocale;
-            timerValue.text = TimeUtil.DateCraftTimer(recipe.CraftTime);
+            timerValue.text = TimeUtil.DateCraftTimer(data.CraftTime);
 
-            SetSpecificationData();
+            specWrapper.SetActive(data.Type == ItemType.Product);
+            if (data.Type == ItemType.Product)
+            {
+                var specificationsList = data.Specifications;
+                foreach (var specification in specifications)
+                {
+                    var needSpecification = specificationsList.First(x => x.Type == specification.Id);
+                    specification.SetData(needSpecification);
+                }
+            }
 
             for (var i = 0; i < parts.Count; i++)
             {
-                if (recipe.Parts.ElementAtOrDefault(i) == null)
+                if (data.Parts.ElementAtOrDefault(i) == null)
                 {
                     parts[i].SetData(null);
                     continue;
                 }
 
-                var part = recipe.Parts[i];
-                var partItemObject = _itemsProvider.GetItemByKey(part.Key);
-                parts[i].SetData(partItemObject, part.Count);
+                var part = data.Parts[i];
+                var partPreset = _itemsProvider.GetItem(part);
+                parts[i].SetData(partPreset, part.Count);
             }
 
             SetCreateButtonState();
-        }
-
-        private void SetSpecificationData()
-        {
-            var data = CurrentItem.Data;
-            specWrapper.SetActive(data is ProductObject);
-            if (data is not ProductObject) return;
-
-            var specificationsList = data.Recipe.Specifications;
-            foreach (var specification in specifications)
-            {
-                var needSpecification = specificationsList.First(x => x.Type == specification.Id);
-                specification.SetData(needSpecification);
-            }
         }
 
         private async void CreateClick()
@@ -220,29 +193,20 @@ namespace Syndicate.Hub.View
             {
                 Guid = Guid.NewGuid(),
                 Key = data.Key,
-                TimeEnd = DateTime.Now.AddSeconds(data.Recipe.CraftTime).ToFileTime(),
+                Type = data.Type,
+                TimeEnd = DateTime.Now.AddSeconds(data.CraftTime).ToFileTime(),
                 Index = _productionService.GetFreeCell(),
-                ItemRef = data
+                Preset = data
             };
 
             await _productionService.AddProduction(productionObject);
 
-            CreateProducts();
             SetSidebarData();
         }
 
         private void SetCreateButtonState()
         {
             create.Button.interactable = _productionService.IsHaveFreeCell() && _productionService.IsHaveNeedItems(CurrentItem.Data);
-        }
-
-        private void StarClick()
-        {
-            CurrentStar = _currentStar + 1;
-
-            CreateProducts();
-            SetTitleData();
-            SetSidebarData();
         }
     }
 }

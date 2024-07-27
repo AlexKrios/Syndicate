@@ -19,24 +19,36 @@ namespace Syndicate.Core.Services
 
         UniTask SetPlayerName(string name);
 
+        UniTask SetCashCount(int cash);
+
+        UniTask SetDiamondCount(int diamond);
+
         UniTask SetExperience(int experience);
 
         UniTask SetUnitOutfit(UnitObject unitData, ProductObject[] items);
 
         UniTask SetCountItems(Dictionary<string, object> items);
 
-        UniTask AddProduction(ProductionObject data, List<ItemBaseObject> itemsToRemove);
-
-        UniTask RemoveProduction(Guid id);
-
-        UniTask CompleteProduction(Guid id, ICraftableItem item);
+        UniTask SetProductionSize(int size, int cash);
 
         UniTask SetProductionLevel(int value);
 
-        UniTask SetProductionSize(int value);
+        UniTask AddProduction(ProductionObject data, List<ItemBaseObject> itemsToRemove);
+
+        UniTask CompleteProduction(Guid id, ICraftableItem item);
+
+        UniTask RemoveProduction(Guid id);
+
+        UniTask SetExpeditionSize(int size, int cash);
 
         UniTask AddExpedition(ExpeditionObject data);
 
         UniTask RemoveExpedition(Guid id);
+
+        UniTask SetOrderSize(string company, int size, int cash);
+
+        UniTask SetOrders(Dictionary<CompanyId, TradeOrderObject> orders);
+
+        UniTask CompleteOrder(OrderObject order, int cash);
     }
 }

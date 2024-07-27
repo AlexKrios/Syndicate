@@ -33,6 +33,8 @@ namespace Syndicate.Hub.View
         [SerializeField] private Button unitButton;
         [SerializeField] private Image unitIcon;
         [SerializeField] private Image unitBg;
+        [SerializeField] private GameObject starWrapper;
+        [SerializeField] private List<Image> stars;
 
         public UnitObject Data { get; set; }
 
@@ -61,6 +63,16 @@ namespace Syndicate.Hub.View
             unitBg.color = data != null ? _configurations.GetUnitTypeData(Data.UnitTypeId).BgColor : defaultBgColor;
             unitIcon.sprite = data != null ? _assetsService.GetSprite(data.IconId) : null;
             unitIcon.gameObject.SetActive(data != null);
+            starWrapper.SetActive(data != null);
+
+            if (data != null)
+            {
+                for (var i = 0; i < stars.Count; i++)
+                {
+                    stars[i].gameObject.SetActive(i + 1 <= data.Star);
+                    stars[i].color = unitBg.color;
+                }
+            }
 
             plusWrapper.SetActive(false);
             unitWrapper.SetActive(true);

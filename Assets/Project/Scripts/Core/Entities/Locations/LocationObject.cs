@@ -8,6 +8,7 @@ namespace Syndicate.Core.Entities
     public class LocationObject
     {
         public string Key { get; }
+        public int Star { get; set; } = 1;
 
         public List<UnitPosObject> Enemies { get; }
         public List<PartObject> Rewards { get; }

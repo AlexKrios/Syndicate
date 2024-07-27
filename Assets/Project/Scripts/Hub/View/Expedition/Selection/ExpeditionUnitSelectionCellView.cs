@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Syndicate.Core.Configurations;
 using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
@@ -22,6 +23,7 @@ namespace Syndicate.Hub.View
         [Space]
         [SerializeField] private Image background;
         [SerializeField] private Image icon;
+        [SerializeField] private List<Image> stars;
 
         public UnitObject Data { get; private set; }
 
@@ -38,6 +40,11 @@ namespace Syndicate.Hub.View
 
             icon.sprite = _assetsService.GetSprite(data.IconId);
             background.color = _configurations.GetUnitTypeData(Data.UnitTypeId).BgColor;
+            for (var i = 0; i < stars.Count; i++)
+            {
+                stars[i].gameObject.SetActive(i + 1 <= data.Star);
+                stars[i].color = background.color;
+            }
         }
 
         protected override void Click()

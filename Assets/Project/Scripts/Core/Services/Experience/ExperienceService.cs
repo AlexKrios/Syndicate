@@ -35,10 +35,10 @@ namespace Syndicate.Core.Services
             return Level;
         }
 
-        public float GetCurrentLevelPercent(int experience)
+        public float GetCurrentLevelPercent()
         {
             var previousCap = Level == 1 ? 0 : GetLevelCap(Level - 1);
-            var currentExp = experience - previousCap;
+            var currentExp = Experience - previousCap;
             var needExp = GetLevelCap(Level) - previousCap;
 
             return (float)currentExp / needExp * 100;

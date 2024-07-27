@@ -38,12 +38,13 @@ namespace Syndicate.DI
             Container.BindInterfacesTo<UnitsService>().AsSingle();
 
             Container.BindInterfacesTo<RawService>().AsSingle();
-            Container.BindInterfacesTo<ComponentsService>().AsSingle();
             Container.BindInterfacesTo<ProductsService>().AsSingle();
             Container.BindInterfacesTo<ItemsProvider>().AsSingle();
 
             Container.BindInterfacesTo<ProductionService>().AsSingle();
             Container.BindInterfacesTo<ExpeditionService>().AsSingle();
+            Container.BindInterfacesTo<OrdersConfigurationProvider>().AsSingle();
+            Container.BindInterfacesTo<OrdersService>().AsSingle();
 
             Container.BindFactory<ServiceInitializeState, ServiceInitializeState.Factory>();
             Container.BindFactory<GameInitializeState, GameInitializeState.Factory>();

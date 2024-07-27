@@ -9,25 +9,13 @@ namespace Syndicate.Core.Configurations
     public class RawSetScriptable : ScriptableObject
     {
         [SerializeField] private List<RawItemScriptable> items;
-        [SerializeField] private List<RawGroupScriptable> groups;
 
         public List<RawItemScriptable> Items => items;
-        public List<RawGroupScriptable> Groups => groups;
     }
 
     [Serializable]
     public class RawItemScriptable : ItemScriptable
     {
-        public RawItemId Key { get => (RawItemId)key; set => key = value; }
-    }
-
-    [Serializable]
-    public class RawGroupScriptable
-    {
-        [SerializeField] private string name;
-        [SerializeField] private string key;
-
-        public string Name { get => name; set => name = value; }
-        public RawGroupId Key { get => (RawGroupId)key; set => key = value; }
+        public RawId Key { get => (RawId)key; set => key = value; }
     }
 }

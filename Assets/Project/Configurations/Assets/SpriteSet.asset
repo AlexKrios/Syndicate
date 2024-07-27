@@ -12,20 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd79dbd971544330967acb4604ba7b42, type: 3}
   m_Name: SpriteSet
   m_EditorClassIdentifier: 
-  specifications:
-  - id: specification_attack
-    sprite: {fileID: -1463414088, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
-  - id: specification_health
-    sprite: {fileID: 2036980653, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
-  - id: specification_defence
-    sprite: {fileID: 128544552, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
-  - id: specification_initiative
-    sprite: {fileID: 1228426036, guid: 269c3b55414b24b4c962546de638d07d, type: 3}
   raw:
   - id: raw_weapon
     sprite: {fileID: 21300000, guid: f372a2b194408154e905fb0535f68b35, type: 3}
   - id: raw_armor
-    sprite: {fileID: 21300000, guid: f372a2b194408154e905fb0535f68b35, type: 3}
+    sprite: {fileID: 21300000, guid: 775c93ec34ae3fb45aa5fec7a26544ff, type: 3}
   weapon:
   - id: trooper_weapon_component1
     sprite: {fileID: 21300000, guid: d9188467b358a37418181dd864d662a9, type: 3}
@@ -59,7 +50,23 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 0b7c555f3cf187348b04b40631558e2b, type: 3}
   - id: sniper_weapon_product
     sprite: {fileID: 21300000, guid: 9d68c70723ea1ac4c9a6d0161228924c, type: 3}
-  armor: []
+  armor:
+  - id: trooper_armor_product
+    sprite: {fileID: 21300000, guid: d7d7c974ff460c6448acd12d20df75a2, type: 3}
+  - id: trooper_armor_component1
+    sprite: {fileID: 21300000, guid: 40ad388c4ec0bdf4c998ffca58c0f5a1, type: 3}
+  - id: trooper_armor_component2
+    sprite: {fileID: 21300000, guid: 088d2f7885c5c8f42ada1dbac0174a21, type: 3}
+  - id: trooper_armor_component3
+    sprite: {fileID: 21300000, guid: 70dfe656d08d21341b2a5a9b712cab6a, type: 3}
+  - id: defender_armor_product
+    sprite: {fileID: 21300000, guid: 3c9edbcb81ecf68449b57770168fa37f, type: 3}
+  - id: defender_armor_component1
+    sprite: {fileID: 21300000, guid: 3ff94a808dce50344be828349a27d6fc, type: 3}
+  - id: defender_armor_component2
+    sprite: {fileID: 21300000, guid: ce0ccd8e847d21d44890af168a57b595, type: 3}
+  - id: defender_armor_component3
+    sprite: {fileID: 21300000, guid: 4ada10db85f523549b9c4cc8462b0f15, type: 3}
   units:
   - id: unit_trooper
     sprite: {fileID: 21300000, guid: a213803aab275f9468429dc65520af6f, type: 3}

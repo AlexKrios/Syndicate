@@ -9,6 +9,7 @@ namespace Syndicate.Core.Services
     public interface IProductionService
     {
         int Size { get; }
+        bool IsMaxSize { get; }
 
         void LoadData(ProductionState state);
 
@@ -20,7 +21,7 @@ namespace Syndicate.Core.Services
         UniTask AddProduction(ProductionObject productionObject);
         void CompleteProduction(Guid id, ICraftableItem item);
 
-        void AddProductionSize();
+        UniTask AddProductionSize(int price);
         void AddProductionLevel();
     }
 }

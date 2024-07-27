@@ -21,7 +21,10 @@ namespace Syndicate.Core.View
             _viewModelFactory.Build<UnitOutfitSelectionViewModel>();
             _viewModelFactory.Build<ProductionViewModel>();
             _viewModelFactory.Build<ProductionQueueUpgradeViewModel>();
+            _viewModelFactory.Build<ExpeditionQueueUpgradeViewModel>();
             _viewModelFactory.Build<ExpeditionViewModel>();
+            _viewModelFactory.Build<OrdersViewModel>();
+            _viewModelFactory.Build<OrderCompanyUpgradeViewModel>();
             _viewModelFactory.Build<StorageViewModel>();
         }
     }

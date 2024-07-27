@@ -20,4 +20,7 @@ MonoBehaviour:
   componentSet: {fileID: 11400000, guid: 4b24e4140d4127947a66a71908a6b394, type: 2}
   productSet: {fileID: 11400000, guid: 4a906f584ee47d74884f9e586519a5f2, type: 2}
   locationsSet: {fileID: 11400000, guid: 1653d79c1e9866e41a9dda94247f3552, type: 2}
+  companySet: {fileID: 11400000, guid: 58579a8a8b2225345aeb1f64ef889e53, type: 2}
+  orderSet: {fileID: 11400000, guid: 493c3321364b7a3478155eee15ee8bc9, type: 2}
   productionSet: {fileID: 11400000, guid: ff77bf9bdc996ab4ebd97c86df2386e1, type: 2}
+  expeditionSet: {fileID: 11400000, guid: 46b64de2d69887142892f9e6a69e7cb3, type: 2}

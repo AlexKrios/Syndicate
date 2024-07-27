@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Syndicate.Core.Entities
 {
-    [CustomPropertyDrawer(typeof(RawItemId))]
+    [CustomPropertyDrawer(typeof(RawId))]
     public class RawIdDrawer : PropertyDrawer
     {
         private const string RawLabel = "Raw Id";
@@ -18,7 +18,7 @@ namespace Syndicate.Core.Entities
 
             var valueRect = new Rect(position);
             var valueProperty = property.FindPropertyRelative("value");
-            var stringValues = typeof(RawItemId).GetFields(BindingFlags.Public | BindingFlags.Static)
+            var stringValues = typeof(RawId).GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Select(x => x.GetValue(null).ToString())
                 .ToArray();
 

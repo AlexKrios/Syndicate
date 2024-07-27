@@ -10,15 +10,15 @@ namespace Syndicate.Core.Configurations
     {
         [SerializeField] protected string name;
         [SerializeField] protected string key;
+        [SerializeField] protected ItemType type;
         [SerializeField] protected LocalizedString nameLocale;
         [SerializeField] protected LocalizedString descriptionLocale;
         [SerializeField] protected SpriteAssetId spriteAssetId;
-        [SerializeField] private RecipeObject recipe;
 
         public string Name { get => name; set => name = value; }
+        public ItemType Type { get => type; set => type = value; }
         public LocalizedString NameLocale => nameLocale;
         public LocalizedString DescriptionLocale => descriptionLocale;
         public SpriteAssetId SpriteAssetId { get => spriteAssetId; set => spriteAssetId = value; }
-        public RecipeObject Recipe => recipe;
     }
 }

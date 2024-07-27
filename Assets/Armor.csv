@@ -1,11 +1,11 @@
 ﻿Key,English(en),Russian(ru)
-"trooper_armor_product","Trooper armor","Броня солдата"
+"trooper_armor_product","Trooper armor","Броня штурмовика"
 "trooper_armor_product_description","Description","Описание"
-"trooper_armor_component1","Trooper armor component 1","Компонент брони солдата 1"
+"trooper_armor_component1","Trooper armor component 1","Компонент брони штурмовика 1"
 "trooper_armor_component1_description","Description","Описание"
-"trooper_armor_component2","Trooper armor component 2","Компонент брони солдата 2"
+"trooper_armor_component2","Trooper armor component 2","Компонент брони штурмовика 2"
 "trooper_armor_component2_description","Description","Описание"
-"trooper_armor_component3","Trooper armor component 3","Компонент брони солдата 3"
+"trooper_armor_component3","Trooper armor component 3","Компонент брони штурмовика 3"
 "trooper_armor_component3_description","Description","Описание"
 
 "defender_armor_product","Defender armor","Броня защитника"

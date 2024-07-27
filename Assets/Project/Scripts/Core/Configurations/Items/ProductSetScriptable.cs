@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Syndicate.Core.Configurations
 {
-    [CreateAssetMenu(fileName = "ProductSet", menuName = "Scriptable/Items/Product Set", order = 3)]
+    [CreateAssetMenu(fileName = "ProductSet", menuName = "Scriptable/Items/Product Set", order = 2)]
     public class ProductSetScriptable : ListScriptableObject<ProductScriptable> { }
 
     [Serializable]
@@ -12,9 +12,11 @@ namespace Syndicate.Core.Configurations
     {
         [SerializeField] private ProductGroupId productGroupId;
         [SerializeField] private UnitTypeId unitTypeId;
+        [SerializeField] private ItemRecipeObject recipe;
 
         public ProductId Key { get => (ProductId)key; set => key = value; }
         public ProductGroupId ProductGroupId { get => productGroupId; set => productGroupId = value; }
         public UnitTypeId UnitTypeId { get => unitTypeId; set => unitTypeId = value; }
+        public ItemRecipeObject Recipe => recipe;
     }
 }

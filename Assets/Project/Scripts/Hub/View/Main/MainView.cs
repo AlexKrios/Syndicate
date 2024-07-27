@@ -1,12 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Syndicate.Core.Profile;
 using Syndicate.Core.Services;
 using Syndicate.Core.Signals;
 using Syndicate.Core.View;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -15,10 +13,10 @@ namespace Syndicate.Hub.View.Main
     public class MainView : ScreenViewBase<MainViewModel>
     {
         [Inject] private readonly SignalBus _signalBus;
-        [Inject] private readonly IGameService _gameService;
-        [Inject] private readonly IExperienceService _experienceService;
         [Inject] private readonly IScreenService _screenService;
         [Inject] private readonly IPopupService _popupService;
+        [Inject] private readonly IGameService _gameService;
+        [Inject] private readonly IExperienceService _experienceService;
 
         [SerializeField] private TMP_Text profileName;
         [SerializeField] private TMP_Text profileCash;
@@ -35,12 +33,11 @@ namespace Syndicate.Hub.View.Main
         [SerializeField] private Button profileButton;
         [SerializeField] private Button unitsButton;
         [SerializeField] private Button storageButton;
-        [SerializeField] private Button battleButton;
+        [SerializeField] private Button ordersButton;
 
         [Space]
         [SerializeField] private Button productionQueueUpgrade;
-
-        private PlayerState PlayerState => _gameService.GetPlayerState();
+        [SerializeField] private Button expeditionQueueUpgrade;
 
         private void Awake()
         {
@@ -48,23 +45,26 @@ namespace Syndicate.Hub.View.Main
             profileButton.onClick.AddListener(OnSettingsButtonClick);
             unitsButton.onClick.AddListener(OnUnitsButtonClick);
             storageButton.onClick.AddListener(OnStorageButtonClick);
-            battleButton.onClick.AddListener(OnBattleButtonClick);
+            ordersButton.onClick.AddListener(OnOrdersButtonClick);
             productionQueueUpgrade.onClick.AddListener(OnProductionQueueUpgradeClick);
+            expeditionQueueUpgrade.onClick.AddListener(OnExpeditionQueueUpgradeClick);
         }
 
         private async void OnEnable()
         {
             _signalBus.Subscribe<ExperienceChangeSignal>(OnExperienceChange);
             _signalBus.Subscribe<LevelChangeSignal>(OnLevelChange);
-
-            profileName.text = PlayerState.Profile.Name;
-            profileCash.text = PlayerState.Inventory.Cash.ToString();
-            profileDiamond.text = PlayerState.Inventory.Diamond.ToString();
-
-            levelCount.text = _experienceService.GetCurrentLevel().ToString();
-            levelSlider.value = _experienceService.GetCurrentLevelPercent(_experienceService.Experience);
+            _signalBus.Subscribe<CashChangeSignal>(OnCashChange);
+            _signalBus.Subscribe<DiamondChangeSignal>(OnDiamondChange);
 
             await UniTask.Yield();
+
+            profileName.text = _gameService.Name;
+            OnCashChange();
+            OnDiamondChange();
+
+            levelCount.text = _experienceService.GetCurrentLevel().ToString();
+            levelSlider.value = _experienceService.GetCurrentLevelPercent();
 
             productionQueue.RefreshQueue();
             expeditionQueue.RefreshQueue();
@@ -74,6 +74,8 @@ namespace Syndicate.Hub.View.Main
         {
             _signalBus.Unsubscribe<ExperienceChangeSignal>(OnExperienceChange);
             _signalBus.Unsubscribe<LevelChangeSignal>(OnLevelChange);
+            _signalBus.Unsubscribe<CashChangeSignal>(OnCashChange);
+            _signalBus.Unsubscribe<DiamondChangeSignal>(OnDiamondChange);
         }
 
         private void Update()
@@ -99,9 +101,9 @@ namespace Syndicate.Hub.View.Main
             _screenService.Show<StorageViewModel>();
         }
 
-        private void OnBattleButtonClick()
+        private void OnOrdersButtonClick()
         {
-            SceneManager.LoadScene("Battle");
+            _popupService.Show<OrdersViewModel>();
         }
 
         private void OnProductionQueueUpgradeClick()
@@ -109,15 +111,30 @@ namespace Syndicate.Hub.View.Main
             _popupService.Show<ProductionQueueUpgradeViewModel>();
         }
 
+        private void OnExpeditionQueueUpgradeClick()
+        {
+            _popupService.Show<ExpeditionQueueUpgradeViewModel>();
+        }
+
         private void OnExperienceChange(ExperienceChangeSignal signal)
         {
-            var currentPercent = _experienceService.GetCurrentLevelPercent(PlayerState.Profile.Experience);
+            var currentPercent = _experienceService.GetCurrentLevelPercent();
             levelSlider.DOValue(currentPercent, 0.5f);
         }
 
         private void OnLevelChange(LevelChangeSignal signal)
         {
             levelCount.text = signal.Level.ToString();
+        }
+
+        private void OnCashChange()
+        {
+            profileCash.text = _gameService.Cash.ToString();
+        }
+
+        private void OnDiamondChange()
+        {
+            profileDiamond.text = _gameService.Diamond.ToString();
         }
     }
 }

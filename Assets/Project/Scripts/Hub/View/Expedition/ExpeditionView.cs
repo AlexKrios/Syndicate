@@ -36,7 +36,7 @@ namespace Syndicate.Hub.View
         [Header("Sidebar")]
         [SerializeField] private Image itemIcon;
         [SerializeField] private TMP_Text timerValue;
-        [SerializeField] private Image starIcon;
+        //[SerializeField] private Image starIcon;
         [SerializeField] private LocalizeStringEvent itemName;
         [SerializeField] private List<ExpeditionPartView> rewards;
         [SerializeField] private RequestButton send;
@@ -170,7 +170,6 @@ namespace Syndicate.Hub.View
             var data = CurrentLocation.Data;
 
             itemIcon.sprite = _assetsService.GetSprite(data.IconAssetId);
-            starIcon.sprite = _assetsService.GetStarSprite(ItemsUtil.ParseItemKeyToStar(data.Key));
             itemName.StringReference = data.NameLocale;
             timerValue.text = TimeUtil.DateCraftTimer(data.WayTime);
 
@@ -183,11 +182,11 @@ namespace Syndicate.Hub.View
                     continue;
                 }
 
-                var rewardObject = _itemsProvider.GetItemByKey(data.Rewards[i].Key);
+                var rewardObject = _itemsProvider.GetItem(data.Rewards[i]);
                 rewardCell.SetData(rewardObject, data.Rewards[i].Count);
             }
 
-            SetCreateButtonState();
+            SetSendButtonState();
         }
 
         private async void SendClick()
@@ -207,9 +206,9 @@ namespace Syndicate.Hub.View
             _screenService.Back();
         }
 
-        private void SetCreateButtonState()
+        private void SetSendButtonState()
         {
-            //create.Button.interactable = _productionService.IsHaveFreeCell() && _productionService.IsHaveNeedItems(CurrentLocation.Data);
+            send.Button.interactable = ViewModel.Roster.Any(x => x.Value != null);
         }
 
         private void StarClick()

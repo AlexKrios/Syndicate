@@ -6,15 +6,9 @@ namespace Syndicate.Core.Profile
 {
     public class ExpeditionState
     {
-        public int Level { get; }
-        public int Size { get; }
+        public int Level { get; set; } = 1;
+        public int Size { get; set; } = 1;
 
         public Dictionary<Guid, ExpeditionObject> Queue { get; } = new();
-
-        public ExpeditionState()
-        {
-            Level = 1;
-            Size = 1;
-        }
     }
 }

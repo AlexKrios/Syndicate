@@ -1,7 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Syndicate.Utils
 {
+    [UsedImplicitly]
     public class DateUtil
     {
         public static string DateCraftTimer(int time)
@@ -28,6 +30,16 @@ namespace Syndicate.Utils
         
         public static DateTime StartOfTheDay(DateTime d) => new(d.Year, d.Month, d.Day, 0, 0,0);
         public static DateTime EndOfTheDay(DateTime d) => new(d.Year, d.Month, d.Day, 23, 59,59);
+
+        public static DateTime IntervalHourTime(int interval)
+        {
+            var step = DateTime.Now.Hour / interval + 1;
+            var nextHour = step * interval;
+
+            var d = nextHour == 24 ? DateTime.UtcNow.AddDays(1) : DateTime.Now;
+            nextHour = nextHour == 24 ? 0 : nextHour;
+            return new DateTime(d.Year, d.Month, d.Day, nextHour, 0,0);
+        }
 
     }
 }

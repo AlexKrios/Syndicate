@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Syndicate.Core.Services;
+using Syndicate.Core.Signals;
 using Syndicate.Core.View;
 using Syndicate.Utils;
 using UnityEngine;
@@ -10,11 +11,17 @@ namespace Syndicate.Hub.View
 {
     public class ProductionQueueSectionView : MonoBehaviour
     {
+        [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly IProductionService _productionService;
         [Inject] private readonly IComponentViewFactory _componentViewFactory;
 
         [SerializeField] private List<ProductionQueueCellView> items;
         [SerializeField] private Transform plusTransform;
+
+        private void Awake()
+        {
+            _signalBus.Subscribe<ProductionSizeChangeSignal>(RefreshQueue);
+        }
 
         public void RefreshQueue()
         {
@@ -39,7 +46,10 @@ namespace Syndicate.Hub.View
                     items[i].SetStateReady();
             }
 
-            plusTransform.SetAsLastSibling();
+            if (_productionService.IsMaxSize)
+                plusTransform.gameObject.SetActive(false);
+            else
+                plusTransform.SetAsLastSibling();
         }
     }
 }

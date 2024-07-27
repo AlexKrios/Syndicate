@@ -5,11 +5,12 @@ namespace Syndicate.Core.Services
 {
     public interface IProductsService
     {
-        void LoadProductObjectData(ItemDto data);
+        void LoadData(ItemDto data);
 
         List<ProductObject> GetAllProducts();
-        ProductObject GetProductByKey(ProductId key);
-
-        List<ProductObject> GetProductsByUnitType(UnitTypeId unitTypeId);
+        ProductObject GetProduct(PartObject part);
+        ProductObject GetProduct(ProductId key);
+        List<ProductObject> GetProductByUnitKey(UnitTypeId unitTypeId);
+        ProductObject GetRandomProduct();
     }
 }

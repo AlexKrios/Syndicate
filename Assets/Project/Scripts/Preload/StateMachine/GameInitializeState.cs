@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Syndicate.Core.Services;
 using Syndicate.Core.StateMachine;
 using UnityEngine;
 using Zenject;
@@ -9,13 +8,9 @@ namespace Syndicate.Preload.StateMachine
     [UsedImplicitly]
     public class GameInitializeState : PreloadState, IState
     {
-        [Inject] private readonly IGameService _gameService;
-
         public void Enter()
         {
             Application.targetFrameRate = 500;
-
-            _gameService.CreatePlayerProfile();
 
             stateMachine.SetLoadingPercent(20);
             stateMachine.Enter<ServiceInitializeState>();

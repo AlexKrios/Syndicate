@@ -8,6 +8,6 @@ namespace Syndicate.Core.Profile
         public int Cash { get; set; }
         public int Diamond { get; set; }
 
-        public Dictionary<string, ItemDto> ItemsData { get; } = new();
+        public Dictionary<string, ItemDto> Items { get; } = new();
     }
 }

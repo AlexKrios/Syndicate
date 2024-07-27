@@ -6,7 +6,7 @@ using UnityEngine.Localization;
 
 namespace Syndicate.Core.Configurations
 {
-    [CreateAssetMenu(fileName = "LocationSet", menuName = "Scriptable/Location Set", order = 42)]
+    [CreateAssetMenu(fileName = "LocationSet", menuName = "Scriptable/Location Set", order = 41)]
     public class LocationSetScriptable : ListScriptableObject<LocationScriptable> { }
 
     [Serializable]

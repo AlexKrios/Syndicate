@@ -1,6 +1,5 @@
 ﻿using Syndicate.Core.Entities;
 using Syndicate.Core.Services;
-using Syndicate.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -16,20 +15,15 @@ namespace Syndicate.Hub.View
 
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Image icon;
-        [SerializeField] private Image star;
 
         public void SetData(ItemBaseObject itemBase)
         {
             icon.gameObject.SetActive(itemBase != null);
-            star.gameObject.SetActive(itemBase != null);
             canvasGroup.alpha = itemBase != null ? NotNullAlpha : NullAlpha;
 
             if (itemBase != null)
             {
                 icon.sprite = _assetsService.GetSprite(itemBase.SpriteAssetId);
-
-                var starCount = ItemsUtil.ParseItemKeyToStar(itemBase.Key);
-                star.sprite = _assetsService.GetStarSprite(starCount);
             }
         }
     }

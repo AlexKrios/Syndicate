@@ -11,11 +11,11 @@ namespace Syndicate.Hub.View
     {
         [SerializeField] private List<ProductionItemView> items;
 
-        public void SetData(List<ICraftableItem> itemObjects, Action<ProductionItemView> clickAction)
+        public void SetData(List<ICraftableItem> products, Action<ProductionItemView> clickAction)
         {
             for (var i = 0; i < items.Count; i++)
             {
-                items[i].SetData(itemObjects[i]);
+                items[i].SetData(products[i]);
                 items[i].OnClickEvent += clickAction;
             }
         }

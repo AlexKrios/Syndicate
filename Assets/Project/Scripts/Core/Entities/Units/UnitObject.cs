@@ -9,6 +9,7 @@ namespace Syndicate.Core.Entities
     public class UnitObject
     {
         public UnitId Key { get; }
+        public int Star { get; set; } = 1;
 
         public UnitTypeId UnitTypeId { get; }
 
@@ -17,7 +18,7 @@ namespace Syndicate.Core.Entities
         public LocalizedString NameLocale { get; }
         public LocalizedString DescriptionLocale { get; }
 
-        public List<SpecificationObject> Specifications { get; }
+        public List<SpecificationObject> Specifications { get; set; }
 
         public int Experience { get; set; }
         public Dictionary<ProductGroupId, string> Outfit { get; set; } = new();
@@ -43,7 +44,7 @@ namespace Syndicate.Core.Entities
             NameLocale = data.NameLocale;
             DescriptionLocale = data.DescriptionLocale;
 
-            Specifications = data.Specifications;
+            Specifications = data.Stars[Star - 1].Specifications;
 
             PrefabAlly = data.PrefabAlly;
 
@@ -55,6 +56,7 @@ namespace Syndicate.Core.Entities
             return new UnitDto
             {
                 Key = Key,
+                Star = Star,
                 Experience = Experience,
                 Outfit = Outfit
             };
